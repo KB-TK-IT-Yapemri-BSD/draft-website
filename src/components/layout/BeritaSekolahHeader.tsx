@@ -6,7 +6,7 @@ function BeritaSekolahHeader() {
 			<div className=" bg-gradient-to-tr from-gray-800 to-gray-400 text-white py-20 bg-cover relative">
 				<div className="my-60">
 					<Image
-						src="/bt-photoHeader.JPG"
+						src="/header/bt-photoHeader.JPG"
 						alt="Header Photo Berita Terbaru"
 						fill
 						style={{
