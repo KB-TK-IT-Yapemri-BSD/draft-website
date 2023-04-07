@@ -1,0 +1,105 @@
+import VisiMisiHeader from '@/components/layout/VisiMisiHeader';
+import { ArrowRight, HomepageSymbol } from '@/components/shared/Icons';
+import Link from 'next/link';
+
+export const metadata = {
+	title: 'KB TK IT Yapemri BSD | Tentang Kami',
+};
+
+export default function VisiMisi() {
+	return (
+		<>
+			<VisiMisiHeader />
+
+			<div className="bg-white">
+				<div className="mx-60 py-20 divide-y-2 space-y-6">
+					<div>
+						<nav className="flex" aria-label="Breadcrumb">
+							<ol className="inline-flex items-center space-x-1 md:space-x-3">
+								<li className="inline-flex items-center">
+									<Link
+										href="/beranda"
+										className="inline-flex items-center text-sm font-medium text-body-color hover:text-black"
+									>
+										<HomepageSymbol />
+										Beranda
+									</Link>
+								</li>
+								<li aria-current="page">
+									<div className="flex items-center">
+										<ArrowRight />
+										<span className="flex text-sm font-medium md:ml-2 items-center mr-2">
+											Tentang Kami
+										</span>
+										<ArrowRight />
+										<span className="flex ml-1 text-sm font-medium md:ml-2 items-center">
+											Visi dan Misi
+										</span>
+									</div>
+								</li>
+							</ol>
+						</nav>
+					</div>
+					<div className="w-full py-10 space-y-10 leading-loose">
+						<div className="flex space-x-10">
+							<div className="card w-1/2">
+								<h1 className="text-2xl text-center font-semibold bg-primary p-2">
+									Visi
+								</h1>
+								<p className="p-2 py-4 text-justify">
+									Membentuk pembelajar yang akhlakul karimah,
+									berilmu, beretika, berwawasan lingkungan
+									untuk menuju pentas dunia.
+								</p>
+							</div>
+							<div className="card w-1/2">
+								<h1 className="text-2xl text-center font-semibold bg-primary p-2">
+									Misi
+								</h1>
+								<ul className="py-4 ml-6 text-justify list-disc">
+									<li>
+										Mewujudkan pendidikan dengan keteladanan
+									</li>
+									<li>
+										Mengembangkan budaya belajar dengan
+										didasari pada kecintaan terhadap ilmu
+										pengetahuan
+									</li>
+									<li>
+										Meningkatkan fasilitas sekolah menuju
+										sekolah bersih, sehat dan berwawasan
+										lingkungan
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div className="card">
+							<h1 className="text-2xl text-center font-semibold bg-primary p-2">
+								Tujuan Sekolah pada Tahun 2017 diharapkan:
+							</h1>
+							<ul className="py-4 ml-6 text-justify list-decimal">
+								<li>
+									100% Seluruh Guru/Staf memberikan pelayanan,
+									keteladanan kepada para pengguna jasa dengan
+									pendekatan agama, etika, dan budaya
+								</li>
+								<li>
+									100% Siswa melakukan syariat agama, etika
+									dan budaya baik di Sekolah maupun diluar
+								</li>
+								<li>
+									90% Fasilitas sekolah mendekati Standar
+									Nasional Pendidikan (SNP)
+								</li>
+								<li>
+									80% Siswa berprestasi baik ditingkat
+									regional, nasional maupun Global
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+}
