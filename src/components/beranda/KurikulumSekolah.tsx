@@ -24,50 +24,45 @@ function KurikulumSekolah() {
 					</Link>
 				</div>
 
-				<div className="w-1/2 flex justify-center">
-					<div className="space-y-8 mr-10">
-						<div className="card w-[250px]">
-							<HomepageSymbol />
-							<h1 className="text-xl pt-5 py-3 font-medium">
-								How To Know
-							</h1>
-							<p className="text-sm text-body-color italic text-justify leading-relaxed">
-								Learning How To Know yaitu belajar untuk
-								memahami.
-							</p>
-						</div>
-						<div className="card w-[250px] h-fit">
-							<HomepageSymbol />
-							<h1 className="text-xl pt-5 py-3 font-medium">
-								How To Do
-							</h1>
-							<p className="text-sm text-body-color italic text-justify leading-relaxed">
-								Learning How To Do yaitu belajar bagaimana
-								mengembangkan kemampuan.
-							</p>
-						</div>
+				<div className="w-1/2 flex flex-wrap space-y-10 px-10">
+					<div className="card max-w-prose h-auto">
+						<HomepageSymbol />
+						<h1 className="text-xl pt-5 py-3 font-medium">
+							How To Know
+						</h1>
+						<p className="text-sm text-body-color italic text-justify leading-relaxed">
+							Learning How To Know yaitu belajar untuk memahami.
+						</p>
 					</div>
-					<div className="space-y-8">
-						<div className="card w-[250px] h-fit">
-							<HomepageSymbol />
-							<h1 className="text-xl pt-5 py-3 font-medium">
-								How To Be
-							</h1>
-							<p className="text-sm text-body-color italic text-justify leading-relaxed">
-								Learning How To Be yaitu belajar bagaimana
-								memiiki akhlak.
-							</p>
-						</div>
-						<div className="card w-[250px] h-fit">
-							<HomepageSymbol />
-							<h1 className="text-xl pt-5 py-3 font-medium">
-								How To Live Together
-							</h1>
-							<p className="text-sm text-body-color italic text-justify leading-relaxed">
-								Learning How To Live Together yaitu bagaimana
-								bisa bersosialisasi.
-							</p>
-						</div>
+					<div className="card max-w-prose h-auto">
+						<HomepageSymbol />
+						<h1 className="text-xl pt-5 py-3 font-medium">
+							How To Do
+						</h1>
+						<p className="text-sm text-body-color italic text-justify leading-relaxed">
+							Learning How To Do yaitu belajar bagaimana
+							mengembangkan kemampuan.
+						</p>
+					</div>
+					<div className="card max-w-prose h-auto">
+						<HomepageSymbol />
+						<h1 className="text-xl pt-5 py-3 font-medium">
+							How To Be
+						</h1>
+						<p className="text-sm text-body-color italic text-justify leading-relaxed">
+							Learning How To Be yaitu belajar bagaimana memiiki
+							akhlak.
+						</p>
+					</div>
+					<div className="card max-w-prose h-auto">
+						<HomepageSymbol />
+						<h1 className="text-xl pt-5 py-3 font-medium">
+							How To Live Together
+						</h1>
+						<p className="text-sm text-body-color italic text-justify leading-relaxed">
+							Learning How To Live Together yaitu bagaimana bisa
+							bersosialisasi.
+						</p>
 					</div>
 				</div>
 			</div>
