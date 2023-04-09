@@ -16,7 +16,7 @@ export default function PageNotFound() {
 				</p>
 				<Link
 					href="/beranda"
-					className="flex w-fit items-center gap-3 border-2 px-3 py-2 mx-auto"
+					className="flex w-fit items-center gap-3 border-2 px-3 py-2 mx-auto rounded-full bg-primary hover:bg-secondary hover:text-white"
 				>
 					<p className="capitalize">Kembali ke Beranda</p>
 				</Link>

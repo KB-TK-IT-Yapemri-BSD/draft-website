@@ -11,7 +11,10 @@ export default function Pendaftaran() {
 
 			<div className="bg-white">
 				<div className="mx-60 py-10">
-					<div className="w-full py-20 border-solid border-black">
+					<div className="w-full py-20">
+						<h1 className="text-4xl text-center font-semibold py-10">
+							Masih dalam proses pembuatan...
+						</h1>
 						<div className="card leading-relaxed">
 							<h1 className="text-2xl text-center font-semibold bg-primary p-2">
 								Syarat Pendaftaran

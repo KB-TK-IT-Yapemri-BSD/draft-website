@@ -3,7 +3,7 @@ import Image from 'next/image';
 function VisiMisiHeader() {
 	return (
 		<div className="relative">
-			<div className=" bg-gradient-to-tr from-gray-800 to-gray-400 text-white py-20 bg-cover relative">
+			<div className="bg-gradient-to-tr from-gray-800 to-gray-400 text-white py-20 bg-cover relative">
 				<div className="my-60">
 					<Image
 						src="/header/tk-photoHeader.jpg"

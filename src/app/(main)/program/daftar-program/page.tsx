@@ -47,19 +47,6 @@ export default function Program() {
 					</div>
 
 					<div>
-						<label className="relative block float-right mt-6">
-							<span className="sr-only">Search</span>
-							<span className="absolute inset-y-0 left-0 flex items-center pl-2">
-								<MagnifyingGlass />
-							</span>
-							<input
-								className="placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md py-2 pl-8 shadow-sm focus:outline-none focus:border-secondary focus:ring-secondary focus:ring-1 sm:text-sm"
-								placeholder="Pencarian..."
-								type="text"
-								name="search"
-							/>
-						</label>
-
 						<div className="w-full py-10 flex flex-wrap place-content-stretch">
 							<div className="card w-80 mx-4 mb-10">
 								<div className="py-20 bg-cover relative">

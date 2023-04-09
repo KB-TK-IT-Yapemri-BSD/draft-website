@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import { HomepageSymbol } from '../shared/Icons';
+import Link from 'next/link';
 
 function KurikulumSekolah() {
 	return (
 		<div className="bg-white">
-			<div className="mx-40 py-20 flex">
-				<div className="w-1/2">
+			<div className="mx-40 py-20 flex divide-x-2">
+				<div className="w-1/2 my-auto px-10">
 					<h1 className="text-4xl pt-5 py-3 font-medium">
 						Kurikulum Sekolah
 					</h1>
@@ -15,15 +17,17 @@ function KurikulumSekolah() {
 						utamanya adalah mengembangkan kemampuan yang ada pada
 						diri anak yang didasari kaidah-kaidah keislaman.
 					</p>
-					<button className="bg-primary rounded-md px-8 py-1.5 mt-4">
-						<p className="text-secondary font-medium">
-							Lebih Lanjut
-						</p>
-					</button>
+					<Link href="/kurikulum-sekolah">
+						<button className="bg-primary hover:bg-secondary hover:text-white rounded-md px-8 py-1.5 mt-4">
+							<p>Lebih Lanjut</p>
+						</button>
+					</Link>
 				</div>
-				<div className="w-1/2 flex justify-evenly">
-					<div className="space-y-8 space-x-2">
-						<div className="card w-[250px] h-fit">
+
+				<div className="w-1/2 flex justify-center">
+					<div className="space-y-8 mr-10">
+						<div className="card w-[250px]">
+							<HomepageSymbol />
 							<h1 className="text-xl pt-5 py-3 font-medium">
 								How To Know
 							</h1>
@@ -33,6 +37,7 @@ function KurikulumSekolah() {
 							</p>
 						</div>
 						<div className="card w-[250px] h-fit">
+							<HomepageSymbol />
 							<h1 className="text-xl pt-5 py-3 font-medium">
 								How To Do
 							</h1>
@@ -42,8 +47,9 @@ function KurikulumSekolah() {
 							</p>
 						</div>
 					</div>
-					<div className="space-y-8 space-x-2">
+					<div className="space-y-8">
 						<div className="card w-[250px] h-fit">
+							<HomepageSymbol />
 							<h1 className="text-xl pt-5 py-3 font-medium">
 								How To Be
 							</h1>
@@ -53,6 +59,7 @@ function KurikulumSekolah() {
 							</p>
 						</div>
 						<div className="card w-[250px] h-fit">
+							<HomepageSymbol />
 							<h1 className="text-xl pt-5 py-3 font-medium">
 								How To Live Together
 							</h1>
