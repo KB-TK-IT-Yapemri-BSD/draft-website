@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function PageNotFound() {
 	return (
-		<div className="grid h-screen w-screen text-center p-60">
+		<div className="grid h-screen w-full text-center p-6 lg:p-60">
 			<div className="space-y-4">
 				<h1 className="text-5xl font-semibold">
 					Halaman tidak ditemukan...

@@ -2,32 +2,86 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowDown, MagnifyingGlass } from '@/components/shared/Icons';
+import { ArrowDown, MenuSymbol } from '@/components/shared/Icons';
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 function Navbar() {
+	const [isOpen, setIsOpen] = useState(false);
+	const [isTK, setIsTK] = useState(true);
+	const [isPR, setIsPR] = useState(true);
+	const [isBT, setIsBT] = useState(true);
+
 	return (
 		<div className="fixed w-full bg-white shadow-lg z-50">
-			<div className="flex justify-between py-5 mx-20">
-				<div>
-					<Image
-						src="/logo.png"
-						width={53}
-						height={53}
-						alt="Logo KB TK IT Yapemri BSD"
-					></Image>
+			<div className="lg:flex justify-between py-6 mx-6 lg:mx-20">
+				<div className="flex flex-row relative">
+					<div>
+						<Image
+							src="/logo.png"
+							width={53}
+							height={53}
+							alt="Logo KB TK IT Yapemri BSD"
+						></Image>
+					</div>
+
+					<div className="right-0 absolute my-2 lg:hidden">
+						<button onClick={() => setIsOpen(!isOpen)}>
+							<MenuSymbol />
+						</button>
+					</div>
 				</div>
 
-				<div className="flex justify-between space-x-4">
-					<div className="mx-3 flex space-x-2">
-						<Link href="/beranda">
+				<div
+					className={`${
+						isOpen ? 'block' : 'hidden'
+					} lg:flex flex-col bg-white lg:justify-between lg:space-x-4 lg:flex-row`}
+				>
+					<div className="flex flex-col my-4 lg:my-0 lg:mx-3 lg:flex-row lg:space-x-2">
+						<Link href="/beranda" onClick={() => setIsOpen(false)}>
 							<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 								Beranda
 							</p>
 						</Link>
 
-						<Menu as="div" className="relative">
+						<div className="lg:hidden">
+							<button
+								onClick={() => setIsTK(!isTK)}
+								className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2"
+							>
+								<p>Tentang Kami</p>
+								<ArrowDown />
+							</button>
+
+							<div
+								className={`${
+									isTK ? 'hidden' : 'block'
+								} px-2 py-2 text-sm`}
+								onClick={() => setIsOpen(false)}
+							>
+								<Link href="/tentang-kami/sejarah-singkat">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Sejarah Singkat
+									</p>
+								</Link>
+								<Link href="/tentang-kami/visi-misi">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Visi dan Misi
+									</p>
+								</Link>
+								<Link href="/tentang-kami/struktur-organisasi">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Struktur Organisasi
+									</p>
+								</Link>
+								<Link href="/tentang-kami/fasilitas-sekolah">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Fasilitas Sekolah
+									</p>
+								</Link>
+							</div>
+						</div>
+						<Menu as="div" className="hidden lg:block relative">
 							<Menu.Button className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 								<p>Tentang Kami</p>
 								<ArrowDown />
@@ -77,7 +131,34 @@ function Navbar() {
 							</Transition>
 						</Menu>
 
-						<Menu as="div" className="relative">
+						<div className="lg:hidden">
+							<button
+								onClick={() => setIsPR(!isPR)}
+								className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2"
+							>
+								<div className="">Program</div>
+								<ArrowDown />
+							</button>
+
+							<div
+								className={`${
+									isPR ? 'hidden' : 'block'
+								} px-2 py-2 text-sm`}
+								onClick={() => setIsOpen(false)}
+							>
+								<Link href="/program/daftar-program">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Daftar Program
+									</p>
+								</Link>
+								<Link href="/program/galeri-program">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Galeri Program
+									</p>
+								</Link>
+							</div>
+						</div>
+						<Menu as="div" className="hidden lg:block relative">
 							<Menu.Button className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 								<p>Program</p>
 								<ArrowDown />
@@ -113,13 +194,43 @@ function Navbar() {
 							</Transition>
 						</Menu>
 
-						<Link href="/pendaftaran">
+						<Link
+							href="/pendaftaran"
+							onClick={() => setIsOpen(false)}
+						>
 							<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 								Pendaftaran
 							</p>
 						</Link>
 
-						<Menu as="div" className="relative">
+						<div className="lg:hidden">
+							<button
+								onClick={() => setIsBT(!isBT)}
+								className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2"
+							>
+								<div className="">Berita Terbaru</div>
+								<ArrowDown />
+							</button>
+
+							<div
+								className={`${
+									isBT ? 'hidden' : 'block'
+								} px-2 py-2 text-sm`}
+								onClick={() => setIsOpen(false)}
+							>
+								<Link href="/berita-terbaru/berita-sekolah">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Berita Sekolah
+									</p>
+								</Link>
+								<Link href="/berita-terbaru/agenda-sekolah">
+									<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										Agenda Sekolah
+									</p>
+								</Link>
+							</div>
+						</div>
+						<Menu as="div" className="hidden lg:block relative">
 							<Menu.Button className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 								<p>Berita Terbaru</p>
 								<ArrowDown />
@@ -154,7 +265,18 @@ function Navbar() {
 								</Menu.Items>
 							</Transition>
 						</Menu>
+
+						<Link
+							href="/pencarian"
+							onClick={() => setIsOpen(false)}
+						>
+							<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+								Pencarian
+							</p>
+						</Link>
 					</div>
+
+					{/**
 					<label className="relative block">
 						<span className="sr-only">Search</span>
 						<span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -168,8 +290,10 @@ function Navbar() {
 							name="search"
 						/>
 					</label>
+					 */}
+
 					<Link href="/login">
-						<button className="bg-primary hover:bg-secondary hover:text-white rounded-md px-8 py-1.5">
+						<button className="bg-primary hover:bg-secondary hover:text-white rounded-md px-6 my-4 py-2 lg:my-0">
 							<p>Masuk</p>
 						</button>
 					</Link>

@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 function Footer() {
 	return (
-		<div className=" bg-secondary text-white divide-y-[1px]">
-			<div className="mx-40 py-20 flex space-x-10">
-				<div className="w-1/3">
+		<div className="bg-secondary text-white divide-y-[1px]">
+			<div className="py-20 flex flex-col mx-10 divide-y-[1px] lg:divide-y-0 lg:mx-40 lg:flex-row lg:space-x-10">
+				<div className="lg:w-1/3">
 					<Image
 						src="/logo.png"
 						width={53}
@@ -19,16 +19,20 @@ function Footer() {
 					</p>
 				</div>
 
-				<div className="w-3/12 px-10">
-					<h1 className="text-xl mb-6 font-bold">Media Sosial</h1>
+				<div className="my-8 lg:my-0 lg:w-3/12 lg:px-10">
+					<h1 className="text-xl my-6 lg:mb-6 font-bold">
+						Media Sosial
+					</h1>
 					<div className="space-y-2 leading-relaxed">
 						<p className="text-lg font-semibold">Instagram</p>
 						<p className="text-lg font-semibold">WhatsApp</p>
 					</div>
 				</div>
 
-				<div className="w-1/3 px-10">
-					<h1 className="text-xl mb-6 font-bold">Hubungi Kami</h1>
+				<div className="lg:w-1/3 lg:px-10">
+					<h1 className="text-xl my-6 lg:mb-6 font-bold">
+						Hubungi Kami
+					</h1>
 					<div className="space-y-1 leading-relaxed">
 						<p className="text-lg font-semibold">Alamat</p>
 						<p className="text-sm">
@@ -46,7 +50,7 @@ function Footer() {
 					</div>
 				</div>
 			</div>
-			<div className="mx-40 py-10">
+			<div className="py-10 mx-10 lg:mx-40">
 				<p>Copyright © KB TK IT Yapemri BSD. All Rights Reserved.</p>
 			</div>
 		</div>

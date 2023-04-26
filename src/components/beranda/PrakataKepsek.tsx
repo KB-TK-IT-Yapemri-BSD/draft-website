@@ -4,8 +4,8 @@ import Link from 'next/link';
 function PrakataKepsek() {
 	return (
 		<div className="bg-white">
-			<div className="mx-40 py-20 flex justify-center">
-				<div className="w-[700px] min-h-[500px] relative self-center">
+			<div className=" flex flex-col justify-center py-10 lg:flex-row lg:mx-40 lg:py-20">
+				<div className="w-3/4 h-[300px] lg:w-[700px] lg:min-h-[500px] self-center relative">
 					<div className="p-20">
 						<Image
 							src="/beranda/guru-staff.jpg"
@@ -19,7 +19,7 @@ function PrakataKepsek() {
 					</div>
 				</div>
 
-				<div className="w-10/12 pl-20">
+				<div className="px-8 text-center my-6 lg:px-0 lg:text-left lg:my-0 lg:w-10/12 lg:pl-20">
 					<h1 className="text-4xl pt-5 font-medium">
 						Prakata Kepala Sekolah
 					</h1>

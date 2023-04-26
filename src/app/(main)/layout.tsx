@@ -9,9 +9,9 @@ export default function MainLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>
+			<body className="relative">
 				<Navbar />
-				<div className="bg-blue-400 pt-20">{children}</div>
+				<div className="w-full bg-blue-400 pt-20">{children}</div>
 				<Footer />
 			</body>
 		</html>

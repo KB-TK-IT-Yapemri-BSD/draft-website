@@ -3,7 +3,7 @@ import Image from 'next/image';
 function SejarahSingkatHeader() {
 	return (
 		<div className="relative">
-			<div className=" bg-gradient-to-tr from-gray-800 to-gray-400 text-white py-20 bg-cover relative">
+			<div className="bg-gradient-to-tr from-gray-800 to-gray-400 text-white py-20 bg-cover relative">
 				<div className="my-60">
 					<Image
 						src="/header/tk-photoHeader.jpg"
@@ -15,7 +15,7 @@ function SejarahSingkatHeader() {
 					/>
 				</div>
 			</div>
-			<h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl font-medium text-center text-white">
+			<h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl lg:text-4xl font-medium text-center text-white">
 				Sejarah Singkat KB TK IT Yapemri BSD
 			</h1>
 		</div>

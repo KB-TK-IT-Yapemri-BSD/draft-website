@@ -3,7 +3,7 @@ import Image from 'next/image';
 function DaftarGuruSekolah() {
 	return (
 		<div className="bg-grey">
-			<div className="mx-40 py-20">
+			<div className="mx-10 lg:mx-40 py-20">
 				<div>
 					<h1 className="text-3xl pb-3 text-center italic">
 						Perkenalkan

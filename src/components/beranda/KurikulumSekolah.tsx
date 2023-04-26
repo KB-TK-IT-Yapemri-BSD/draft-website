@@ -5,12 +5,12 @@ import Link from 'next/link';
 function KurikulumSekolah() {
 	return (
 		<div className="bg-white">
-			<div className="mx-40 py-20 flex divide-x-2">
-				<div className="w-1/2 my-auto px-10">
+			<div className="py-20 flex flex-col divide-y-2 lg:mx-40 lg:flex-row lg:divide-y-0 lg:divide-x-2">
+				<div className="p-10 text-center lg:text-left lg:my-auto lg:w-1/2">
 					<h1 className="text-4xl pt-5 py-3 font-medium">
 						Kurikulum Sekolah
 					</h1>
-					<p className="my-3 pr-10 text-justify">
+					<p className="my-3 text-justify lg:pr-10">
 						Kurikulum KB TK IT. YAPEMRI BSD mengacu kepada Kurikulum
 						Nasional Depatemen Pendidikan dan kebudayaan serta
 						digabungkan dengan pembelajaran keagamaan, dimana target
@@ -24,7 +24,7 @@ function KurikulumSekolah() {
 					</Link>
 				</div>
 
-				<div className="w-1/2 flex flex-wrap space-y-10 px-10">
+				<div className="flex flex-wrap justify-center lg:justify-normal space-y-10 p-10 lg:w-1/2">
 					<div className="card max-w-prose h-auto">
 						<HomepageSymbol />
 						<h1 className="text-xl pt-5 py-3 font-medium">

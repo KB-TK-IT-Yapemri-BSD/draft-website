@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function Beranda() {
 	return (
-		<>
+		<div>
 			<BerandaHeader />
 
 			<PrakataKepsek />
@@ -23,6 +23,6 @@ export default function Beranda() {
 			<PrestasiSekolah />
 
 			<KisahSuksesOrtu />
-		</>
+		</div>
 	);
 }
