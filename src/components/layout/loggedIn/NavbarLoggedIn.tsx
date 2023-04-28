@@ -2,12 +2,18 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { MenuSymbol } from '@/components/shared/Icons';
-import { useState } from 'react';
+import {
+	ArrowDown,
+	MenuSymbol,
+	ProfileSymbol,
+} from '@/components/shared/Icons';
+import { Menu, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
 import NavbarItems from '../NavbarItems';
 
-function Navbar() {
+function NavbarLoggedIn() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [isProfile, setIsProfile] = useState(true);
 
 	return (
 		<div className="fixed w-full bg-white shadow-lg z-50">
@@ -36,9 +42,10 @@ function Navbar() {
 				>
 					<NavbarItems />
 
-					<Link href="/login">
-						<button className="bg-primary hover:bg-secondary hover:text-white rounded-md px-6 my-4 py-2 lg:my-0">
-							<p>Masuk</p>
+					<Link href="/profile">
+						<button className="bg-primary rounded-md px-2 lg:px-4 my-4 py-2 gap-2 inline-flex lg:my-0">
+							<ProfileSymbol />
+							<p>Suci Mei S.</p>
 						</button>
 					</Link>
 				</div>
@@ -47,4 +54,4 @@ function Navbar() {
 	);
 }
 
-export default Navbar;
+export default NavbarLoggedIn;
