@@ -2,18 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-	ArrowDown,
-	MenuSymbol,
-	ProfileSymbol,
-} from '@/components/shared/Icons';
-import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import NavbarItems from '../NavbarItems';
+import { MenuSymbol, ProfileSymbol } from '@/components/shared/Icons';
+import { useState } from 'react';
+import NavbarItemsLoggedIn from './NavbarItemsLoggedIn';
 
 function NavbarLoggedIn() {
 	const [isOpen, setIsOpen] = useState(false);
-	const [isProfile, setIsProfile] = useState(true);
 
 	return (
 		<div className="fixed w-full bg-white shadow-lg z-50">
@@ -40,10 +34,10 @@ function NavbarLoggedIn() {
 						isOpen ? 'block' : 'hidden'
 					} lg:flex flex-col bg-white lg:justify-between lg:space-x-4 lg:flex-row`}
 				>
-					<NavbarItems />
+					<NavbarItemsLoggedIn />
 
-					<Link href="/profile">
-						<button className="bg-primary rounded-md px-2 lg:px-4 my-4 py-2 gap-2 inline-flex lg:my-0">
+					<Link href="/profile/data-diri">
+						<button className="bg-primary rounded-md px-4 my-4 py-2 gap-2 inline-flex lg:my-0">
 							<ProfileSymbol />
 							<p>Suci Mei S.</p>
 						</button>

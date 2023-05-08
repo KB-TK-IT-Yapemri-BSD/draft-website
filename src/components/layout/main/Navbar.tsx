@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MenuSymbol } from '@/components/shared/Icons';
 import { useState } from 'react';
-import NavbarItems from '../NavbarItems';
+import NavbarItems from './NavbarItems';
 
 function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);

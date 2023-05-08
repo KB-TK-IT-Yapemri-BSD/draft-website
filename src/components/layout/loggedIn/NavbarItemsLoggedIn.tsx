@@ -5,7 +5,7 @@ import { ArrowDown } from '@/components/shared/Icons';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
-function NavbarItems() {
+function NavbarItemsLoggedIn() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isTK, setIsTK] = useState(true);
 	const [isPR, setIsPR] = useState(true);
@@ -257,4 +257,4 @@ function NavbarItems() {
 	);
 }
 
-export default NavbarItems;
+export default NavbarItemsLoggedIn;
