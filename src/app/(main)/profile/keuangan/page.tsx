@@ -1,4 +1,4 @@
-import ProfileOrangTuaSideBar from '@/components/profile/ProfileOrangTuaSideBar';
+import ProfileOrangTuaSideBar from '@/components/profile/sidebar/ProfileOrangTuaSideBar';
 import TabelKeuangan from '@/components/profile/table/TabelKeuangan';
 
 export const metadata = {

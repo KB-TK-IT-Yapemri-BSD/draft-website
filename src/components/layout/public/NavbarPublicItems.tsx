@@ -27,7 +27,6 @@ function NavbarItems() {
 					<p>Tentang Kami</p>
 					<ArrowDown />
 				</button>
-
 				<div
 					className={`${isTK ? 'hidden' : 'block'} px-2 py-2 text-sm`}
 					onClick={() => setIsOpen(false)}
@@ -220,7 +219,7 @@ function NavbarItems() {
 				</Transition>
 			</Menu>
 
-			<Link href="/pencarian" onClick={() => setIsOpen(false)}>
+			<Link href="/pencarian">
 				<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 					Pencarian
 				</p>

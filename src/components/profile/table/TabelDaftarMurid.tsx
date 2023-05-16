@@ -1,4 +1,6 @@
-export default function TabelKeuangan() {
+'use client';
+
+export default function TabelDaftarMurid() {
 	return (
 		<div>
 			<table className="border-grey border-2 w-full">

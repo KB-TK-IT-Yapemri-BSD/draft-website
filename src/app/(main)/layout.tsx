@@ -1,19 +1,23 @@
+import '@/styles/globals.css';
 import Navbar from '@/components/layout/main/Navbar';
 import NavbarLoggedIn from '@/components/layout/loggedIn/NavbarLoggedIn';
 import Footer from '@/components/layout/main/Footer';
-import '@/styles/globals.css';
+import Providers from './providers';
+import { ReactNode } from 'react';
 
-export default function MainLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+interface IProps {
+	children: ReactNode;
+}
+
+export default function MainLayout({ children }: IProps) {
 	return (
 		<html lang="en">
 			<body className="relative">
-				<NavbarLoggedIn />
-				<div className="w-full bg-blue-400 pt-20">{children}</div>
-				<Footer />
+				<Providers>
+					<Navbar />
+					<div className="w-full bg-blue-400 pt-20">{children}</div>
+					<Footer />
+				</Providers>
 			</body>
 		</html>
 	);

@@ -11,18 +11,13 @@ export const metadata = {
 
 export default function Beranda() {
 	return (
-		<div>
+		<>
 			<BerandaHeader />
-
 			<PrakataKepsek />
-
 			<DaftarGuruSekolah />
-
 			<KurikulumSekolah />
-
 			<PrestasiSekolah />
-
 			<KisahSuksesOrtu />
-		</div>
+		</>
 	);
 }

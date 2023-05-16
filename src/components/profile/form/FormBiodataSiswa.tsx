@@ -1,4 +1,32 @@
-export default function FormBiodataSiswa() {
+import { useEffect, useRef, useState } from 'react';
+
+export default function FormBiodataSiswa(props: any) {
+	const [data, setData] = useState();
+
+	const useIsMount = () => {
+		const isMountRef = useRef(true);
+		useEffect(() => {
+			isMountRef.current = false;
+		}, []);
+		return isMountRef.current;
+	};
+
+	const isMount = useIsMount();
+
+	useEffect(() => {
+		if (isMount) {
+			console.log('First Render BIO SISWA');
+		} else {
+			console.log('Subsequent Render BIO SISWA');
+
+			if (!props) {
+				console.log('No props');
+			} else if (props) {
+				setData(props.props.props);
+			}
+		}
+	});
+
 	return (
 		<div className="divide-y-2">
 			<p className="text-2xl py-4">Biodata Siswa</p>
@@ -6,7 +34,7 @@ export default function FormBiodataSiswa() {
 				<div className="flex flex-col lg:flex-row lg:space-x-6 pt-4">
 					<div className="py-2 w-full">
 						<label
-							htmlFor="first_name"
+							htmlFor="fullname"
 							className="block mb-2 text-sm font-medium read-only"
 						>
 							Nama Lengkap
@@ -16,13 +44,18 @@ export default function FormBiodataSiswa() {
 							id="disabled-input-2"
 							aria-label="disabled input 2"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-							value="Suci Mei Syahrini"
+							value={
+								data
+									? data['firstName'] + ' ' + data['lastName']
+									: 'NO DATA'
+							}
 							disabled
 						/>
 					</div>
+
 					<div className="py-2 w-full">
 						<label
-							htmlFor="first_name"
+							htmlFor="nickname"
 							className="block mb-2 text-sm font-medium read-only"
 						>
 							Nama Panggilan
@@ -32,7 +65,7 @@ export default function FormBiodataSiswa() {
 							id="disabled-input-2"
 							aria-label="disabled input 2"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-							value="Mei"
+							value={data ? data['nickname'] : 'NO DATA'}
 							disabled
 						/>
 					</div>
@@ -40,7 +73,7 @@ export default function FormBiodataSiswa() {
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="birth"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Tempat, Tanggal Lahir
@@ -50,14 +83,24 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Aktif"
+						value={
+							data
+								? data['birthplace'] +
+								  ', ' +
+								  new Date(data['birthdate']).getDate() +
+								  '/' +
+								  (new Date(data['birthdate']).getMonth() + 1) +
+								  '/' +
+								  new Date(data['birthdate']).getFullYear()
+								: 'NO DATA'
+						}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="gender"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Jenis Kelamin
@@ -67,14 +110,20 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Perempuan"
+						value={
+							data
+								? data['gender']
+									? 'Perempuan'
+									: 'Laki-Laki'
+								: 'NO DATA'
+						}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="religion"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Agama
@@ -84,14 +133,14 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Islam"
+						value={data ? data['religion'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="citizenship"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Kewarganegaraan
@@ -101,14 +150,14 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="WNI"
+						value={data ? data['citizenship'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="birthOrder"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Anak Ke-
@@ -118,14 +167,14 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="2"
+						value={data ? data['birthOrder'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="numOfSiblings"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Jumlah Saudara
@@ -135,13 +184,13 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="3"
+						value={data ? data['numOfSiblings'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="statusInFamily"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Status dalam Keluarga
@@ -151,7 +200,7 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Sulung"
+						value={data ? data['statusInFamily'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
@@ -159,7 +208,7 @@ export default function FormBiodataSiswa() {
 				<div className="flex flex-col lg:flex-row lg:space-x-6">
 					<div className="py-2 w-full">
 						<label
-							htmlFor="first_name"
+							htmlFor="height"
 							className="block mb-2 text-sm font-medium read-only"
 						>
 							Tinggi Badan
@@ -169,13 +218,13 @@ export default function FormBiodataSiswa() {
 							id="disabled-input-2"
 							aria-label="disabled input 2"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-							value="100 cm"
+							value={data ? data['height'] + ' cm' : 'NO DATA'}
 							disabled
 						/>
 					</div>
 					<div className="py-2 w-full">
 						<label
-							htmlFor="first_name"
+							htmlFor="weight"
 							className="block mb-2 text-sm font-medium read-only"
 						>
 							Berat Badan
@@ -185,7 +234,7 @@ export default function FormBiodataSiswa() {
 							id="disabled-input-2"
 							aria-label="disabled input 2"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-							value="30 kg"
+							value={data ? data['weight	'] + ' kg' : 'NO DATA'}
 							disabled
 						/>
 					</div>
@@ -193,7 +242,7 @@ export default function FormBiodataSiswa() {
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="bloodType"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Golongan Darah
@@ -203,14 +252,14 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="A"
+						value={data ? data['bloodType'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="sicknessHistory"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Penyakit yang Pernah Diderita
@@ -220,14 +269,14 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Tidak Ada"
+						value={data ? data['sicknessHistory'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="distanceToHome"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Jarak Tempat Tinggal ke TK
@@ -237,14 +286,14 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="500 m"
+						value={data ? data['distanceToHome'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="language"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Bahasa Sehari-Hari di Rumah
@@ -254,7 +303,7 @@ export default function FormBiodataSiswa() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Bahasa Indonesia, Bahasa Inggris"
+						value={data ? data['language'] : 'NO DATA'}
 						disabled
 					/>
 				</div>

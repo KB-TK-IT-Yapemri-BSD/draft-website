@@ -1,11 +1,39 @@
-export default function FormBiodataIbu() {
+import { useEffect, useRef, useState } from 'react';
+
+export default function FormBiodataIbu(props: any) {
+	const [data, setData] = useState();
+
+	const useIsMount = () => {
+		const isMountRef = useRef(true);
+		useEffect(() => {
+			isMountRef.current = false;
+		}, []);
+		return isMountRef.current;
+	};
+
+	const isMount = useIsMount();
+
+	useEffect(() => {
+		if (isMount) {
+			console.log('First Render');
+		} else {
+			console.log('Subsequent Render');
+
+			if (!props) {
+				console.log('No props');
+			} else if (props) {
+				setData(props.props.mother_id);
+			}
+		}
+	});
+
 	return (
 		<div className="divide-y-2">
 			<p className="text-2xl py-4">Biodata Ibu</p>
 			<div className="space-y-2">
 				<div className="py-2 pt-4">
 					<label
-						htmlFor="first_name"
+						htmlFor="status"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Status Ibu
@@ -15,14 +43,14 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Kandung"
+						value={data ? data['status'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="fullname"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Nama Lengkap
@@ -32,14 +60,18 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Suci Susanto"
+						value={
+							data
+								? data['firstName'] + ' ' + data['lastName']
+								: 'NO DATA'
+						}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="birth"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Tempat, Tanggal Lahir
@@ -49,14 +81,24 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Aktif"
+						value={
+							data
+								? data['birthplace'] +
+								  ', ' +
+								  new Date(data['birthdate']).getDate() +
+								  '/' +
+								  (new Date(data['birthdate']).getMonth() + 1) +
+								  '/' +
+								  new Date(data['birthdate']).getFullYear()
+								: 'NO DATA'
+						}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="gender"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Jenis Kelamin
@@ -66,14 +108,20 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Perempuan"
+						value={
+							data
+								? data['gender']
+									? 'Perempuan'
+									: 'Laki-Laki'
+								: 'NO DATA'
+						}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="religion"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Agama
@@ -83,14 +131,14 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Islam"
+						value={data ? data['religion'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="citizenship"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Kewarganegaraan
@@ -100,14 +148,14 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="WNI"
+						value={data ? data['citizenship'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="occupation"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Pekerjaan
@@ -117,14 +165,14 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Polisi"
+						value={data ? data['occupation'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="education"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Pendidikan
@@ -134,14 +182,14 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="S1"
+						value={data ? data['education'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="address"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Alamat
@@ -151,14 +199,14 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="Jl. Juanda No. IV"
+						value={data ? data['address'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
 				<div className="py-2">
 					<label
-						htmlFor="first_name"
+						htmlFor="phone"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						No. Telephone
@@ -168,7 +216,7 @@ export default function FormBiodataIbu() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="08990800002"
+						value={data ? data['phone'] : 'NO DATA'}
 						disabled
 					/>
 				</div>

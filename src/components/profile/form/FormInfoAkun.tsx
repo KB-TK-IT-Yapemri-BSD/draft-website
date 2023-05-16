@@ -1,4 +1,32 @@
-export default function FormInfoAkun() {
+import { useEffect, useRef, useState } from 'react';
+
+export default function FormInfoAkun(props: any) {
+	const [email, setEmail] = useState();
+
+	const useIsMount = () => {
+		const isMountRef = useRef(true);
+		useEffect(() => {
+			isMountRef.current = false;
+		}, []);
+		return isMountRef.current;
+	};
+
+	const isMount = useIsMount();
+
+	useEffect(() => {
+		if (isMount) {
+			console.log('First Render');
+		} else {
+			console.log('Subsequent Render');
+
+			if (!props) {
+				console.log('No props');
+			} else if (props) {
+				setEmail(props.session.user.user.email);
+			}
+		}
+	});
+
 	return (
 		<>
 			<div className="space-y-2">
@@ -14,7 +42,7 @@ export default function FormInfoAkun() {
 						id="disabled-input-2"
 						aria-label="disabled input 2"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value="sucimeimei@gmail.com"
+						value={email ? email : 'NO DATA'}
 						disabled
 					/>
 				</div>

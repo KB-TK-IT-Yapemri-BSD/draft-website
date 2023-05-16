@@ -1,6 +1,5 @@
 import SignInForm from '@/components/login/SignInForm';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export const metadata = {
 	title: 'KB TK IT Yapemri BSD | Login',
@@ -27,11 +26,10 @@ export default function SignInPage() {
 				></Image>
 			</div>
 			<div className="bg-white -top-40 lg:top-0 lg:w-8/12 relative">
-				<div className="card lg:absolute p-10 lg:right-20 shadow-2xl lg:h-screen">
+				<div className="card lg:absolute p-10 lg:right-20 shadow-2xl lg:h-full">
 					<h1 className="text-secondary font-semibold text-2xl my-10 lg:text-4xl">
 						Selamat Datang!
 					</h1>
-
 					<SignInForm />
 				</div>
 			</div>
