@@ -13,7 +13,9 @@ module.exports = {
         'primary': '#FFDE00',
         'secondary': '#001E6C',
         'body-color': '#919FAE',
-        'grey': '#DFDFDF'
+        'grey': '#DFDFDF',
+        'blue-primary': '#2192FF',
+        'red-danger': '#F20F00'
       }
     },
   },

@@ -6,6 +6,8 @@ import {
 	MoneySymbol,
 	UserSymbol,
 	UsersSymbol,
+	IdentificationSymbol,
+	UserGroupSymbol,
 } from '@/components/shared/Icons';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
@@ -61,6 +63,7 @@ export default function ProfileStaffSideBar(props: any) {
 				<p className="text-md">{type ? type : 'NO DATA '}</p>
 			</div>
 			<div className="flex flex-col text-center py-6 space-y-2">
+				{/** Universal */}
 				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
 					<Link
 						href="/profile/data-diri"
@@ -79,7 +82,9 @@ export default function ProfileStaffSideBar(props: any) {
 						<p>Info Akun</p>
 					</Link>
 				</button>
-				{role === 'teacher' ? (
+
+				{/** Limited */}
+				{role === 'admin' || 'teachers' ? (
 					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
 						<Link
 							href="/profile/data-murid"
@@ -92,6 +97,31 @@ export default function ProfileStaffSideBar(props: any) {
 				) : (
 					<div className="hidden"></div>
 				)}
+				{role === 'admin' ? (
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+							<Link
+								href="/profile/data-staff"
+								className="inline-flex space-x-2 py-1"
+							>
+								<UserGroupSymbol />
+								<p>Data Staff</p>
+							</Link>
+						</button>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+							<Link
+								href="/profile/data-akun"
+								className="inline-flex space-x-2 py-1"
+							>
+								<IdentificationSymbol />
+								<p>Data Akun</p>
+							</Link>
+						</button>
+					</>
+				) : (
+					<div className="hidden"></div>
+				)}
+
 				<button
 					onClick={logout}
 					className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md p-2"

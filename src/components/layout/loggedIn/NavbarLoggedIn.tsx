@@ -137,7 +137,7 @@ function NavbarLoggedIn() {
 										</Menu.Item>
 									</div>
 								</Menu.Items>
-							) : session?.user.user.role === 'teacher' ? (
+							) : session?.user.user.role === 'teachers' ? (
 								<Menu.Items
 									as="div"
 									className="bg-white absolute right-0 w-32 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
@@ -177,7 +177,7 @@ function NavbarLoggedIn() {
 							) : (
 								<Menu.Items
 									as="div"
-									className="bg-white absolute right-0 w-auto rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
+									className="bg-white absolute right-0 w-40 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
 								>
 									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 										<Menu.Item>
@@ -190,6 +190,27 @@ function NavbarLoggedIn() {
 										<Menu.Item>
 											<Link href="/profile/info-akun">
 												<p>Info Akun</p>
+											</Link>
+										</Menu.Item>
+									</div>
+									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										<Menu.Item>
+											<Link href="/profile/data-murid">
+												<p>Data Murid</p>
+											</Link>
+										</Menu.Item>
+									</div>
+									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										<Menu.Item>
+											<Link href="/profile/data-staff">
+												<p>Data Staff</p>
+											</Link>
+										</Menu.Item>
+									</div>
+									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										<Menu.Item>
+											<Link href="/profile/data-akun">
+												<p>Data Akun</p>
 											</Link>
 										</Menu.Item>
 									</div>
