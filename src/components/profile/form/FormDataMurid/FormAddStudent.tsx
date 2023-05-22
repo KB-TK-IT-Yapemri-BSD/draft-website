@@ -27,7 +27,7 @@ export default function FormAddStudent() {
 		height: '',
 		weight: '',
 		bloodType: '',
-		sicknessHistory: '',
+		diseaseHistory: '',
 		distanceToHome: '',
 		language: '',
 		mother_id: '',
@@ -59,7 +59,7 @@ export default function FormAddStudent() {
 			height: formValues.height,
 			weight: formValues.weight,
 			bloodType: formValues.bloodType,
-			sicknessHistory: formValues.sicknessHistory,
+			diseaseHistory: formValues.diseaseHistory,
 			distanceToHome: formValues.distanceToHome,
 			language: formValues.language,
 			father_id: formValues.father_id,
@@ -366,16 +366,16 @@ export default function FormAddStudent() {
 
 			<div className="py-2">
 				<label
-					htmlFor="sicknessHistory"
+					htmlFor="diseaseHistory"
 					className="block mb-2 text-sm font-medium read-only"
 				>
 					Riwayat Penyakit
 				</label>
 				<input
 					type="text"
-					id="sicknessHistory"
-					name="sicknessHistory"
-					aria-label="sicknessHistory"
+					id="diseaseHistory"
+					name="diseaseHistory"
+					aria-label="diseaseHistory"
 					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
 				/>

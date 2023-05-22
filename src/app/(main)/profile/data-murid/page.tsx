@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import TabelDataMurid from '@/components/profile/table/TabelDataMurid';
-import { BigArrowLeft, DocumentPlusSymbol } from '@/components/shared/Icons';
+import { BigArrowLeft } from '@/components/shared/Icons';
 import TabelDataOrangTua from '@/components/profile/table/TabelDataOrangTua';
 
 export const metadata = {
@@ -25,16 +25,6 @@ export default function DataMurid() {
 							Daftar Murid KB TK IT Yapemri BSD
 						</p>
 						<div className="my-6">
-							<div className="text-right">
-								<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
-									<DocumentPlusSymbol />
-									<Link href="/profile/data-murid/add/student">
-										<p className="ml-2 text-sm">
-											Tambah Data MURID
-										</p>
-									</Link>
-								</button>
-							</div>
 							<TabelDataMurid />
 						</div>
 					</div>
@@ -46,16 +36,6 @@ export default function DataMurid() {
 							Daftar Biodata Orang Tua KB TK IT Yapemri BSD
 						</p>
 						<div className="my-6">
-							<div className="text-right">
-								<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
-									<DocumentPlusSymbol />
-									<Link href="/profile/data-murid/add/parent">
-										<p className="ml-2 text-sm">
-											Tambah Data ORANG TUA
-										</p>
-									</Link>
-								</button>
-							</div>
 							<TabelDataOrangTua />
 						</div>
 					</div>
