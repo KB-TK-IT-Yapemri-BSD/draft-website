@@ -2,14 +2,13 @@
 
 import { signIn } from 'next-auth/react';
 import { useRef } from 'react';
-import Link from 'next/link';
 
 export default function SignInForm() {
 	const email = useRef('');
 	const password = useRef('');
 
 	const onSubmit = async () => {
-		const result = await signIn('credentials', {
+		await signIn('credentials', {
 			email: email.current,
 			password: password.current,
 			redirect: true,
@@ -21,7 +20,7 @@ export default function SignInForm() {
 		<>
 			<form>
 				<div className="flex flex-col gap-6 mb-6 md:grid-rows-2">
-					<div className="mb-6">
+					<div className="mb-6 lg:mb-2">
 						<label
 							htmlFor="email"
 							className="block mb-2 text-sm font-medium"
@@ -33,12 +32,11 @@ export default function SignInForm() {
 							name="email"
 							id="email"
 							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-							placeholder="john.doe@company.com"
 							onChange={(e) => (email.current = e.target.value)}
 							required
 						/>
 					</div>
-					<div className="mb-6">
+					<div className="mb-6 lg:mt-0">
 						<label
 							htmlFor="password"
 							className="block mb-2 text-sm font-medium"
@@ -50,7 +48,6 @@ export default function SignInForm() {
 							id="password"
 							name="password"
 							className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-							placeholder="•••••••••"
 							onChange={(e) =>
 								(password.current = e.target.value)
 							}
@@ -59,6 +56,7 @@ export default function SignInForm() {
 					</div>
 				</div>
 			</form>
+
 			<button
 				type="submit"
 				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"

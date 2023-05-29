@@ -18,6 +18,7 @@ function NavbarPublic() {
 							src="/logo.png"
 							width={53}
 							height={53}
+							style={{ width: 'auto', height: 'auto' }}
 							alt="Logo KB TK IT Yapemri BSD"
 						></Image>
 					</div>

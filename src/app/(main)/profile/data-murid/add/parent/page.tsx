@@ -1,4 +1,4 @@
-import AddParent from '@/components/profile/pages/HalamanDataMurid/TambahDataOrangTua';
+import AddParent from '@/components/profile/pages/HalamanDataMurid/TambahDataParent';
 
 export const metadata = {
 	title: 'KB TK IT Yapemri BSD | Orang Tua | Tambah Data',

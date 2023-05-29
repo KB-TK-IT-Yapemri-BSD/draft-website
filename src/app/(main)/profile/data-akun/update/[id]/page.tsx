@@ -1,9 +1,9 @@
-import Update from '@/components/profile/pages/HalamanDataAkun/Update';
+import HalamanUpdateAkun from '@/components/profile/pages/HalamanDataAkun/UbahDataAkun';
 
 export const metadata = {
-	title: 'KB TK IT Yapemri BSD | Edit Data Akun',
+	title: 'KB TK IT Yapemri BSD | Akun | Ubah Data',
 };
 
-export default function DataAkunAdd() {
-	return <Update />;
+export default function UbahDataParent({ params }: { params: any }) {
+	return <HalamanUpdateAkun params={params} />;
 }

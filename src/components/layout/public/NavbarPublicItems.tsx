@@ -219,12 +219,6 @@ function NavbarItems() {
 				</Transition>
 			</Menu>
 
-			<Link href="/pencarian">
-				<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-					Pencarian
-				</p>
-			</Link>
-
 			{/**
                 <label className="relative block">
                     <span className="sr-only">Search</span>

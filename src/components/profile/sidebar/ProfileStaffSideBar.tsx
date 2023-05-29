@@ -3,15 +3,14 @@
 import {
 	DocumentTextSymbol,
 	LogoutSymbol,
-	MoneySymbol,
-	UserSymbol,
 	UsersSymbol,
 	IdentificationSymbol,
 	UserGroupSymbol,
+	ClipboardDocumentSymbol,
 } from '@/components/shared/Icons';
 import { signOut } from 'next-auth/react';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 export default function ProfileStaffSideBar(props: any) {
 	const [data, setData] = useState();
@@ -30,12 +29,12 @@ export default function ProfileStaffSideBar(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render STAFF SB');
+			// console.log('First Render STAFF SB');
 		} else {
-			console.log('Subsequent Render STAFF SB');
+			// console.log('Subsequent Render STAFF SB');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setData(props.props.props);
 				setType(props.props.session.user.user.biodataType);
@@ -73,27 +72,29 @@ export default function ProfileStaffSideBar(props: any) {
 						<p>Data Diri</p>
 					</Link>
 				</button>
-				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
-					<Link
-						href="/profile/info-akun"
-						className="inline-flex space-x-2 py-1"
-					>
-						<UserSymbol />
-						<p>Info Akun</p>
-					</Link>
-				</button>
 
 				{/** Limited */}
 				{role === 'admin' || 'teachers' ? (
-					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
-						<Link
-							href="/profile/data-murid"
-							className="inline-flex space-x-2 py-1"
-						>
-							<UsersSymbol />
-							<p>Data Murid</p>
-						</Link>
-					</button>
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+							<Link
+								href="/profile/form-pendaftar"
+								className="inline-flex space-x-2 py-1"
+							>
+								<ClipboardDocumentSymbol />
+								<p>Form Pendaftar</p>
+							</Link>
+						</button>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+							<Link
+								href="/profile/data-murid"
+								className="inline-flex space-x-2 py-1"
+							>
+								<UsersSymbol />
+								<p>Data Murid</p>
+							</Link>
+						</button>
+					</>
 				) : (
 					<div className="hidden"></div>
 				)}

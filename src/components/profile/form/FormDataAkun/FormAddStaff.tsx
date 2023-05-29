@@ -2,9 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
-import { ChevronUpAndDownSymbol } from '@/components/shared/Icons';
+import { useEffect, useState } from 'react';
 
 export default function FormAddStaff() {
 	const { data: session } = useSession();
@@ -18,7 +16,6 @@ export default function FormAddStaff() {
 	};
 
 	const [dataUsers, setDataUsers] = useState([]);
-	const [selectedUser, setSelectedUser] = useState();
 	const [formValues, setFormValues] = useState(initialValues);
 
 	const handleChange = (e: any) => {
@@ -28,7 +25,7 @@ export default function FormAddStaff() {
 
 	const getDataUsers = async () => {
 		try {
-			let res = await fetch(`http://localhost:4000/v1/students`, {
+			let res = await fetch(`http://localhost:4000/v1/staffs`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -37,7 +34,6 @@ export default function FormAddStaff() {
 
 			const data = await res.json();
 			setDataUsers(data);
-			setSelectedUser(data[0]);
 		} catch (error) {
 			throw error;
 		}
@@ -122,15 +118,28 @@ export default function FormAddStaff() {
 				>
 					Role <span className="text-red-danger">*</span>
 				</label>
-				<input
-					type="text"
+				<select
 					id="role"
+					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="role"
-					aria-label="role"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
-				/>
+				>
+					<option
+						defaultValue={undefined}
+						selected
+						disabled
+						hidden
+					></option>
+					<option value="principal" className="text-black">
+						Kepala Sekolah
+					</option>
+					<option value="admin" className="text-black">
+						Administrasi
+					</option>
+					<option value="teachers" className="text-black">
+						Guru
+					</option>
+				</select>
 			</div>
 
 			<div className="py-2">
@@ -140,14 +149,28 @@ export default function FormAddStaff() {
 				>
 					Biodata ID
 				</label>
-				<input
-					type="text"
+				<select
 					id="biodata_id"
+					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="biodata_id"
-					aria-label="disabled input 2"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
-				/>
+				>
+					<option
+						defaultValue={undefined}
+						selected
+						disabled
+						className="hidden"
+					></option>
+					{dataUsers.map((user) => (
+						<option
+							key={user['id']}
+							value={user['id']}
+							className="text-black"
+						>
+							{user['firstName'] + ' ' + user['lastName']}
+						</option>
+					))}
+				</select>
 			</div>
 
 			<button

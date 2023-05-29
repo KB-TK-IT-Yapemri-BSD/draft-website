@@ -12,6 +12,8 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function TabelDataMurid() {
 	const { data: session } = useSession();
@@ -61,8 +63,27 @@ export default function TabelDataMurid() {
 
 			setChanges(true);
 			closeModal();
+			toast.success('Data Murid berhasil dihapus', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'colored',
+			});
 		} catch (error) {
-			throw error;
+			toast.error('Data Murid gagal dihapus, silahkan coba lagi!', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'colored',
+			});
 		}
 	};
 
@@ -118,7 +139,10 @@ export default function TabelDataMurid() {
 					<tbody>
 						{dataUsers
 							? dataUsers.map((user) => (
-									<tr className="bg-white border-b  hover:bg-gray-50">
+									<tr
+										key={user['id']}
+										className="bg-white border-b  hover:bg-gray-50"
+									>
 										<th
 											scope="row"
 											className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -185,7 +209,7 @@ export default function TabelDataMurid() {
 														className="bg-blue-primary rounded-md p-2 my-4 inline-flex lg:my-0"
 														onClick={() =>
 															router.push(
-																`/profile/data-akun/update/${user['id']}`
+																`/profile/data-murid/update/student/${user['id']}`
 															)
 														}
 													>
@@ -299,6 +323,19 @@ export default function TabelDataMurid() {
 							: 'NO DATA'}
 					</tbody>
 				</table>
+				<ToastContainer
+					style={{ width: '500px' }}
+					position="bottom-center"
+					autoClose={5000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+					theme="colored"
+				/>
 			</div>
 		</>
 	);

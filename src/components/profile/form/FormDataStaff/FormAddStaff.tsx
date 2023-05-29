@@ -2,9 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
-import { ChevronUpAndDownSymbol } from '@/components/shared/Icons';
+import { useState } from 'react';
 
 export default function FormAddStaff() {
 	const { data: session } = useSession();
@@ -29,6 +27,7 @@ export default function FormAddStaff() {
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+		console.log(formValues);
 	};
 
 	const handleAddParents = async (formValues: any) => {
@@ -37,7 +36,7 @@ export default function FormAddStaff() {
 			firstName: formValues.firstName,
 			lastName: formValues.lastName,
 			birthplace: formValues.birthplace,
-			birthdate: formValues.birthdate,
+			birthdate: new Date(formValues.birthdate),
 			gender: formValues.gender,
 			religion: formValues.religion,
 			citizenship: formValues.citizenship,
@@ -69,143 +68,193 @@ export default function FormAddStaff() {
 
 	return (
 		<form method="POST" onSubmit={handleSubmit}>
-			<div className="py-2 pt-4">
+			<div className="py-2 pt-8">
 				<label
 					htmlFor="status"
 					className="block mb-2 text-sm font-medium read-only"
 				>
 					Status
 				</label>
-				<input
-					type="text"
+				<select
 					id="status"
+					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="status"
-					aria-label="status"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
-					required
-				/>
+				>
+					<option selected disabled hidden></option>
+					<option value="Kepala Sekolah" className="text-black">
+						Kepala Sekolah
+					</option>
+					<option value="Administrasi" className="text-black">
+						Administrasi
+					</option>
+					<option value="Guru" className="text-black">
+						Guru
+					</option>
+				</select>
 			</div>
 
-			<div className="py-2">
-				<label
-					htmlFor="firstName"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					First Name
-				</label>
-				<input
-					type="text"
-					id="firstName"
-					name="firstName"
-					aria-label="firstName"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-					onChange={handleChange}
-					required
-				/>
+			<div className="flex flex-col lg:flex-row lg:space-x-6">
+				<div className="py-2 w-full">
+					<label
+						htmlFor="firstName"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						First Name
+					</label>
+					<input
+						type="text"
+						id="firstName"
+						name="firstName"
+						aria-label="firstName"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						onChange={handleChange}
+						required
+					/>
+				</div>
+				<div className="py-2 w-full">
+					<label
+						htmlFor="lastName"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Last Name
+					</label>
+					<input
+						type="text"
+						id="lastName"
+						name="lastName"
+						aria-label="lastName"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						onChange={handleChange}
+						required
+					/>
+				</div>
 			</div>
 
-			<div className="py-2">
-				<label
-					htmlFor="lastName"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Last Name
-				</label>
-				<input
-					type="text"
-					id="lastName"
-					name="lastName"
-					aria-label="lastName"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-					onChange={handleChange}
-					required
-				/>
+			<div className="flex flex-col lg:flex-row lg:space-x-6 pt-4">
+				<div className="py-2 w-full">
+					<label
+						htmlFor="birthplace"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Tempat Lahir
+					</label>
+					<input
+						type="text"
+						id="birthplace"
+						name="birthplace"
+						aria-label="birthplace"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="py-2 w-full">
+					<label
+						htmlFor="birthdate"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Tanggal Lahir
+					</label>
+					<input
+						type="date"
+						id="birthdate"
+						name="birthdate"
+						aria-label="birthdate"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="py-2 w-full">
+					<label
+						htmlFor="gender"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Jenis Kelamin
+					</label>
+
+					<div className="inline-flex space-x-3 py-2">
+						<input
+							type="radio"
+							id="female"
+							value="true"
+							name="gender"
+							aria-label="gender"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
+							onChange={handleChange}
+						/>
+						<label htmlFor="female">Wanita</label>
+
+						<input
+							type="radio"
+							id="male"
+							value="false"
+							name="gender"
+							aria-label="gender"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
+							onChange={handleChange}
+						/>
+						<label htmlFor="male">Pria</label>
+					</div>
+				</div>
 			</div>
 
-			<div className="py-2">
-				<label
-					htmlFor="birthplace"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Tempat Lahir
-				</label>
-				<input
-					type="text"
-					id="birthplace"
-					name="birthplace"
-					aria-label="birthplace"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-					onChange={handleChange}
-				/>
-			</div>
-
-			<div className="py-2">
-				<label
-					htmlFor="birthdate"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Tanggal Lahir
-				</label>
-				<input
-					type="text"
-					id="birthdate"
-					name="birthdate"
-					aria-label="birthdate"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-					onChange={handleChange}
-				/>
-			</div>
-
-			<div className="py-2">
-				<label
-					htmlFor="gender"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Jenis Kelamin
-				</label>
-				<input
-					type="text"
-					id="gender"
-					name="gender"
-					aria-label="gender"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-					onChange={handleChange}
-				/>
-			</div>
-
-			<div className="py-2">
-				<label
-					htmlFor="religion"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Agama
-				</label>
-				<input
-					type="text"
-					id="religion"
-					name="religion"
-					aria-label="religion"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-					onChange={handleChange}
-				/>
-			</div>
-
-			<div className="py-2">
-				<label
-					htmlFor="citizenship"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Kewarganegaraan
-				</label>
-				<input
-					type="text"
-					id="citizenship"
-					name="citizenship"
-					aria-label="citizenship"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-					onChange={handleChange}
-				/>
+			<div className="flex flex-col lg:flex-row lg:space-x-6">
+				<div className="py-2 w-1/2">
+					<label
+						htmlFor="religion"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Agama
+					</label>
+					<select
+						id="religion"
+						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						name="religion"
+						onChange={handleChange}
+					>
+						<option selected disabled hidden></option>
+						<option value="Islam" className="text-black">
+							Islam
+						</option>
+						<option value="Kristen" className="text-black">
+							Kristen
+						</option>
+						<option value="Katolik" className="text-black">
+							Katolik
+						</option>
+						<option value="Hindu" className="text-black">
+							Hindu
+						</option>
+						<option value="Buddha" className="text-black">
+							Buddha
+						</option>
+						<option value="Konghucu" className="text-black">
+							Konghucu
+						</option>
+					</select>
+				</div>
+				<div className="py-2 w-1/2">
+					<label
+						htmlFor="citizenship"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Kewarganegaraan
+					</label>
+					<select
+						id="citizenship"
+						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						name="citizenship"
+						onChange={handleChange}
+					>
+						<option selected disabled hidden></option>
+						<option value="WNI" className="text-black">
+							WNI
+						</option>
+						<option value="WNA" className="text-black">
+							WNA
+						</option>
+					</select>
+				</div>
 			</div>
 
 			<div className="py-2">

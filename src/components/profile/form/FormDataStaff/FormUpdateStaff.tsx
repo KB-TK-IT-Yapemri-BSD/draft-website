@@ -2,11 +2,15 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function FormAddParent() {
+export default function FormUpdateStaff({ params }: { params: any }) {
+	const { id } = params;
 	const { data: session } = useSession();
+
 	const router = useRouter();
+
+	const [dataUser, setDataUser] = useState();
 
 	let initialValues = {
 		status: '',
@@ -19,36 +23,67 @@ export default function FormAddParent() {
 		citizenship: '',
 		address: '',
 		phone: '',
-		occupation: '',
 		education: '',
 	};
 
 	const [formValues, setFormValues] = useState(initialValues);
+
+	const getDataUser = async () => {
+		try {
+			let res = await fetch(`http://localhost:4000/v1/staffs/${id}`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${session?.user.token.accessToken}`,
+				},
+			});
+
+			const data = await res.json();
+			setDataUser(data);
+			setFormValues({
+				status: data['status'],
+				firstName: data['firstName'],
+				lastName: data['lastName'],
+				birthplace: data['birthplace'],
+				birthdate: data['birthdate'],
+				gender: data['gender'],
+				religion: data['religion'],
+				citizenship: data['citizenship'],
+				address: data['address'],
+				phone: data['phone'],
+				education: data['education'],
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
 	};
 
-	const handleAddParents = async (formValues: any) => {
-		const dataForm = {
-			status: formValues.status,
-			firstName: formValues.firstName,
-			lastName: formValues.lastName,
-			birthplace: formValues.birthplace,
-			birthdate: new Date(formValues.birthdate),
-			gender: formValues.gender,
-			religion: formValues.religion,
-			citizenship: formValues.citizenship,
-			address: formValues.address,
-			phone: formValues.phone,
-			occupation: formValues.occupation,
-			education: formValues.education,
-		} as any;
+	const handleUpdateStaffs = async (formValues: any) => {
+		let dataForm = {} as any;
+
+		if (formValues) {
+			dataForm = {
+				status: formValues.status,
+				firstName: formValues.firstName,
+				lastName: formValues.lastName,
+				birthplace: formValues.birthplace,
+				birthdate: new Date(formValues.birthdate),
+				gender: formValues.gender,
+				religion: formValues.religion,
+				citizenship: formValues.citizenship,
+				address: formValues.address,
+				phone: formValues.phone,
+				education: formValues.education,
+			};
+		}
 
 		try {
-			await fetch('http://localhost:4000/v1/parents', {
-				method: 'POST',
+			await fetch(`http://localhost:4000/v1/staffs/${id}`, {
+				method: 'PATCH',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
 					'Content-Type': 'application/json',
@@ -56,7 +91,7 @@ export default function FormAddParent() {
 				body: JSON.stringify(dataForm),
 			});
 
-			router.push('/profile/data-murid');
+			router.push('/profile/data-staff');
 		} catch (error) {
 			console.log(error);
 		}
@@ -64,11 +99,16 @@ export default function FormAddParent() {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		handleAddParents(formValues);
+		handleUpdateStaffs(formValues);
 	};
 
+	useEffect(() => {
+		getDataUser();
+	}, []);
+
+	console.log(formValues);
 	return (
-		<form method="POST" onSubmit={handleSubmit}>
+		<form method="PATCH" onSubmit={handleSubmit}>
 			<div className="py-2 pt-4">
 				<label
 					htmlFor="status"
@@ -76,15 +116,25 @@ export default function FormAddParent() {
 				>
 					Status
 				</label>
-				<input
-					type="text"
+				<select
 					id="status"
+					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="status"
-					aria-label="status"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
-					required
-				/>
+				>
+					<option value={formValues.status} selected disabled hidden>
+						{formValues.status}
+					</option>
+					<option value="Kepala Sekolah" className="text-black">
+						Kepala Sekolah
+					</option>
+					<option value="Administrasi" className="text-black">
+						Administrasi
+					</option>
+					<option value="Guru" className="text-black">
+						Guru
+					</option>
+				</select>
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -100,11 +150,12 @@ export default function FormAddParent() {
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.firstName}
 						onChange={handleChange}
-						required
 					/>
 				</div>
+
 				<div className="py-2 w-full">
 					<label
 						htmlFor="lastName"
@@ -117,14 +168,14 @@ export default function FormAddParent() {
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.lastName}
 						onChange={handleChange}
-						required
 					/>
 				</div>
 			</div>
 
-			<div className="flex flex-col lg:flex-row lg:space-x-6 pt-4">
+			<div className="flex flex-col lg:flex-row lg:space-x-6">
 				<div className="py-2 w-full">
 					<label
 						htmlFor="birthplace"
@@ -137,7 +188,8 @@ export default function FormAddParent() {
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.birthplace}
 						onChange={handleChange}
 					/>
 				</div>
@@ -153,7 +205,8 @@ export default function FormAddParent() {
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						defaultValue={formValues.birthdate.substring(0, 10)}
 						onChange={handleChange}
 					/>
 				</div>
@@ -164,30 +217,27 @@ export default function FormAddParent() {
 					>
 						Jenis Kelamin
 					</label>
-
-					<div className="inline-flex space-x-3 py-2">
-						<input
-							type="radio"
-							id="female"
-							value="true"
-							name="gender"
-							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
-							onChange={handleChange}
-						/>
-						<label htmlFor="female">Wanita</label>
-
-						<input
-							type="radio"
-							id="male"
-							value="false"
-							name="gender"
-							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
-							onChange={handleChange}
-						/>
-						<label htmlFor="male">Pria</label>
-					</div>
+					<select
+						id="gender"
+						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						name="gender"
+						onChange={handleChange}
+					>
+						<option
+							value={formValues.gender}
+							selected
+							disabled
+							hidden
+						>
+							{formValues.gender ? 'Wanita' : 'Pria'}
+						</option>
+						<option value="true" className="text-black">
+							Wanita
+						</option>
+						<option value="false" className="text-black">
+							Pria
+						</option>
+					</select>
 				</div>
 			</div>
 
@@ -205,7 +255,14 @@ export default function FormAddParent() {
 						name="religion"
 						onChange={handleChange}
 					>
-						<option selected disabled hidden></option>
+						<option
+							value={formValues.religion}
+							selected
+							disabled
+							hidden
+						>
+							{formValues.religion}
+						</option>
 						<option value="Islam" className="text-black">
 							Islam
 						</option>
@@ -239,7 +296,14 @@ export default function FormAddParent() {
 						name="citizenship"
 						onChange={handleChange}
 					>
-						<option selected disabled hidden></option>
+						<option
+							value={formValues.citizenship}
+							selected
+							disabled
+							hidden
+						>
+							{formValues.citizenship}
+						</option>
 						<option value="WNI" className="text-black">
 							WNI
 						</option>
@@ -262,7 +326,8 @@ export default function FormAddParent() {
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.address}
 					onChange={handleChange}
 				/>
 			</div>
@@ -279,24 +344,8 @@ export default function FormAddParent() {
 					id="phone"
 					name="phone"
 					aria-label="phone"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-					onChange={handleChange}
-				/>
-			</div>
-
-			<div className="py-2">
-				<label
-					htmlFor="occupation"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Pekerjaan
-				</label>
-				<input
-					type="text"
-					id="occupation"
-					name="occupation"
-					aria-label="occupation"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.phone}
 					onChange={handleChange}
 				/>
 			</div>
@@ -313,7 +362,8 @@ export default function FormAddParent() {
 					id="education"
 					name="education"
 					aria-label="education"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.education}
 					onChange={handleChange}
 				/>
 			</div>
@@ -322,7 +372,7 @@ export default function FormAddParent() {
 				type="submit"
 				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
 			>
-				Tambah
+				Ubah
 			</button>
 		</form>
 	);

@@ -29,6 +29,7 @@ function NavbarLoggedIn() {
 							src="/logo.png"
 							width={53}
 							height={53}
+							style={{ width: 'auto', height: 'auto' }}
 							alt="Logo KB TK IT Yapemri BSD"
 						></Image>
 					</div>
@@ -84,13 +85,6 @@ function NavbarLoggedIn() {
 									</div>
 									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 										<Menu.Item>
-											<Link href="/profile/info-akun">
-												<p>Info Akun</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
 											<Link href="/profile/keuangan">
 												<p>Keuangan</p>
 											</Link>
@@ -121,13 +115,6 @@ function NavbarLoggedIn() {
 									</div>
 									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 										<Menu.Item>
-											<Link href="/profile/info-akun">
-												<p>Info Akun</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
 											<button
 												onClick={logout}
 												className="w-full text-left"
@@ -146,13 +133,6 @@ function NavbarLoggedIn() {
 										<Menu.Item>
 											<Link href="/profile/data-diri">
 												<p>Data Diri</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/info-akun">
-												<p>Info Akun</p>
 											</Link>
 										</Menu.Item>
 									</div>
@@ -188,13 +168,6 @@ function NavbarLoggedIn() {
 									</div>
 									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 										<Menu.Item>
-											<Link href="/profile/info-akun">
-												<p>Info Akun</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
 											<Link href="/profile/data-murid">
 												<p>Data Murid</p>
 											</Link>
@@ -216,7 +189,7 @@ function NavbarLoggedIn() {
 									</div>
 									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 										<Menu.Item>
-											<Link href="/profile/info-akun">
+											<Link href="/profile/keuangan">
 												<p>Keuangan</p>
 											</Link>
 										</Menu.Item>

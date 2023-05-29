@@ -3,8 +3,8 @@ import Image from 'next/image';
 function DaftarGuruSekolah() {
 	return (
 		<div className="bg-grey">
-			<div className="mx-10 lg:mx-40 py-20">
-				<div>
+			<div className="mx-10 lg:mx-40 py-20 flex flex-row w-3/4 gap-20">
+				<div className="my-auto px-20">
 					<h1 className="text-3xl pb-3 text-center italic">
 						Perkenalkan
 					</h1>
@@ -12,16 +12,14 @@ function DaftarGuruSekolah() {
 						Para Guru dan Staff Kami
 					</p>
 				</div>
-				<div className="w-full p-10 relative">
-					<div className="rounded-full px-20 h-[325px] mx-auto">
+				<div className="mx-auto">
+					<div className="flex rounded-full justify-center">
 						<Image
-							src="/beranda/guru-staff.jpg"
-							fill
+							src="/beranda/guru-staff2.jpg"
+							width={500}
+							height={200}
 							alt="Guru dan Staff KB TK IT Yapemri BSD"
-							style={{
-								objectFit: 'cover',
-							}}
-							className="rounded-lg border-white border-4 shadow-lg"
+							className="rounded-full border-white border-2 shadow-lg justify-center"
 						/>
 					</div>
 				</div>

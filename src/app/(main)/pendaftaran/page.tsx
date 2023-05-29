@@ -1,4 +1,5 @@
 import PendaftaranHeader from '@/components/layout/PendaftaranHeader';
+import SyaratPendaftaran from '@/components/pendaftaran/SyaratPendaftaran';
 
 export const metadata = {
 	title: 'KB TK IT Yapemri BSD | Pendaftaran',
@@ -8,43 +9,10 @@ export default function Pendaftaran() {
 	return (
 		<>
 			<PendaftaranHeader />
-
 			<div className="bg-white">
 				<div className="mx-10 lg:mx-60 py-10">
 					<div className="w-full py-20">
-						<h1 className="text-4xl text-center font-semibold py-10">
-							Masih dalam proses pembuatan...
-						</h1>
-						<div className="card leading-relaxed overflow-hidden">
-							<h1 className="text-2xl text-center font-semibold bg-primary p-2">
-								Syarat Pendaftaran
-							</h1>
-							<ul className="py-4 ml-6 text-justify list-decimal">
-								<li>
-									Usia memenuhi persyaratan masuk KB (3-4
-									Tahun)
-								</li>
-								<li>
-									Mengisi formulir pendaftaran pada laman
-									https://kb-tk-it-yapemribsd/pendaftaran/form
-								</li>
-								<li>
-									Menyerahkan fotocopy (Akta Kelahiran, Kartu
-									Keluarga, KTP Ayah dan Ibu (masing-masing 1
-									lembar), Pas Photo Calon Siswa ukuran 2x3
-									dan 3x4 (masing-masing 1 lembar).
-								</li>
-								<li>
-									Pembayaran ditransfer melalui BCA 5235597788
-									YAYASAN PENDIDIKAN MASYARAKAT REPUBLIK
-									INDONESIA
-								</li>
-								<li>
-									Bukti transfer diupload pada laman
-									https://kb-tk-it-yapemribsd/profil/keuangan/uploadkeuangan
-								</li>
-							</ul>
-						</div>
+						<SyaratPendaftaran />
 					</div>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-export default function FormDetailParent({ params }: { params: any }) {
+export default function FormDetailStaff({ params }: { params: any }) {
 	const { id } = params;
 	const { data: session } = useSession();
 
@@ -9,7 +9,7 @@ export default function FormDetailParent({ params }: { params: any }) {
 
 	const getDataUser = async () => {
 		try {
-			let res = await fetch(`http://localhost:4000/v1/parents/${id}`, {
+			let res = await fetch(`http://localhost:4000/v1/staffs/${id}`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -163,24 +163,6 @@ export default function FormDetailParent({ params }: { params: any }) {
 							disabled
 						/>
 					</div>
-				</div>
-
-				<div className="py-2">
-					<label
-						htmlFor="occupation"
-						className="block mb-2 text-sm font-medium read-only"
-					>
-						Pekerjaan
-					</label>
-					<input
-						type="text"
-						id="occupation"
-						name="occupation"
-						aria-label="occupation"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value={dataUser ? dataUser['occupation'] : 'NO DATA'}
-						disabled
-					/>
 				</div>
 
 				<div className="py-2">

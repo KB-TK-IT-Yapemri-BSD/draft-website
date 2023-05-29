@@ -6,10 +6,11 @@ import { useSession } from 'next-auth/react';
 import { Dialog, Transition } from '@headlessui/react';
 import {
 	ExclamationCircleSymbol,
-	EyeSymbol,
 	PencilSymbol,
 	TrashCanSymbol,
 } from '@/components/shared/Icons';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function TabelDataAkun() {
 	const { data: session } = useSession();
@@ -42,7 +43,6 @@ export default function TabelDataAkun() {
 
 			const data = await res.json();
 			setDataUsers(data);
-			console.log(data);
 		} catch (error) {
 			throw error;
 		}
@@ -59,8 +59,27 @@ export default function TabelDataAkun() {
 
 			setChanges(true);
 			closeModal();
+			toast.success('Data Akun berhasil dihapus', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'colored',
+			});
 		} catch (error) {
-			throw error;
+			toast.error('Data Akun gagal dihapus, silahkan coba lagi!', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'colored',
+			});
 		}
 	};
 
@@ -96,7 +115,10 @@ export default function TabelDataAkun() {
 				<tbody>
 					{dataUsers
 						? dataUsers.map((user) => (
-								<tr className="bg-white border-b  hover:bg-gray-50">
+								<tr
+									key={user['id']}
+									className="bg-white border-b  hover:bg-gray-50"
+								>
 									<th
 										scope="row"
 										className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -124,16 +146,6 @@ export default function TabelDataAkun() {
 											: 'NO DATA'}
 									</td>
 									<td className="flex items-center px-6 py-4 space-x-2">
-										<button
-											className="bg-primary rounded-md p-2 my-4 inline-flex lg:my-0"
-											onClick={() =>
-												router.push(
-													`/profile/data-akun/detail/${user['id']}`
-												)
-											}
-										>
-											<EyeSymbol />
-										</button>
 										<button
 											className="bg-blue-primary rounded-md p-2 my-4 inline-flex lg:my-0"
 											onClick={() =>
@@ -244,6 +256,19 @@ export default function TabelDataAkun() {
 						: 'NO DATA'}
 				</tbody>
 			</table>
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</div>
 	);
 }

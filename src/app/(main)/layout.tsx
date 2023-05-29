@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
 import Navbar from '@/components/layout/main/Navbar';
-import NavbarLoggedIn from '@/components/layout/loggedIn/NavbarLoggedIn';
 import Footer from '@/components/layout/main/Footer';
 import Providers from './providers';
 import { ReactNode } from 'react';

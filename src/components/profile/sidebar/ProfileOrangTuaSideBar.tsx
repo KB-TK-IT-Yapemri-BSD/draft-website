@@ -27,12 +27,12 @@ export default function ProfileOrangTuaSideBar(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render ORANG TUA SB');
+			// console.log('First Render ORANG TUA SIDEBAR');
 		} else {
-			console.log('Subsequent Render ORANG TUA SB');
+			// console.log('Subsequent Render ORANG TUA SIDEBAR');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setData(props.props.props);
 				setType(props.props.session.user.user.biodataType);
@@ -75,15 +75,6 @@ export default function ProfileOrangTuaSideBar(props: any) {
 					>
 						<UsersSymbol />
 						<p>Data Wali</p>
-					</Link>
-				</button>
-				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md p-2">
-					<Link
-						href="/profile/info-akun"
-						className="inline-flex space-x-2 py-1"
-					>
-						<UserSymbol />
-						<p>Info Akun</p>
 					</Link>
 				</button>
 				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md p-2">

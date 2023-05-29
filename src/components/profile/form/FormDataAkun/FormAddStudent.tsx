@@ -47,7 +47,7 @@ export default function FormAddStudent() {
 		const dataForm = {
 			email: formValues.email,
 			password: formValues.password,
-			role: formValues.role,
+			role: 'parents',
 			biodata_id: formValues.biodata_id,
 			biodataType: 'Student',
 		} as any;
@@ -117,37 +117,33 @@ export default function FormAddStudent() {
 
 			<div className="py-2">
 				<label
-					htmlFor="role"
-					className="block mb-2 text-sm font-medium read-only"
-				>
-					Role <span className="text-red-danger">*</span>
-				</label>
-				<input
-					type="text"
-					id="role"
-					name="role"
-					aria-label="role"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-					onChange={handleChange}
-					required
-				/>
-			</div>
-
-			<div className="py-2">
-				<label
 					htmlFor="biodata_id"
 					className="block mb-2 text-sm font-medium read-only"
 				>
 					Biodata ID
 				</label>
-				<input
-					type="text"
+				<select
 					id="biodata_id"
+					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="biodata_id"
-					aria-label="disabled input 2"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
-				/>
+				>
+					<option
+						defaultValue={undefined}
+						selected
+						disabled
+						hidden
+					></option>
+					{dataUsers.map((user) => (
+						<option
+							key={user['id']}
+							value={user['id']}
+							className="text-black"
+						>
+							{user['firstName'] + ' ' + user['lastName']}
+						</option>
+					))}
+				</select>
 			</div>
 
 			<button

@@ -4,9 +4,14 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function FormAddStudent() {
+export default function FormUpdateStudent({ params }: { params: any }) {
+	const { id } = params;
 	const { data: session } = useSession();
+
 	const router = useRouter();
+
+	const [dataUser, setDataUser] = useState();
+	const [dataParents, setDataParents] = useState([]);
 
 	let initialValues = {
 		grade: '',
@@ -32,15 +37,9 @@ export default function FormAddStudent() {
 		father_id: undefined,
 	};
 
-	const [dataUsers, setDataUsers] = useState([]);
 	const [formValues, setFormValues] = useState(initialValues);
 
-	const handleChange = (e: any) => {
-		const { name, value } = e.target;
-		setFormValues({ ...formValues, [name]: value });
-	};
-
-	const getDataUsers = async () => {
+	const getDataParents = async () => {
 		try {
 			let res = await fetch(`http://localhost:4000/v1/parents`, {
 				method: 'GET',
@@ -50,13 +49,59 @@ export default function FormAddStudent() {
 			});
 
 			const data = await res.json();
-			setDataUsers(data);
+			setDataParents(data);
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const handleAddStudents = async (formValues: any) => {
+	const getDataUser = async () => {
+		try {
+			let res = await fetch(`http://localhost:4000/v1/students/${id}`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${session?.user.token.accessToken}`,
+				},
+			});
+
+			const data = await res.json();
+			setDataUser(data);
+
+			setFormValues({
+				grade: data['grade'],
+				firstName: data['firstName'],
+				lastName: data['lastName'],
+				birthplace: data['birthplace'],
+				birthdate: data['birthdate'],
+				gender: data['gender'],
+				religion: data['religion'],
+				citizenship: data['citizenship'],
+				address: data['address'],
+				nickname: data['nickname'],
+				birthOrder: data['birthOrder'],
+				numOfSiblings: data['numOfSiblings'],
+				statusInFamily: data['statusInFamily'],
+				height: data['height'],
+				weight: data['weight'],
+				bloodType: data['bloodType'],
+				diseaseHistory: data['diseaseHistory'],
+				distanceToHome: data['distanceToHome'],
+				language: data['language'],
+				mother_id: data['mother_id']['_id'],
+				father_id: data['father_id']['_id'],
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+
+		setFormValues({ ...formValues, [name]: value });
+	};
+
+	const handleUpdateStudents = async (formValues: any) => {
 		const dataForm = {
 			grade: formValues.grade,
 			firstName: formValues.firstName,
@@ -77,13 +122,13 @@ export default function FormAddStudent() {
 			diseaseHistory: formValues.diseaseHistory,
 			distanceToHome: formValues.distanceToHome,
 			language: formValues.language,
-			father_id: formValues.father_id,
 			mother_id: formValues.mother_id,
+			father_id: formValues.father_id,
 		} as any;
 
 		try {
-			await fetch('http://localhost:4000/v1/students', {
-				method: 'POST',
+			await fetch(`http://localhost:4000/v1/students/${id}`, {
+				method: 'PATCH',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
 					'Content-Type': 'application/json',
@@ -99,15 +144,16 @@ export default function FormAddStudent() {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		handleAddStudents(formValues);
+		handleUpdateStudents(formValues);
 	};
 
 	useEffect(() => {
-		getDataUsers();
+		getDataUser();
+		getDataParents();
 	}, []);
 
 	return (
-		<form method="POST" onSubmit={handleSubmit}>
+		<form method="PATCH" onSubmit={handleSubmit}>
 			<div className="py-2 pt-4">
 				<label
 					htmlFor="grade"
@@ -121,7 +167,9 @@ export default function FormAddStudent() {
 					name="grade"
 					onChange={handleChange}
 				>
-					<option selected disabled hidden></option>
+					<option value={formValues.grade} selected disabled hidden>
+						{formValues.grade}
+					</option>
 					<option value="KB" className="text-black">
 						KB
 					</option>
@@ -147,9 +195,9 @@ export default function FormAddStudent() {
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.firstName}
 						onChange={handleChange}
-						required
 					/>
 				</div>
 				<div className="py-2 w-full">
@@ -164,9 +212,9 @@ export default function FormAddStudent() {
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.lastName}
 						onChange={handleChange}
-						required
 					/>
 				</div>
 				<div className="py-2 w-full">
@@ -181,13 +229,14 @@ export default function FormAddStudent() {
 						id="nickname"
 						name="nickname"
 						aria-label="nickname"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.nickname}
 						onChange={handleChange}
 					/>
 				</div>
 			</div>
 
-			<div className="flex flex-col lg:flex-row lg:space-x-6 pt-2">
+			<div className="flex flex-col lg:flex-row lg:space-x-6">
 				<div className="py-2 w-full">
 					<label
 						htmlFor="birthplace"
@@ -200,7 +249,8 @@ export default function FormAddStudent() {
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.birthplace}
 						onChange={handleChange}
 					/>
 				</div>
@@ -216,7 +266,8 @@ export default function FormAddStudent() {
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						defaultValue={formValues.birthdate.substring(0, 10)}
 						onChange={handleChange}
 					/>
 				</div>
@@ -227,30 +278,27 @@ export default function FormAddStudent() {
 					>
 						Jenis Kelamin
 					</label>
-
-					<div className="inline-flex space-x-3 py-2">
-						<input
-							type="radio"
-							id="female"
-							value="true"
-							name="gender"
-							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
-							onChange={handleChange}
-						/>
-						<label htmlFor="female">Perempuan</label>
-
-						<input
-							type="radio"
-							id="male"
-							value="false"
-							name="gender"
-							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
-							onChange={handleChange}
-						/>
-						<label htmlFor="male">Laki-Laki</label>
-					</div>
+					<select
+						id="gender"
+						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						name="gender"
+						onChange={handleChange}
+					>
+						<option
+							value={formValues.gender}
+							selected
+							disabled
+							hidden
+						>
+							{formValues.gender ? 'Perempuan' : 'Laki-Laki'}
+						</option>
+						<option value="true" className="text-black">
+							Perempuan
+						</option>
+						<option value="false" className="text-black">
+							Laki-Laki
+						</option>
+					</select>
 				</div>
 			</div>
 
@@ -266,9 +314,12 @@ export default function FormAddStudent() {
 						id="religion"
 						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="religion"
+						defaultValue={formValues.religion}
 						onChange={handleChange}
 					>
-						<option selected disabled hidden></option>
+						<option selected disabled hidden>
+							{formValues.religion}
+						</option>
 						<option value="Islam" className="text-black">
 							Islam
 						</option>
@@ -300,9 +351,17 @@ export default function FormAddStudent() {
 						id="citizenship"
 						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="citizenship"
+						defaultValue={formValues.citizenship}
 						onChange={handleChange}
 					>
-						<option selected disabled hidden></option>
+						<option
+							value={formValues.citizenship}
+							selected
+							disabled
+							hidden
+						>
+							{formValues.citizenship}
+						</option>
 						<option value="WNI" className="text-black">
 							WNI
 						</option>
@@ -325,7 +384,8 @@ export default function FormAddStudent() {
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.address}
 					onChange={handleChange}
 				/>
 			</div>
@@ -343,11 +403,11 @@ export default function FormAddStudent() {
 						id="birthOrder"
 						name="birthOrder"
 						aria-label="birthOrder"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.birthOrder}
 						onChange={handleChange}
 					/>
 				</div>
-
 				<div className="py-2 w-full">
 					<label
 						htmlFor="numOfSiblings"
@@ -360,13 +420,14 @@ export default function FormAddStudent() {
 						id="numOfSiblings"
 						name="numOfSiblings"
 						aria-label="numOfSiblings"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.numOfSiblings}
 						onChange={handleChange}
 					/>
 				</div>
 			</div>
 
-			<div className="py-2 pt-3">
+			<div className="py-2">
 				<label
 					htmlFor="statusInFamily"
 					className="block mb-2 text-sm font-medium read-only"
@@ -378,7 +439,8 @@ export default function FormAddStudent() {
 					id="statusInFamily"
 					name="statusInFamily"
 					aria-label="statusInFamily"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.statusInFamily}
 					onChange={handleChange}
 				/>
 			</div>
@@ -396,7 +458,8 @@ export default function FormAddStudent() {
 						id="height"
 						name="height"
 						aria-label="height"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.height}
 						onChange={handleChange}
 					/>
 				</div>
@@ -413,7 +476,8 @@ export default function FormAddStudent() {
 						id="weight"
 						name="weight"
 						aria-label="weight"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						defaultValue={formValues.weight}
 						onChange={handleChange}
 					/>
 				</div>
@@ -431,7 +495,14 @@ export default function FormAddStudent() {
 						name="bloodType"
 						onChange={handleChange}
 					>
-						<option selected disabled hidden></option>
+						<option
+							value={formValues.bloodType}
+							selected
+							disabled
+							hidden
+						>
+							{formValues.bloodType}
+						</option>
 						<option value="A" className="text-black">
 							A
 						</option>
@@ -448,7 +519,7 @@ export default function FormAddStudent() {
 				</div>
 			</div>
 
-			<div className="py-2 pt-3">
+			<div className="py-2">
 				<label
 					htmlFor="diseaseHistory"
 					className="block mb-2 text-sm font-medium read-only"
@@ -460,7 +531,8 @@ export default function FormAddStudent() {
 					id="diseaseHistory"
 					name="diseaseHistory"
 					aria-label="diseaseHistory"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.diseaseHistory}
 					onChange={handleChange}
 				/>
 			</div>
@@ -477,7 +549,8 @@ export default function FormAddStudent() {
 					id="distanceToHome"
 					name="distanceToHome"
 					aria-label="distanceToHome"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.distanceToHome}
 					onChange={handleChange}
 				/>
 			</div>
@@ -494,7 +567,8 @@ export default function FormAddStudent() {
 					id="language"
 					name="language"
 					aria-label="language"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					defaultValue={formValues.language}
 					onChange={handleChange}
 				/>
 			</div>
@@ -513,20 +587,30 @@ export default function FormAddStudent() {
 					onChange={handleChange}
 				>
 					<option
-						defaultValue={undefined}
+						value={formValues.father_id}
 						selected
 						disabled
 						className="hidden"
-					></option>
-					{dataUsers.map((user) => (
-						<option
-							key={user['id']}
-							value={user['id']}
-							className="text-black"
-						>
-							{user['firstName'] + ' ' + user['lastName']}
-						</option>
-					))}
+					>
+						{dataUser
+							? dataUser['father_id']['firstName'] +
+							  ' ' +
+							  dataUser['father_id']['lastName']
+							: 'NO DATA'}
+					</option>
+					{dataParents
+						? dataParents.map((parents) => (
+								<option
+									key={parents['id']}
+									value={parents['id']}
+									className="text-black"
+								>
+									{parents['firstName'] +
+										' ' +
+										parents['lastName']}
+								</option>
+						  ))
+						: ''}
 				</select>
 			</div>
 
@@ -544,20 +628,30 @@ export default function FormAddStudent() {
 					onChange={handleChange}
 				>
 					<option
-						defaultValue={undefined}
+						value={formValues.mother_id}
 						selected
 						disabled
 						className="hidden"
-					></option>
-					{dataUsers.map((user) => (
-						<option
-							key={user['id']}
-							value={user['id']}
-							className="text-black"
-						>
-							{user['firstName'] + ' ' + user['lastName']}
-						</option>
-					))}
+					>
+						{dataUser
+							? dataUser['mother_id']['firstName'] +
+							  ' ' +
+							  dataUser['mother_id']['lastName']
+							: 'NO DATA'}
+					</option>
+					{dataParents
+						? dataParents.map((parents) => (
+								<option
+									key={parents['id']}
+									value={parents['id']}
+									className="text-black"
+								>
+									{parents['firstName'] +
+										' ' +
+										parents['lastName']}
+								</option>
+						  ))
+						: ''}
 				</select>
 			</div>
 
@@ -565,7 +659,7 @@ export default function FormAddStudent() {
 				type="submit"
 				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
 			>
-				Tambah
+				Ubah
 			</button>
 		</form>
 	);

@@ -17,12 +17,12 @@ export default function SideBar(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render');
+			// console.log('First Render SIDEBAR');
 		} else {
-			console.log('Subsequent Render SIDEBAR');
+			// console.log('Subsequent Render SIDEBAR');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setRole(props.session.user.user.role);
 			}
