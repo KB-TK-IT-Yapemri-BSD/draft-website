@@ -7,6 +7,7 @@ import {
 	IdentificationSymbol,
 	UserGroupSymbol,
 	ClipboardDocumentSymbol,
+	MoneySymbol,
 } from '@/components/shared/Icons';
 import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
@@ -98,6 +99,7 @@ export default function ProfileStaffSideBar(props: any) {
 				) : (
 					<div className="hidden"></div>
 				)}
+
 				{role === 'admin' ? (
 					<>
 						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
@@ -119,6 +121,20 @@ export default function ProfileStaffSideBar(props: any) {
 							</Link>
 						</button>
 					</>
+				) : (
+					<div className="hidden"></div>
+				)}
+
+				{role === 'admin' || 'teachers' ? (
+					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+						<Link
+							href="/profile/keuangan"
+							className="inline-flex space-x-2 py-1"
+						>
+							<MoneySymbol />
+							<p>Keuangan</p>
+						</Link>
+					</button>
 				) : (
 					<div className="hidden"></div>
 				)}

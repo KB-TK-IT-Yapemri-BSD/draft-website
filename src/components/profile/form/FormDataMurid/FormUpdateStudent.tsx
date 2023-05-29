@@ -11,7 +11,8 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 	const router = useRouter();
 
 	const [dataUser, setDataUser] = useState();
-	const [dataParents, setDataParents] = useState([]);
+	const [dataFathers, setDataFathers] = useState([]);
+	const [dataMothers, setDataMothers] = useState([]);
 
 	let initialValues = {
 		grade: '',
@@ -39,9 +40,9 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 
 	const [formValues, setFormValues] = useState(initialValues);
 
-	const getDataParents = async () => {
+	const getDataFathers = async () => {
 		try {
-			let res = await fetch(`http://localhost:4000/v1/parents`, {
+			let res = await fetch(`http://localhost:4000/v1/parents/fathers`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -49,7 +50,23 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 			});
 
 			const data = await res.json();
-			setDataParents(data);
+			setDataFathers(data);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const getDataMothers = async () => {
+		try {
+			let res = await fetch(`http://localhost:4000/v1/parents/mothers`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${session?.user.token.accessToken}`,
+				},
+			});
+
+			const data = await res.json();
+			setDataMothers(data);
 		} catch (error) {
 			throw error;
 		}
@@ -97,7 +114,6 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
-
 		setFormValues({ ...formValues, [name]: value });
 	};
 
@@ -149,7 +165,8 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 
 	useEffect(() => {
 		getDataUser();
-		getDataParents();
+		getDataFathers();
+		getDataMothers();
 	}, []);
 
 	return (
@@ -598,8 +615,8 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							  dataUser['father_id']['lastName']
 							: 'NO DATA'}
 					</option>
-					{dataParents
-						? dataParents.map((parents) => (
+					{dataFathers
+						? dataFathers.map((parents) => (
 								<option
 									key={parents['id']}
 									value={parents['id']}
@@ -639,8 +656,8 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							  dataUser['mother_id']['lastName']
 							: 'NO DATA'}
 					</option>
-					{dataParents
-						? dataParents.map((parents) => (
+					{dataMothers
+						? dataMothers.map((parents) => (
 								<option
 									key={parents['id']}
 									value={parents['id']}

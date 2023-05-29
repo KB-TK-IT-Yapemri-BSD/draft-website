@@ -32,7 +32,8 @@ export default function FormAddStudent() {
 		father_id: undefined,
 	};
 
-	const [dataUsers, setDataUsers] = useState([]);
+	const [dataFathers, setDataFathers] = useState([]);
+	const [dataMothers, setDataMothers] = useState([]);
 	const [formValues, setFormValues] = useState(initialValues);
 
 	const handleChange = (e: any) => {
@@ -40,9 +41,9 @@ export default function FormAddStudent() {
 		setFormValues({ ...formValues, [name]: value });
 	};
 
-	const getDataUsers = async () => {
+	const getDataFathers = async () => {
 		try {
-			let res = await fetch(`http://localhost:4000/v1/parents`, {
+			let res = await fetch(`http://localhost:4000/v1/parents/fathers`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -50,7 +51,23 @@ export default function FormAddStudent() {
 			});
 
 			const data = await res.json();
-			setDataUsers(data);
+			setDataFathers(data);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const getDataMothers = async () => {
+		try {
+			let res = await fetch(`http://localhost:4000/v1/parents/mothers`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${session?.user.token.accessToken}`,
+				},
+			});
+
+			const data = await res.json();
+			setDataMothers(data);
 		} catch (error) {
 			throw error;
 		}
@@ -103,7 +120,8 @@ export default function FormAddStudent() {
 	};
 
 	useEffect(() => {
-		getDataUsers();
+		getDataFathers();
+		getDataMothers();
 	}, []);
 
 	return (
@@ -518,13 +536,13 @@ export default function FormAddStudent() {
 						disabled
 						className="hidden"
 					></option>
-					{dataUsers.map((user) => (
+					{dataFathers.map((father) => (
 						<option
-							key={user['id']}
-							value={user['id']}
+							key={father['id']}
+							value={father['id']}
 							className="text-black"
 						>
-							{user['firstName'] + ' ' + user['lastName']}
+							{father['firstName'] + ' ' + father['lastName']}
 						</option>
 					))}
 				</select>
@@ -549,13 +567,13 @@ export default function FormAddStudent() {
 						disabled
 						className="hidden"
 					></option>
-					{dataUsers.map((user) => (
+					{dataMothers.map((mother) => (
 						<option
-							key={user['id']}
-							value={user['id']}
+							key={mother['id']}
+							value={mother['id']}
 							className="text-black"
 						>
-							{user['firstName'] + ' ' + user['lastName']}
+							{mother['firstName'] + ' ' + mother['lastName']}
 						</option>
 					))}
 				</select>
