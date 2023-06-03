@@ -27,7 +27,6 @@ export default function FormAddStaff() {
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
-		console.log(formValues);
 	};
 
 	const handleAddParents = async (formValues: any) => {

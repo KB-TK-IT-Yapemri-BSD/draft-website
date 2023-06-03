@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import TabelDataStaff from '@/components/profile/table/TabelDataStaff';
-import { BigArrowLeft, DocumentPlusSymbol } from '@/components/shared/Icons';
+import HalamanTabelKeuangan from '@/components/profile/pages/HalamanKeuangan/TabelKeuangan';
+import { BigArrowLeft } from '@/components/shared/Icons';
 
 export const metadata = {
 	title: 'KB TK IT Yapemri BSD | Keuangan',
@@ -18,32 +18,7 @@ export default function Keuangan() {
 					<p className="ml-4 text-lg">Kembali</p>
 				</Link>
 
-				<div className="card outline outline-grey outline-[1px] p-8">
-					<div className="w-full divide-y-2">
-						<p className="font-bold text-2xl pt-4">
-							Keuangan Murid KB TK IT Yapemri BSD
-						</p>
-
-						<div className="card outline outline-grey outline-[1px] p-8">
-							<div className="w-full divide-y-2">
-								<p className="font-bold text-2xl pt-4">
-									Tipe Pembayaran
-								</p>
-								<div className="my-6"></div>
-							</div>
-						</div>
-
-						<div className="card outline outline-grey outline-[1px] p-8">
-							<div className="w-full divide-y-2">
-								<p className="font-bold text-2xl pt-4">
-									Daftar Biodata Orang Tua KB TK IT Yapemri
-									BSD
-								</p>
-								<div className="my-6"></div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<HalamanTabelKeuangan />
 			</div>
 		</div>
 	);

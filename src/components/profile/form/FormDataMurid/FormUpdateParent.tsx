@@ -92,7 +92,8 @@ export default function FormUpdateParent({ params }: { params: any }) {
 
 			router.push('/profile/data-murid');
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
+			throw error;
 		}
 	};
 

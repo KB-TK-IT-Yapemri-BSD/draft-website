@@ -1,7 +1,5 @@
 'use client';
 
-import YouTube from 'react-youtube';
-
 function KisahSuksesOrtu() {
 	return (
 		<div className="bg-white">
@@ -9,9 +7,6 @@ function KisahSuksesOrtu() {
 				<h1 className="text-4xl pt-5 text-center font-medium pb-10">
 					Kisah Sukses Orang Tua
 				</h1>
-				<div className="flex justify-center w-full">
-					<YouTube videoId="kvlsOvmgavQ" />
-				</div>
 			</div>
 		</div>
 	);
