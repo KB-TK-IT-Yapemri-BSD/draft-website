@@ -22,6 +22,7 @@ export default function FormAddStudent() {
 		birthOrder: '',
 		numOfSiblings: '',
 		statusInFamily: '',
+		studentStatus: '',
 		height: '',
 		weight: '',
 		bloodType: '',
@@ -88,6 +89,7 @@ export default function FormAddStudent() {
 			birthOrder: formValues.birthOrder,
 			numOfSiblings: formValues.numOfSiblings,
 			statusInFamily: formValues.statusInFamily,
+			studentStatus: true,
 			height: formValues.height,
 			weight: formValues.weight,
 			bloodType: formValues.bloodType,
@@ -135,9 +137,10 @@ export default function FormAddStudent() {
 				</label>
 				<select
 					id="grade"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="grade"
 					onChange={handleChange}
+					required
 				>
 					<option selected disabled hidden></option>
 					<option value="KB" className="text-black">
@@ -165,7 +168,7 @@ export default function FormAddStudent() {
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
 						required
 					/>
@@ -182,7 +185,7 @@ export default function FormAddStudent() {
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
 						required
 					/>
@@ -199,8 +202,9 @@ export default function FormAddStudent() {
 						id="nickname"
 						name="nickname"
 						aria-label="nickname"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 			</div>
@@ -218,8 +222,9 @@ export default function FormAddStudent() {
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 				<div className="py-2 w-full">
@@ -234,8 +239,9 @@ export default function FormAddStudent() {
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 				<div className="py-2 w-full">
@@ -253,18 +259,18 @@ export default function FormAddStudent() {
 							value="true"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
+							className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
 							onChange={handleChange}
+							required
 						/>
 						<label htmlFor="female">Perempuan</label>
-
 						<input
 							type="radio"
 							id="male"
 							value="false"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
+							className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
 							onChange={handleChange}
 						/>
 						<label htmlFor="male">Laki-Laki</label>
@@ -282,9 +288,10 @@ export default function FormAddStudent() {
 					</label>
 					<select
 						id="religion"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="religion"
 						onChange={handleChange}
+						required
 					>
 						<option selected disabled hidden></option>
 						<option value="Islam" className="text-black">
@@ -316,9 +323,10 @@ export default function FormAddStudent() {
 					</label>
 					<select
 						id="citizenship"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="citizenship"
 						onChange={handleChange}
+						required
 					>
 						<option selected disabled hidden></option>
 						<option value="WNI" className="text-black">
@@ -343,8 +351,9 @@ export default function FormAddStudent() {
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
+					required
 				/>
 			</div>
 
@@ -361,8 +370,9 @@ export default function FormAddStudent() {
 						id="birthOrder"
 						name="birthOrder"
 						aria-label="birthOrder"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 
@@ -378,8 +388,9 @@ export default function FormAddStudent() {
 						id="numOfSiblings"
 						name="numOfSiblings"
 						aria-label="numOfSiblings"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 			</div>
@@ -396,8 +407,9 @@ export default function FormAddStudent() {
 					id="statusInFamily"
 					name="statusInFamily"
 					aria-label="statusInFamily"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
+					required
 				/>
 			</div>
 
@@ -414,8 +426,9 @@ export default function FormAddStudent() {
 						id="height"
 						name="height"
 						aria-label="height"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 
@@ -431,8 +444,9 @@ export default function FormAddStudent() {
 						id="weight"
 						name="weight"
 						aria-label="weight"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
+						required
 					/>
 				</div>
 
@@ -445,9 +459,10 @@ export default function FormAddStudent() {
 					</label>
 					<select
 						id="bloodType"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="bloodType"
 						onChange={handleChange}
+						required
 					>
 						<option selected disabled hidden></option>
 						<option value="A" className="text-black">
@@ -478,8 +493,9 @@ export default function FormAddStudent() {
 					id="diseaseHistory"
 					name="diseaseHistory"
 					aria-label="diseaseHistory"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
+					required
 				/>
 			</div>
 
@@ -495,8 +511,9 @@ export default function FormAddStudent() {
 					id="distanceToHome"
 					name="distanceToHome"
 					aria-label="distanceToHome"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
+					required
 				/>
 			</div>
 
@@ -512,8 +529,9 @@ export default function FormAddStudent() {
 					id="language"
 					name="language"
 					aria-label="language"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
+					required
 				/>
 			</div>
 
@@ -526,9 +544,10 @@ export default function FormAddStudent() {
 				</label>
 				<select
 					id="father_id"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="father_id"
 					onChange={handleChange}
+					required
 				>
 					<option
 						defaultValue={undefined}
@@ -557,9 +576,10 @@ export default function FormAddStudent() {
 				</label>
 				<select
 					id="mother_id"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="mother_id"
 					onChange={handleChange}
+					required
 				>
 					<option
 						defaultValue={undefined}

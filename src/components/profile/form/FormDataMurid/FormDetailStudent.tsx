@@ -247,6 +247,24 @@ export default function FormDetailStudent({ params }: { params: any }) {
 					/>
 				</div>
 
+				<div className="py-2">
+					<label
+						htmlFor="studentStatus"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Status Murid
+					</label>
+					<input
+						type="text"
+						id="studentStatus"
+						name="studentStatus"
+						aria-label="studentStatus"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						value={dataUser ? dataUser['studentStatus'] : 'NO DATA'}
+						disabled
+					/>
+				</div>
+
 				<div className="flex flex-col lg:flex-row lg:space-x-6">
 					<div className="py-2 w-full">
 						<label

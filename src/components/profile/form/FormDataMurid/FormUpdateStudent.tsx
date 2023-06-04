@@ -28,6 +28,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 		birthOrder: '',
 		numOfSiblings: '',
 		statusInFamily: '',
+		studentStatus: '',
 		height: '',
 		weight: '',
 		bloodType: '',
@@ -98,6 +99,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				birthOrder: data['birthOrder'],
 				numOfSiblings: data['numOfSiblings'],
 				statusInFamily: data['statusInFamily'],
+				studentStatus: data['studentStatus'],
 				height: data['height'],
 				weight: data['weight'],
 				bloodType: data['bloodType'],
@@ -132,6 +134,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 			birthOrder: formValues.birthOrder,
 			numOfSiblings: formValues.numOfSiblings,
 			statusInFamily: formValues.statusInFamily,
+			studentStatus: formValues.studentStatus,
 			height: formValues.height,
 			weight: formValues.weight,
 			bloodType: formValues.bloodType,
@@ -180,7 +183,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="grade"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="grade"
 					onChange={handleChange}
 				>
@@ -212,7 +215,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.firstName}
 						onChange={handleChange}
 					/>
@@ -229,7 +232,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.lastName}
 						onChange={handleChange}
 					/>
@@ -246,7 +249,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="nickname"
 						name="nickname"
 						aria-label="nickname"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.nickname}
 						onChange={handleChange}
 					/>
@@ -266,7 +269,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.birthplace}
 						onChange={handleChange}
 					/>
@@ -283,7 +286,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						defaultValue={formValues.birthdate.substring(0, 10)}
 						onChange={handleChange}
 					/>
@@ -297,7 +300,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="gender"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="gender"
 						onChange={handleChange}
 					>
@@ -329,7 +332,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="religion"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="religion"
 						defaultValue={formValues.religion}
 						onChange={handleChange}
@@ -366,7 +369,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="citizenship"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="citizenship"
 						defaultValue={formValues.citizenship}
 						onChange={handleChange}
@@ -401,7 +404,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.address}
 					onChange={handleChange}
 				/>
@@ -420,7 +423,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="birthOrder"
 						name="birthOrder"
 						aria-label="birthOrder"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.birthOrder}
 						onChange={handleChange}
 					/>
@@ -437,7 +440,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="numOfSiblings"
 						name="numOfSiblings"
 						aria-label="numOfSiblings"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.numOfSiblings}
 						onChange={handleChange}
 					/>
@@ -456,10 +459,41 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="statusInFamily"
 					name="statusInFamily"
 					aria-label="statusInFamily"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.statusInFamily}
 					onChange={handleChange}
 				/>
+			</div>
+
+			<div className="py-2">
+				<label
+					htmlFor="studentStatus"
+					className="block mb-2 text-sm font-medium read-only"
+				>
+					Status Murid
+				</label>
+				<select
+					id="studentStatus"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					name="studentStatus"
+					defaultValue={formValues.studentStatus}
+					onChange={handleChange}
+				>
+					<option
+						value={formValues.studentStatus}
+						selected
+						disabled
+						hidden
+					>
+						{formValues.studentStatus ? 'Aktif' : 'Tidak Aktif'}
+					</option>
+					<option value="true" className="text-black">
+						Aktif
+					</option>
+					<option value="false" className="text-black">
+						Tidak Aktif
+					</option>
+				</select>
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -475,7 +509,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="height"
 						name="height"
 						aria-label="height"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.height}
 						onChange={handleChange}
 					/>
@@ -493,7 +527,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="weight"
 						name="weight"
 						aria-label="weight"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.weight}
 						onChange={handleChange}
 					/>
@@ -508,7 +542,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="bloodType"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="bloodType"
 						onChange={handleChange}
 					>
@@ -548,7 +582,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="diseaseHistory"
 					name="diseaseHistory"
 					aria-label="diseaseHistory"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.diseaseHistory}
 					onChange={handleChange}
 				/>
@@ -566,7 +600,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="distanceToHome"
 					name="distanceToHome"
 					aria-label="distanceToHome"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.distanceToHome}
 					onChange={handleChange}
 				/>
@@ -584,7 +618,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="language"
 					name="language"
 					aria-label="language"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.language}
 					onChange={handleChange}
 				/>
@@ -599,7 +633,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="father_id"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="father_id"
 					onChange={handleChange}
 				>
@@ -640,7 +674,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="mother_id"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="mother_id"
 					onChange={handleChange}
 				>
