@@ -50,7 +50,9 @@ export default function ProfileOrangTuaSideBar(props: any) {
 	return (
 		<>
 			<div className="flex flex-col text-center py-6 space-y-3 relative">
+				{/** 
 				<span className="mx-auto w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] mb-6 rounded-full bg-secondary" />
+				 */}
 				<p className="font-bold text-xl">
 					{data
 						? data['firstName'] + ' ' + data['lastName']

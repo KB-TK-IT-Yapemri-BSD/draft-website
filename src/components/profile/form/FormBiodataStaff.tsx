@@ -15,12 +15,12 @@ export default function FormBiodataStaff(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render BIO STAFF');
+			// console.log('First Render BIO STAFF');
 		} else {
-			console.log('Subsequent Render BIO STAFF');
+			// console.log('Subsequent Render BIO STAFF');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setData(props.props.props);
 			}
@@ -31,7 +31,7 @@ export default function FormBiodataStaff(props: any) {
 		<div className="divide-y-2">
 			<p className="text-2xl py-4">Biodata Staff</p>
 			<div className="space-y-2">
-				<div className="py-2 pt-4">
+				<div className="py-2 pt-6">
 					<label
 						htmlFor="fullname"
 						className="block mb-2 text-sm font-medium read-only"
@@ -41,8 +41,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="fullname"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['firstName'] + ' ' + data['lastName']
@@ -62,8 +61,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="birth"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['birthplace'] +
@@ -89,13 +87,12 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="gender"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['gender']
-									? 'Perempuan'
-									: 'Laki-Laki'
+									? 'Wanita'
+									: 'Pria'
 								: 'NO DATA'
 						}
 						disabled
@@ -112,8 +109,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="religion"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['religion'] : 'NO DATA'}
 						disabled
 					/>
@@ -129,8 +125,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="citizenship"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['citizenship'] : 'NO DATA'}
 						disabled
 					/>
@@ -146,8 +141,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="education"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['education'] : 'NO DATA'}
 						disabled
 					/>
@@ -163,8 +157,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="address"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['address'] : 'NO DATA'}
 						disabled
 					/>
@@ -180,8 +173,7 @@ export default function FormBiodataStaff(props: any) {
 					<input
 						type="text"
 						id="phone"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['phone'] : 'NO DATA'}
 						disabled
 					/>

@@ -8,10 +8,7 @@ export default function SyaratPendaftaran() {
 			</h1>
 			<ul className="py-4 ml-6 text-justify list-decimal">
 				<li>Usia memenuhi persyaratan masuk KB (3-4 Tahun)</li>
-				<li>
-					Mengisi formulir pendaftaran pada laman
-					https://kb-tk-it-yapemribsd/pendaftaran/form
-				</li>
+				<li>Mengisi formulir pendaftaran pada halaman website</li>
 				<li>
 					Menyerahkan fotocopy (Akta Kelahiran, Kartu Keluarga, KTP
 					Ayah dan Ibu (masing-masing 1 lembar), Pas Photo Calon Siswa
@@ -21,10 +18,7 @@ export default function SyaratPendaftaran() {
 					Pembayaran ditransfer melalui BCA 5235597788 YAYASAN
 					PENDIDIKAN MASYARAKAT REPUBLIK INDONESIA
 				</li>
-				<li>
-					Bukti transfer diupload pada laman
-					https://kb-tk-it-yapemribsd/profil/keuangan/uploadkeuangan
-				</li>
+				<li>Bukti transfer diupload pada halaman website</li>
 			</ul>
 		</div>
 	);

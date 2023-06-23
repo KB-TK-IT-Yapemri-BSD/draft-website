@@ -224,6 +224,13 @@ function NavbarLoggedIn() {
 									</div>
 									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 										<Menu.Item>
+											<Link href="/profile/laporan">
+												<p>Laporan</p>
+											</Link>
+										</Menu.Item>
+									</div>
+									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										<Menu.Item>
 											<button
 												onClick={logout}
 												className="w-full text-left"

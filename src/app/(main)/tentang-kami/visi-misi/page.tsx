@@ -42,12 +42,24 @@ export default function VisiMisi() {
 					</div>
 
 					<div className="w-full py-10 space-y-10 leading-loose">
+						<div className="card">
+							<h1 className="text-xl lg:text-2xl text-center font-semibold bg-primary p-2">
+								Tujuan
+							</h1>
+							<p className="p-2 py-4 text-sm lg:text-lg text-center">
+								Berpartisipasi dalam mencetak generasi muslim
+								yang unggul, guna membentuk masyarakat yang
+								berakhlak, berilmu pengetahuan, kreatif dan
+								berprestasi, mandiri dan kompetitif
+							</p>
+						</div>
+
 						<div className="flex flex-col space-y-10 lg:flex-row lg:space-y-0 lg:space-x-10">
 							<div className="card lg:w-1/2">
 								<h1 className="text-xl lg:text-2xl text-center font-semibold bg-primary p-2">
 									Visi
 								</h1>
-								<p className="p-2 py-4 text-sm lg:text-lg text-justify">
+								<p className="p-2 py-4 text-sm lg:text-lg text-center">
 									Membentuk pembelajar yang akhlakul karimah,
 									berilmu, beretika, berwawasan lingkungan
 									untuk menuju pentas dunia.
@@ -73,30 +85,6 @@ export default function VisiMisi() {
 									</li>
 								</ul>
 							</div>
-						</div>
-						<div className="card">
-							<h1 className="text-xl lg:text-2xl text-center font-semibold bg-primary p-2">
-								Tujuan Sekolah pada Tahun 2017 diharapkan:
-							</h1>
-							<ul className="py-4 ml-6 text-sm lg:text-lg text-justify list-decimal">
-								<li>
-									100% Seluruh Guru/Staf memberikan pelayanan,
-									keteladanan kepada para pengguna jasa dengan
-									pendekatan agama, etika, dan budaya
-								</li>
-								<li>
-									100% Siswa melakukan syariat agama, etika
-									dan budaya baik di Sekolah maupun diluar
-								</li>
-								<li>
-									90% Fasilitas sekolah mendekati Standar
-									Nasional Pendidikan (SNP)
-								</li>
-								<li>
-									80% Siswa berprestasi baik ditingkat
-									regional, nasional maupun Global
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>

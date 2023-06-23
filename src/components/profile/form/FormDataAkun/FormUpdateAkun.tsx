@@ -21,6 +21,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 		role: '',
 		biodata_id: '',
 		biodataType: '',
+		picture: '',
 	};
 
 	const [formValues, setFormValues] = useState(initialValues);
@@ -41,6 +42,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 				role: data['role'],
 				biodata_id: data['biodata_id'],
 				biodataType: data['biodataType'],
+				picture: data['picture'],
 			});
 
 			if (data.biodataType === 'Student') {
@@ -137,11 +139,21 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 	};
 
 	const handleUpdateUsers = async (formValues: any) => {
+		const imageUpload = await cloudinary.uploader.upload(
+			formValues.picture,
+			{
+				upload_preset: 'yapemri',
+				folder: 'yapemri/yapemri_user',
+			}
+		);
+		const newPath = imageUpload.secure_url;
+
 		const dataForm = {
 			email: formValues.email,
 			role: formValues.role,
 			biodata_id: formValues?.biodata_id,
 			biodataType: formValues.biodataType,
+			picture: newPath,
 		} as any;
 
 		try {

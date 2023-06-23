@@ -45,7 +45,7 @@ export default function StrukturOrganisasi() {
 					<div className="w-full py-10">
 						<div className="p-4 lg:p-10 border-dashed border-2 border-grey justify-center">
 							<Image
-								src="/tentang-kami/strukturOrganisasi.jpg"
+								src="/tentang-kami/strukturOrganisasi.png"
 								width={2000}
 								height={1000}
 								alt="Struktur Organisasi KB TK IT Yapemri BSD"

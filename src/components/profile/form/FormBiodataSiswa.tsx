@@ -15,12 +15,12 @@ export default function FormBiodataSiswa(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render BIO SISWA');
+			// console.log('First Render BIO SISWA');
 		} else {
-			console.log('Subsequent Render BIO SISWA');
+			// console.log('Subsequent Render BIO SISWA');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setData(props.props.props);
 			}
@@ -31,7 +31,7 @@ export default function FormBiodataSiswa(props: any) {
 		<div className="divide-y-2">
 			<p className="text-2xl py-4">Biodata Siswa</p>
 			<div className="space-y-2">
-				<div className="flex flex-col lg:flex-row lg:space-x-6 pt-4">
+				<div className="flex flex-col lg:flex-row lg:space-x-6 pt-6">
 					<div className="py-2 w-full">
 						<label
 							htmlFor="fullname"
@@ -41,9 +41,8 @@ export default function FormBiodataSiswa(props: any) {
 						</label>
 						<input
 							type="text"
-							id="disabled-input-2"
-							aria-label="disabled input 2"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							id="fullname"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								data
 									? data['firstName'] + ' ' + data['lastName']
@@ -62,9 +61,8 @@ export default function FormBiodataSiswa(props: any) {
 						</label>
 						<input
 							type="text"
-							id="disabled-input-2"
-							aria-label="disabled input 2"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							id="nickname"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={data ? data['nickname'] : 'NO DATA'}
 							disabled
 						/>
@@ -80,9 +78,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="birth"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['birthplace'] +
@@ -107,9 +104,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="gender"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['gender']
@@ -130,9 +126,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="religion"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['religion'] : 'NO DATA'}
 						disabled
 					/>
@@ -147,9 +142,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="citizenship"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['citizenship'] : 'NO DATA'}
 						disabled
 					/>
@@ -164,9 +158,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="birthOrder"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['birthOrder'] : 'NO DATA'}
 						disabled
 					/>
@@ -181,9 +174,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="numOfSiblings"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['numOfSiblings'] : 'NO DATA'}
 						disabled
 					/>
@@ -197,9 +189,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="statusInFamily"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['statusInFamily'] : 'NO DATA'}
 						disabled
 					/>
@@ -215,8 +206,7 @@ export default function FormBiodataSiswa(props: any) {
 						</label>
 						<input
 							type="text"
-							id="disabled-input-2"
-							aria-label="disabled input 2"
+							id="height"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 							value={data ? data['height'] + ' cm' : 'NO DATA'}
 							disabled
@@ -231,8 +221,7 @@ export default function FormBiodataSiswa(props: any) {
 						</label>
 						<input
 							type="text"
-							id="disabled-input-2"
-							aria-label="disabled input 2"
+							id="weight"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 							value={data ? data['weight	'] + ' kg' : 'NO DATA'}
 							disabled
@@ -249,8 +238,7 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
+						id="bloodType"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						value={data ? data['bloodType'] : 'NO DATA'}
 						disabled
@@ -259,17 +247,16 @@ export default function FormBiodataSiswa(props: any) {
 
 				<div className="py-2">
 					<label
-						htmlFor="sicknessHistory"
+						htmlFor="diseaseHistory"
 						className="block mb-2 text-sm font-medium read-only"
 					>
 						Penyakit yang Pernah Diderita
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
+						id="diseaseHistory"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value={data ? data['sicknessHistory'] : 'NO DATA'}
+						value={data ? data['diseaseHistory'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
@@ -283,9 +270,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="distanceToHome"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['distanceToHome'] : 'NO DATA'}
 						disabled
 					/>
@@ -300,9 +286,8 @@ export default function FormBiodataSiswa(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="language"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['language'] : 'NO DATA'}
 						disabled
 					/>

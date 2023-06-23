@@ -46,101 +46,141 @@ export default function FasilitasSekolah() {
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image
-									src="/tentang-kami/rakBuku.JPEG"
-									alt="Kegiatan Harian"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687267867/yapemri-photos/Example/IMG_000000_000000_lxolbb.jpg"
+									alt="Ruang Kelas"
 									fill
 									style={{ objectFit: 'cover' }}
 								></Image>
 							</div>
 							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
-								Kegiatan Harian
+								Ruang Kelas
 							</h1>
-							<p className="p-2 py-4 text-justify text-sm lg:text-md">
-								Lorem ipsum dolor, sit amet consectetur
-								adipisicing elit. Dolore consequuntur nemo,
-								quibusdam enim iusto ipsum magni quos
-								reprehenderit illo distinctio.
-							</p>
 						</div>
 
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image
-									src="/tentang-kami/rakBuku.JPEG"
-									alt="Kegiatan Outbound"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268059/yapemri-photos/Example/Ruang-TU-2-1024x683_btkedd.jpg"
+									alt="Ruang Administrasi"
 									fill
 									style={{ objectFit: 'cover' }}
 								></Image>
 							</div>
 							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
-								Kegiatan Outbound
+								Ruang Administrasi
 							</h1>
-							<p className="p-2 py-4 text-justify text-sm lg:text-md">
-								Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Ipsum, nemo ipsa iste
-								exercitationem ipsam cupiditate nihil facere
-								assumenda saepe minima.
-							</p>
 						</div>
 
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image
-									src="/tentang-kami/rakBuku.JPEG"
-									alt="Kegiatan Renang"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268171/yapemri-photos/Example/RUANG-TATA-USAHA_kjnjv0.jpg"
+									alt="Ruang Guru"
 									fill
 									style={{ objectFit: 'cover' }}
 								></Image>
 							</div>
 							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
-								Kegiatan Renang
+								Ruang Guru
 							</h1>
-							<p className="p-2 py-4 text-justify text-sm lg:text-md">
-								Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Distinctio earum deleniti
-								explicabo iusto quos harum eligendi minima,
-								laborum quis quaerat.
-							</p>
 						</div>
 
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image
-									src="/tentang-kami/rakBuku.JPEG"
-									alt="Kunjungan ke Branchsto"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268246/yapemri-photos/Example/IMG_20211021_112043-scaled_nfc2fq.jpg"
+									alt="Ruang Kantor"
 									fill
 									style={{ objectFit: 'cover' }}
 								></Image>
 							</div>
 							<h1 className="text-lg text-center font-semibold bg-primary p-2">
-								Kunjungan ke Branchsto
+								Ruang Kantor
 							</h1>
-							<p className="p-2 py-4 text-justify text-sm lg:text-md">
-								Lorem ipsum, dolor sit amet consectetur
-								adipisicing elit. Corrupti dolorum vero, dolor
-								ut hic totam architecto deleniti culpa? Ex,
-								praesentium?
-							</p>
 						</div>
 
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image
-									src="/tentang-kami/musholla.JPEG"
-									alt="Kunjungan ke Masjid Al-Aqsha"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268332/yapemri-photos/Example/toilet-sekolah_20180824_203722_eoliih.jpg"
+									alt="Kamar Mandi"
 									fill
 									style={{ objectFit: 'cover' }}
 								></Image>
 							</div>
 							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
-								Kunjungan ke Masjid Al-Aqsha
+								Kamar Mandi
 							</h1>
-							<p className="p-2 py-4 text-justify text-sm lg:text-md">
-								Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Quo, perspiciatis? Soluta,
-								veniam at tenetur blanditiis hic voluptatibus
-								dolorem illo consequuntur!
-							</p>
+						</div>
+
+						<div className="card w-80 mx-4 mb-10">
+							<div className="py-20 bg-cover relative">
+								<Image
+									src="/tentang-kami/rakBuku.JPEG"
+									alt="Aula Bermain Anak"
+									fill
+									style={{ objectFit: 'cover' }}
+								></Image>
+							</div>
+							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
+								Aula Bermain Anak
+							</h1>
+						</div>
+
+						<div className="card w-80 mx-4 mb-10">
+							<div className="py-20 bg-cover relative">
+								<Image
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687267753/yapemri-photos/Example/2019-01-15-10-40-42_pgx8pr.jpg"
+									alt="Rak Buku"
+									fill
+									style={{ objectFit: 'cover' }}
+								></Image>
+							</div>
+							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
+								Rak Buku
+							</h1>
+						</div>
+
+						<div className="card w-80 mx-4 mb-10">
+							<div className="py-20 bg-cover relative">
+								<Image
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268410/yapemri-photos/Example/IMG_20220215_085020-scaled_d990o3.jpg"
+									alt="Dapur"
+									fill
+									style={{ objectFit: 'cover' }}
+								></Image>
+							</div>
+							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
+								Dapur
+							</h1>
+						</div>
+
+						<div className="card w-80 mx-4 mb-10">
+							<div className="py-20 bg-cover relative">
+								<Image
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268485/yapemri-photos/Example/fariz3501-588c40dacdd24f38e0d833e8db46fb6a_ydiabd.jpg"
+									alt="Mainan Outdoor"
+									fill
+									style={{ objectFit: 'cover' }}
+								></Image>
+							</div>
+							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
+								Mainan Outdoor
+							</h1>
+						</div>
+
+						<div className="card w-80 mx-4 mb-10">
+							<div className="py-20 bg-cover relative">
+								<Image
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687268576/yapemri-photos/Example/ludoteca-abierta-logrono1_ic0dzo.jpg"
+									alt="Mainan Indoor"
+									fill
+									style={{ objectFit: 'cover' }}
+								></Image>
+							</div>
+							<h1 className="text-md lg:text-lg text-center font-semibold bg-primary p-2">
+								Mainan Indoor
+							</h1>
 						</div>
 					</div>
 				</div>

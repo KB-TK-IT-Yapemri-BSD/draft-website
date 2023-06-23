@@ -8,6 +8,7 @@ import {
 	UserGroupSymbol,
 	ClipboardDocumentSymbol,
 	MoneySymbol,
+	FolderOpenSymbol,
 } from '@/components/shared/Icons';
 import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
@@ -54,7 +55,9 @@ export default function ProfileStaffSideBar(props: any) {
 	return (
 		<>
 			<div className="flex flex-col text-center py-6 space-y-3 relative">
+				{/**
 				<span className="mx-auto w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] mb-6 rounded-full bg-secondary" />
+				 */}
 				<p className="font-bold text-xl">
 					{data
 						? data['firstName'] + ' ' + data['lastName']
@@ -62,9 +65,9 @@ export default function ProfileStaffSideBar(props: any) {
 				</p>
 				<p className="text-md">{type ? type : 'NO DATA '}</p>
 			</div>
-			<div className="flex flex-col text-center py-6 space-y-2">
+			<div className="flex flex-col py-6 space-y-2">
 				{/** Universal */}
-				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 					<Link
 						href="/profile/data-diri"
 						className="inline-flex space-x-2 py-1"
@@ -77,7 +80,7 @@ export default function ProfileStaffSideBar(props: any) {
 				{/** Limited */}
 				{role === 'admin' || 'teachers' ? (
 					<>
-						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 							<Link
 								href="/profile/form-pendaftar"
 								className="inline-flex space-x-2 py-1"
@@ -86,7 +89,7 @@ export default function ProfileStaffSideBar(props: any) {
 								<p>Form Pendaftar</p>
 							</Link>
 						</button>
-						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 							<Link
 								href="/profile/data-murid"
 								className="inline-flex space-x-2 py-1"
@@ -102,7 +105,7 @@ export default function ProfileStaffSideBar(props: any) {
 
 				{role === 'admin' ? (
 					<>
-						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 							<Link
 								href="/profile/data-staff"
 								className="inline-flex space-x-2 py-1"
@@ -111,7 +114,7 @@ export default function ProfileStaffSideBar(props: any) {
 								<p>Data Staff</p>
 							</Link>
 						</button>
-						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 							<Link
 								href="/profile/data-akun"
 								className="inline-flex space-x-2 py-1"
@@ -126,7 +129,7 @@ export default function ProfileStaffSideBar(props: any) {
 				)}
 
 				{role === 'admin' || 'teachers' ? (
-					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md px-2 py-2">
+					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 						<Link
 							href="/profile/keuangan"
 							className="inline-flex space-x-2 py-1"
@@ -139,9 +142,23 @@ export default function ProfileStaffSideBar(props: any) {
 					<div className="hidden"></div>
 				)}
 
+				{role === 'admin' || 'principal' ? (
+					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+						<Link
+							href="/profile/laporan"
+							className="inline-flex space-x-2 py-1"
+						>
+							<FolderOpenSymbol />
+							<p>Laporan</p>
+						</Link>
+					</button>
+				) : (
+					<div className="hidden"></div>
+				)}
+
 				<button
 					onClick={logout}
-					className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md p-2"
+					className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md  text-left px-2 py-2"
 				>
 					<div className="inline-flex space-x-2 py-1">
 						<LogoutSymbol />

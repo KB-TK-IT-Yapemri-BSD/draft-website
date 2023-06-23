@@ -20,12 +20,12 @@ export default function FormDataDiri(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render FORM DATA DIRI');
+			// console.log('First Render FORM DATA DIRI');
 		} else {
-			console.log('Subsequent Render FORM DATA DIRI');
+			// console.log('Subsequent Render FORM DATA DIRI');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setRole(props.session.user.user.role);
 			}

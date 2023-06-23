@@ -150,44 +150,28 @@ export default function Program() {
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259515/yapemri-photos/Kunjungan%20ke%20Masjid%20Al-Aqsha/Copy_of_IMG_2016_azjsys.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687260071/yapemri-photos/Kegiatan%20Outbound/Copy_of_IMG_9313_vsyyrz.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-									alt=""
-								></img>
-							</div>
-						</div>
-						<div className="grid gap-4">
-							<div>
-								<img
-									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259515/yapemri-photos/Kunjungan%20ke%20Masjid%20Al-Aqsha/Copy_of_IMG_2071_e9j9lr.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-									alt=""
-								></img>
-							</div>
-							<div>
-								<img
-									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259515/yapemri-photos/Kunjungan%20ke%20Masjid%20Al-Aqsha/Copy_of_IMG_2006_mvyvtn.jpg"
 									alt=""
 								></img>
 							</div>
@@ -196,21 +180,35 @@ export default function Program() {
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259852/yapemri-photos/Kunjungan%20ke%20Branchsto/Copy_of_IMG_8991_ytvc3q.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687260071/yapemri-photos/Kegiatan%20Outbound/Copy_of_IMG_9326_u7lnhr.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259517/yapemri-photos/Kunjungan%20ke%20Masjid%20Al-Aqsha/Copy_of_IMG_2068_jabgkg.jpg"
+									alt=""
+								></img>
+							</div>
+							<div>
+								<img
+									className="h-auto max-w-full rounded-lg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259851/yapemri-photos/Kunjungan%20ke%20Branchsto/Copy_of_IMG_8967_nxiegm.jpg"
+									alt=""
+								></img>
+							</div>
+							<div>
+								<img
+									className="h-auto max-w-full rounded-lg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687260070/yapemri-photos/Kegiatan%20Outbound/Copy_of_IMG_9268_burfgk.jpg"
 									alt=""
 								></img>
 							</div>
@@ -219,21 +217,51 @@ export default function Program() {
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259966/yapemri-photos/Kegiatan%20Harian/Copy_of_IMG_9005_wj8v4g.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259965/yapemri-photos/Kegiatan%20Harian/Copy_of_IMG_8955_vj25qv.jpg"
 									alt=""
 								></img>
 							</div>
 							<div>
 								<img
 									className="h-auto max-w-full rounded-lg"
-									src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259965/yapemri-photos/Kegiatan%20Harian/Copy_of_IMG_8965_uzekqc.jpg"
+									alt=""
+								></img>
+							</div>
+						</div>
+						<div className="grid gap-4">
+							<div>
+								<img
+									className="h-auto max-w-full rounded-lg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259515/yapemri-photos/Kunjungan%20ke%20Masjid%20Al-Aqsha/Copy_of_IMG_2034_clf7px.jpg"
+									alt=""
+								></img>
+							</div>
+							<div>
+								<img
+									className="h-auto max-w-full rounded-lg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687260698/yapemri-photos/Kegiatan%20Renang/Copy_of_IMG_2252_ywbvvq.jpg"
+									alt=""
+								></img>
+							</div>
+							<div>
+								<img
+									className="h-auto max-w-full rounded-lg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687259515/yapemri-photos/Kunjungan%20ke%20Masjid%20Al-Aqsha/Copy_of_IMG_1994_gjwp5k.jpg"
+									alt=""
+								></img>
+							</div>
+							<div>
+								<img
+									className="h-auto max-w-full rounded-lg"
+									src="https://res.cloudinary.com/aurellieandra/image/upload/v1687260699/yapemri-photos/Kegiatan%20Renang/Copy_of_IMG_2270_ozk2q5.jpg"
 									alt=""
 								></img>
 							</div>

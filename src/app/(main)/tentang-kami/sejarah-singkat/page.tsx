@@ -43,67 +43,41 @@ export default function SejarahSingkat() {
 
 					<div className="w-full py-10">
 						<div className="text-justify p-4 text-sm lg:p-10 leading-relaxed border-dashed border-2 border-grey">
-							<p className="py-2">
-								SMP Negeri 1 CIbadak didirikan pada tahun 1965
-								berdasarkan Surat Keputusan Menteri P & K
-								Republik Indonesia. Pada mulanya, Sekolah
-								didirikan di daerah kebon pala yang sekarang
-								menjadi Pasar & Terminal cibadak. Berangkat dari
-								antusias dan kepedulian masyarakat terhadap
-								dunia pendidikan, maka sekolah ini resmi berdiri
-								dengan nama SMP Cibadak.
+							<p className="py-2 text-md">
+								TK IT YAPEMRI BSD berdiri dibawah Naungan
+								Yayasan Pendidikan Masyarakat Republik Indonesia
+								atau YAPEMRI BSD yang dipimpin Oleh Bapak.
+								Wendhyharto Kusumaatmadja yang memberikan mandat
+								kepada Ibu Iim Rahmani, S.Pd selaku pimpinan
+								lembaga untuk mengelola keberlangsungan
+								pelayananan Pendidikan yang lebih baik lagi.
 							</p>
-							<p className="py-2">
-								SMP Negeri 1 Cibadak sebagai bagian dari dunia
-								pendidikan yang berada di Kecamatan Cibadak
-								mempunyai peranan yang sangat penting dalam
-								meningkatkan sumber daya manusia Indonesia
-								seutuhnya pada anak usia sekolah khususnya pada
-								jenjang Sekolah menengah pertama, yang berada di
-								Kabupaten Sukabumi.
+							<p className="py-2 text-md">
+								Yayasan Pendidikan YAPEMRI sendiri sudah
+								berkecimpung di dunia Pendidikan dari Tahun
+								1980an dan memberikan pelayanan Pendidkan dari
+								jenjang TK s.d SMK di daerah Depok untuk
+								selanjutnya Yapemri melebarkan sayapnya untuk
+								menambah dan memperluas layanan Pendidikan untuk
+								masyarakat melalui didirikannya sekolah yang
+								diberi nama TK IT. YAPEMRI BSD yang diresmikan
+								oleh ketua Yayasan YAPEMRI Depok Ibu Hj. Tatty
+								Rochaety pada 07 November 2020.
 							</p>
-							<p className="py-2">
-								Kemajuan Ilmu Pengetahuan dan Teknologi yang
-								semakin cenderung membuat orang semakin sibuk
-								dalam mengupayakan urusan duniawi. Mereka
-								seolah-olah melupakan kebutuhan manusia yang
-								paling utama yaitu kebutuhan akan pendidikan
-								akhlak yang akan menjamin kebahagiaan dunia
-								maupun akhirat. Hal ini tidak hanya terjadi di
-								kota-kota besar saja, bahkan dampaknya ke
-								daerah-daerah pedesaan sudah semakin terasa.
-								Oleh karena itu. SMP Negeri 1 Cibadak merupakan
-								salah satu pilihan bagi masyarakat untuk
-								menyekolahkan putra-putrinya setelah tamat
-								SD/MI, yang dapat memberikan Ilmu Pengetahuan
-								pada peserta didiknya.
+							<p className="py-2 text-md">
+								Berdasarkan data tersebut di atas, dan dengan
+								maksud ikut serta menyelenggarakan Pendidikan
+								anak usia dini dalam rangka ikut membangun masa
+								depan anak-anak menjadi lebih baik. TK IT
+								YAPEMRI BSD terletak di Ruko Centro Havana MA.
+								20 De Latinos Rawa Buntu Kecamatan Serpong.
 							</p>
-							<p className="py-2">
-								SMP Negeri 1 Cibadak, keberadaannya sangat
-								diperlukan oleh masyarakat di lingkungan
-								Kecamatan Cibadak, khususnya dan umumnya oleh
-								masyarakat sekitar. Mereka berharap dengan
-								menyekolahkan anaknya di SMP, sedikit banyak
-								dapat membantu peran orang tua dalam
-								menyelamatkan putra-putrinya dari bahaya yang di
-								akibatkan oleh dampak negatif kemajuan Ilmu
-								pengetahuan dan teknologi serta pengaruh
-								perkembangan zaman dan dari pergaulan lingkungan
-								yang negatif.
-							</p>
-							<p className="py-2">
-								Kegiatan Belajar Mengajar yang diselenggarakan
-								keberadaanya sangat membantu masyarakat dalam
-								memenuhi tuntutan pengetahuan melalui jalur
-								bidang pendidikan terutama pendidikan agama
-								Islam, sehingga segenggam harapan terlahir dari
-								hati nurani yang sangat dalam yang di motivasi
-								oleh semangat belajar siswa/i serta simpati
-								masyarakat sekitar, walau dalam kondisi ekonomi
-								yang tak menentu, namun mereka tetap berupaya
-								untuk dapat ke luar dari kebodohan dan
-								keterbelakangan, guna mengejar ketinggalan
-								langkah saudaranya yang jauh lebih maju.
+							<p className="py-2 text-md">
+								Dengan berdirinya TK IT YAPEMRI BSD ini kami
+								berharap dapat memberikan pembekalan pengetahuan
+								dasar kepada anak-anak usia dini melalui
+								pembentukan karakter, kematangan emosional
+								kearifan lokal dan wawasan global.
 							</p>
 						</div>
 					</div>
