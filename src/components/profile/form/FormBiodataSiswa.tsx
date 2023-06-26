@@ -223,7 +223,7 @@ export default function FormBiodataSiswa(props: any) {
 							type="text"
 							id="weight"
 							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-							value={data ? data['weight	'] + ' kg' : 'NO DATA'}
+							value={data ? data['weight'] + ' kg' : 'NO DATA'}
 							disabled
 						/>
 					</div>

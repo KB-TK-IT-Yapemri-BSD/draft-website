@@ -1,5 +1,4 @@
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -209,11 +208,12 @@ export default function FormLaporan(props: any) {
 							htmlFor="type"
 							className="block mb-2 text-sm font-medium read-only"
 						>
-							Data yang Diambil
+							Data yang Diambil{' '}
+							<span className="text-red-danger">*</span>
 						</label>
 						<select
 							id="type"
-							className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+							className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 							name="type"
 							onChange={(e) => setType(e.target.value)}
 							required
@@ -256,7 +256,7 @@ export default function FormLaporan(props: any) {
 								id="start"
 								name="start"
 								aria-label="start"
-								className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+								className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 								onChange={(e) => setStart(e.target.value)}
 							/>
 						</div>
@@ -272,7 +272,7 @@ export default function FormLaporan(props: any) {
 								id="end"
 								name="end"
 								aria-label="end"
-								className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+								className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 								onChange={(e) => setEnd(e.target.value)}
 							/>
 						</div>
@@ -281,11 +281,12 @@ export default function FormLaporan(props: any) {
 
 				<button
 					type="submit"
-					className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-6 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
+					className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-6 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-20 py-2.5 text-center"
 					onSubmit={handleSubmit}
 				>
 					Unduh
 				</button>
+
 				<ToastContainer
 					style={{ width: '500px' }}
 					position="bottom-center"

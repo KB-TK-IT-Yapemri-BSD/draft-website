@@ -1,8 +1,12 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { parentSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormAddParent() {
 	const { data: session } = useSession();
@@ -23,11 +27,45 @@ export default function FormAddParent() {
 		education: '',
 	};
 
+	type Errors = {
+		status?: string;
+		firstName?: string;
+		lastName?: string;
+		birthplace?: string;
+		birthdate?: Date;
+		gender?: boolean;
+		religion?: string;
+		citizenship?: string;
+		address?: string;
+		phone?: string;
+		occupation?: string;
+		education?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [formValues, setFormValues] = useState(initialValues);
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
 	};
 
 	const handleAddParents = async (formValues: any) => {
@@ -47,7 +85,9 @@ export default function FormAddParent() {
 		} as any;
 
 		try {
-			await fetch('http://localhost:4000/v1/parents', {
+			parentSchema.parse(dataForm);
+
+			const results = await fetch('http://localhost:4000/v1/parents', {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -56,9 +96,25 @@ export default function FormAddParent() {
 				body: JSON.stringify(dataForm),
 			});
 
-			router.push('/profile/data-murid');
-		} catch (error) {
-			console.log(error);
+			if (results?.status === 401) {
+				toast.error(
+					'Data Orang Tua gagal ditambah, silahkan coba lagi!',
+					{
+						position: 'top-center',
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: 'colored',
+					}
+				);
+			} else if (results?.status === 201) {
+				router.push('/profile/data-murid');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -69,22 +125,27 @@ export default function FormAddParent() {
 
 	return (
 		<form method="POST" onSubmit={handleSubmit}>
-			<div className="py-2 pt-4">
+			<div className="py-2 pt-6">
 				<label
 					htmlFor="status"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Status
+					Status <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="status"
 					name="status"
 					aria-label="status"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
-					required
 				/>
+				{errors.status && (
+					<span className="text-red-danger text-sm">
+						{errors.status ? '* ' + errors.status : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -93,34 +154,44 @@ export default function FormAddParent() {
 						htmlFor="firstName"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						First Name
+						First Name <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.firstName && (
+						<span className="text-red-danger text-sm">
+							{errors.firstName ? '* ' + errors.firstName : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="lastName"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Last Name
+						Last Name <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.lastName && (
+						<span className="text-red-danger text-sm">
+							{errors.lastName ? '* ' + errors.lastName : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -130,41 +201,52 @@ export default function FormAddParent() {
 						htmlFor="birthplace"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Tempat Lahir
+						Tempat Lahir <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
 					/>
+					{errors.birthplace && (
+						<span className="text-red-danger text-sm">
+							{errors.birthplace ? '* ' + errors.birthplace : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="birthdate"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Tanggal Lahir
+						Tanggal Lahir <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="date"
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 						onChange={handleChange}
 					/>
+					{errors.birthdate && (
+						<span className="text-red-danger text-sm">
+							{errors.birthdate ? '* ' + errors.birthdate : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="gender"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Jenis Kelamin
+						Jenis Kelamin <span className="text-red-danger">*</span>
 					</label>
-
 					<div className="inline-flex space-x-3 py-2">
 						<input
 							type="radio"
@@ -172,7 +254,7 @@ export default function FormAddParent() {
 							value="true"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
+							className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
 							onChange={handleChange}
 						/>
 						<label htmlFor="female">Wanita</label>
@@ -183,11 +265,18 @@ export default function FormAddParent() {
 							value="false"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
+							className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
 							onChange={handleChange}
 						/>
 						<label htmlFor="male">Pria</label>
 					</div>
+					{errors.gender && (
+						<span className="text-red-danger text-sm">
+							<br />
+							{errors.gender ? '* ' + errors.gender : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -197,11 +286,11 @@ export default function FormAddParent() {
 						htmlFor="religion"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Agama
+						Agama <span className="text-red-danger">*</span>
 					</label>
 					<select
 						id="religion"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="religion"
 						onChange={handleChange}
 					>
@@ -225,17 +314,25 @@ export default function FormAddParent() {
 							Konghucu
 						</option>
 					</select>
+					{errors.religion && (
+						<span className="text-red-danger text-sm">
+							{errors.religion ? '* ' + errors.religion : ''}
+							<br />
+						</span>
+					)}
 				</div>
+
 				<div className="py-2 w-1/2">
 					<label
 						htmlFor="citizenship"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Kewarganegaraan
+						Kewarganegaraan{' '}
+						<span className="text-red-danger">*</span>
 					</label>
 					<select
 						id="citizenship"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="citizenship"
 						onChange={handleChange}
 					>
@@ -247,6 +344,14 @@ export default function FormAddParent() {
 							WNA
 						</option>
 					</select>
+					{errors.citizenship && (
+						<span className="text-red-danger text-sm">
+							{errors.citizenship
+								? '* ' + errors.citizenship
+								: ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -255,16 +360,22 @@ export default function FormAddParent() {
 					htmlFor="address"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Alamat
+					Alamat <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
 				/>
+				{errors.address && (
+					<span className="text-red-danger text-sm">
+						{errors.address ? '* ' + errors.address : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -272,16 +383,22 @@ export default function FormAddParent() {
 					htmlFor="phone"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					No. Telp
+					No. Telephone <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="phone"
 					name="phone"
 					aria-label="phone"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
 				/>
+				{errors.phone && (
+					<span className="text-red-danger text-sm">
+						{errors.phone ? '* ' + errors.phone : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -289,16 +406,22 @@ export default function FormAddParent() {
 					htmlFor="occupation"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Pekerjaan
+					Pekerjaan <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="occupation"
 					name="occupation"
 					aria-label="occupation"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
 				/>
+				{errors.occupation && (
+					<span className="text-red-danger text-sm">
+						{errors.occupation ? '* ' + errors.occupation : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -306,16 +429,22 @@ export default function FormAddParent() {
 					htmlFor="education"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Pendidikan
+					Pendidikan <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="education"
 					name="education"
 					aria-label="education"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
 					onChange={handleChange}
 				/>
+				{errors.education && (
+					<span className="text-red-danger text-sm">
+						{errors.education ? '* ' + errors.education : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<button
@@ -324,6 +453,20 @@ export default function FormAddParent() {
 			>
 				Tambah
 			</button>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

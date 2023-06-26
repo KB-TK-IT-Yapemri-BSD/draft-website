@@ -42,7 +42,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						id="type_id"
 						name="type_id"
 						aria-label="type_id"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						value={
 							dataPayment
 								? dataPayment['user_id']['firstName'] +
@@ -66,7 +66,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						id="type_id"
 						name="type_id"
 						aria-label="type_id"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						value={
 							dataPayment
 								? dataPayment['type_id']['type']
@@ -89,7 +89,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 							id="amount"
 							name="amount"
 							aria-label="amount"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 							placeholder={
 								dataPayment ? dataPayment['amount'] : 'NO DATA'
 							}
@@ -108,7 +108,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 							id="payment_date"
 							name="payment_date"
 							aria-label="payment_date"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 							placeholder={
 								dataPayment
 									? dataPayment['payment_date']
@@ -136,7 +136,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 							id="deadline"
 							name="deadline"
 							aria-label="deadline"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 							placeholder={
 								dataPayment
 									? new Date(
@@ -157,7 +157,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						</label>
 						<input
 							id="status"
-							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 							name="status"
 							placeholder={
 								dataPayment
@@ -179,7 +179,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						</label>
 						<input
 							id="isOverdue"
-							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 							name="isOverdue"
 							placeholder={
 								dataPayment
@@ -207,7 +207,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						id="receipt"
 						name="receipt"
 						aria-label="receipt"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						value={
 							dataPayment
 								? dataPayment['receipt']
@@ -230,7 +230,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						id="reason"
 						name="reason"
 						aria-label="reason"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							dataPayment
 								? dataPayment['reason']
@@ -244,17 +244,41 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 
 				<div className="py-2">
 					<label
+						htmlFor="modified"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Telah Diubah Orang Tua
+					</label>
+					<input
+						type="text"
+						id="modified"
+						name="modified"
+						aria-label="modified"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						placeholder={
+							dataPayment
+								? dataPayment['modified']
+									? 'Sudah Diubah'
+									: 'Belum Diubah '
+								: 'NO DATA'
+						}
+						disabled
+					/>
+				</div>
+
+				<div className="py-2">
+					<label
 						htmlFor="updatedAt"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Terakhir Diubah
+						Terakhir Diubah Admin
 					</label>
 					<input
 						type="text"
 						id="updatedAt"
 						name="updatedAt"
 						aria-label="updatedAt"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							dataPayment
 								? new Date(

@@ -101,9 +101,11 @@ export default function TabelDataAkun() {
 						<th scope="col" className="px-6 py-3">
 							Email
 						</th>
+						{/**
 						<th scope="col" className="px-6 py-3">
 							Biodata ID
 						</th>
+						 */}
 						<th scope="col" className="px-6 py-3">
 							Biodata Type
 						</th>
@@ -135,11 +137,13 @@ export default function TabelDataAkun() {
 									<td className="px-6 py-4">
 										{user ? user['email'] : 'NO DATA'}
 									</td>
+									{/**
 									<td className="px-6 py-4">
 										{user['biodata_id']
 											? user['biodata_id']['_id']
 											: 'NO DATA'}
 									</td>
+									 */}
 									<td className="px-6 py-4">
 										{user['biodataType']
 											? user['biodataType']
@@ -256,6 +260,7 @@ export default function TabelDataAkun() {
 						: 'NO DATA'}
 				</tbody>
 			</table>
+
 			<ToastContainer
 				style={{ width: '500px' }}
 				position="bottom-center"

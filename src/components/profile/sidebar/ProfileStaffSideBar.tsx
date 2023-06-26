@@ -65,6 +65,7 @@ export default function ProfileStaffSideBar(props: any) {
 				</p>
 				<p className="text-md">{type ? type : 'NO DATA '}</p>
 			</div>
+
 			<div className="flex flex-col py-6 space-y-2">
 				{/** Universal */}
 				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">

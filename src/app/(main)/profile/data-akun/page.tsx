@@ -23,6 +23,7 @@ export default function DataAkun() {
 						<p className="font-bold text-2xl pt-4">
 							Daftar Akun Website KB TK IT Yapemri BSD
 						</p>
+
 						<div className="my-6">
 							<div className="text-right space-x-4">
 								<Link href="/profile/data-akun/add/student">
@@ -44,6 +45,7 @@ export default function DataAkun() {
 									</button>
 								</Link>
 							</div>
+
 							<TabelDataAkun />
 						</div>
 					</div>

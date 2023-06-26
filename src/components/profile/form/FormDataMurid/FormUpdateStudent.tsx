@@ -1,13 +1,16 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { updateStudentSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormUpdateStudent({ params }: { params: any }) {
 	const { id } = params;
 	const { data: session } = useSession();
-
 	const router = useRouter();
 
 	const [dataUser, setDataUser] = useState();
@@ -39,7 +42,56 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 		father_id: undefined,
 	};
 
+	type Errors = {
+		grade?: string;
+		firstName?: string;
+		lastName?: string;
+		birthplace?: string;
+		birthdate?: Date;
+		gender?: string;
+		religion?: string;
+		citizenship?: string;
+		address?: string;
+		nickname?: string;
+		birthOrder?: number;
+		numOfSiblings?: number;
+		statusInFamily?: string;
+		studentStatus?: string;
+		height?: number;
+		weight?: number;
+		bloodType?: string;
+		diseaseHistory?: string;
+		distanceToHome?: string;
+		language?: string;
+		mother_id?: string;
+		father_id?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [formValues, setFormValues] = useState(initialValues);
+
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
+	};
 
 	const getDataFathers = async () => {
 		try {
@@ -114,11 +166,6 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 		}
 	};
 
-	const handleChange = (e: any) => {
-		const { name, value } = e.target;
-		setFormValues({ ...formValues, [name]: value });
-	};
-
 	const handleUpdateStudents = async (formValues: any) => {
 		const dataForm = {
 			grade: formValues.grade,
@@ -146,18 +193,36 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 		} as any;
 
 		try {
-			await fetch(`http://localhost:4000/v1/students/${id}`, {
-				method: 'PATCH',
-				headers: {
-					Authorization: `Bearer ${session?.user.token.accessToken}`,
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(dataForm),
-			});
+			updateStudentSchema.parse(dataForm);
 
-			router.push('/profile/data-murid');
-		} catch (error) {
-			console.log(error);
+			const results = await fetch(
+				`http://localhost:4000/v1/students/${id}`,
+				{
+					method: 'PATCH',
+					headers: {
+						Authorization: `Bearer ${session?.user.token.accessToken}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(dataForm),
+				}
+			);
+
+			if (results?.status === 401) {
+				toast.error('Data Murid gagal diubah, silahkan coba lagi!', {
+					position: 'top-center',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'colored',
+				});
+			} else if (results?.status === 200) {
+				router.push('/profile/data-murid');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -174,7 +239,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 
 	return (
 		<form method="PATCH" onSubmit={handleSubmit}>
-			<div className="py-2 pt-4">
+			<div className="py-2 pt-6">
 				<label
 					htmlFor="grade"
 					className="block mb-2 text-sm font-medium read-only"
@@ -183,7 +248,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="grade"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="grade"
 					onChange={handleChange}
 				>
@@ -200,6 +265,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						TK B
 					</option>
 				</select>
+				{errors.grade && (
+					<span className="text-red-danger text-sm">
+						{errors.grade ? '* ' + errors.grade : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -215,10 +286,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.firstName}
 						onChange={handleChange}
 					/>
+					{errors.firstName && (
+						<span className="text-red-danger text-sm">
+							{errors.firstName ? '* ' + errors.firstName : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -232,10 +309,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.lastName}
 						onChange={handleChange}
 					/>
+					{errors.lastName && (
+						<span className="text-red-danger text-sm">
+							{errors.lastName ? '* ' + errors.lastName : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -249,10 +332,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="nickname"
 						name="nickname"
 						aria-label="nickname"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.nickname}
 						onChange={handleChange}
 					/>
+					{errors.nickname && (
+						<span className="text-red-danger text-sm">
+							{errors.nickname ? '* ' + errors.nickname : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -269,10 +358,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.birthplace}
 						onChange={handleChange}
 					/>
+					{errors.birthplace && (
+						<span className="text-red-danger text-sm">
+							{errors.birthplace ? '* ' + errors.birthplace : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -286,10 +381,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						defaultValue={formValues.birthdate.substring(0, 10)}
 						onChange={handleChange}
 					/>
+					{errors.birthdate && (
+						<span className="text-red-danger text-sm">
+							{errors.birthdate ? '* ' + errors.birthdate : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -300,7 +401,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="gender"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="gender"
 						onChange={handleChange}
 					>
@@ -319,6 +420,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							Laki-Laki
 						</option>
 					</select>
+					{errors.gender && (
+						<span className="text-red-danger text-sm">
+							{errors.gender ? '* ' + errors.gender : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -332,7 +439,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="religion"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="religion"
 						defaultValue={formValues.religion}
 						onChange={handleChange}
@@ -359,6 +466,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							Konghucu
 						</option>
 					</select>
+					{errors.religion && (
+						<span className="text-red-danger text-sm">
+							{errors.religion ? '* ' + errors.religion : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-1/2">
 					<label
@@ -369,7 +482,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="citizenship"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="citizenship"
 						defaultValue={formValues.citizenship}
 						onChange={handleChange}
@@ -389,6 +502,14 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							WNA
 						</option>
 					</select>
+					{errors.citizenship && (
+						<span className="text-red-danger text-sm">
+							{errors.citizenship
+								? '* ' + errors.citizenship
+								: ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -404,10 +525,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.address}
 					onChange={handleChange}
 				/>
+				{errors.address && (
+					<span className="text-red-danger text-sm">
+						{errors.address ? '* ' + errors.address : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -423,10 +550,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="birthOrder"
 						name="birthOrder"
 						aria-label="birthOrder"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.birthOrder}
 						onChange={handleChange}
 					/>
+					{errors.birthOrder && (
+						<span className="text-red-danger text-sm">
+							{errors.birthOrder ? '* ' + errors.birthOrder : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -440,10 +573,18 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="numOfSiblings"
 						name="numOfSiblings"
 						aria-label="numOfSiblings"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.numOfSiblings}
 						onChange={handleChange}
 					/>
+					{errors.numOfSiblings && (
+						<span className="text-red-danger text-sm">
+							{errors.numOfSiblings
+								? '* ' + errors.numOfSiblings
+								: ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -459,10 +600,18 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="statusInFamily"
 					name="statusInFamily"
 					aria-label="statusInFamily"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.statusInFamily}
 					onChange={handleChange}
 				/>
+				{errors.statusInFamily && (
+					<span className="text-red-danger text-sm">
+						{errors.statusInFamily
+							? '* ' + errors.statusInFamily
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -474,7 +623,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="studentStatus"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="studentStatus"
 					defaultValue={formValues.studentStatus}
 					onChange={handleChange}
@@ -494,6 +643,14 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						Tidak Aktif
 					</option>
 				</select>
+				{errors.studentStatus && (
+					<span className="text-red-danger text-sm">
+						{errors.studentStatus
+							? '* ' + errors.studentStatus
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -509,10 +666,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="height"
 						name="height"
 						aria-label="height"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.height}
 						onChange={handleChange}
 					/>
+					{errors.height && (
+						<span className="text-red-danger text-sm">
+							{errors.height ? '* ' + errors.height : ''}
+							<br />
+						</span>
+					)}
 				</div>
 
 				<div className="py-2 w-full">
@@ -527,10 +690,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						id="weight"
 						name="weight"
 						aria-label="weight"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						defaultValue={formValues.weight}
 						onChange={handleChange}
 					/>
+					{errors.weight && (
+						<span className="text-red-danger text-sm">
+							{errors.weight ? '* ' + errors.weight : ''}
+							<br />
+						</span>
+					)}
 				</div>
 
 				<div className="py-2 w-full">
@@ -542,7 +711,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					</label>
 					<select
 						id="bloodType"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 						name="bloodType"
 						onChange={handleChange}
 					>
@@ -567,6 +736,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							AB
 						</option>
 					</select>
+					{errors.bloodType && (
+						<span className="text-red-danger text-sm">
+							{errors.bloodType ? '* ' + errors.bloodType : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -582,10 +757,18 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="diseaseHistory"
 					name="diseaseHistory"
 					aria-label="diseaseHistory"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.diseaseHistory}
 					onChange={handleChange}
 				/>
+				{errors.diseaseHistory && (
+					<span className="text-red-danger text-sm">
+						{errors.diseaseHistory
+							? '* ' + errors.diseaseHistory
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -600,10 +783,18 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="distanceToHome"
 					name="distanceToHome"
 					aria-label="distanceToHome"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.distanceToHome}
 					onChange={handleChange}
 				/>
+				{errors.distanceToHome && (
+					<span className="text-red-danger text-sm">
+						{errors.distanceToHome
+							? '* ' + errors.distanceToHome
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -618,10 +809,16 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 					id="language"
 					name="language"
 					aria-label="language"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.language}
 					onChange={handleChange}
 				/>
+				{errors.language && (
+					<span className="text-red-danger text-sm">
+						{errors.language ? '* ' + errors.language : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -633,7 +830,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="father_id"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="father_id"
 					onChange={handleChange}
 				>
@@ -663,6 +860,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						  ))
 						: ''}
 				</select>
+				{errors.father_id && (
+					<span className="text-red-danger text-sm">
+						{errors.father_id ? '* ' + errors.father_id : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -674,7 +877,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 				</label>
 				<select
 					id="mother_id"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
 					name="mother_id"
 					onChange={handleChange}
 				>
@@ -704,6 +907,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						  ))
 						: ''}
 				</select>
+				{errors.mother_id && (
+					<span className="text-red-danger text-sm">
+						{errors.mother_id ? '* ' + errors.mother_id : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<button
@@ -712,6 +921,20 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 			>
 				Ubah
 			</button>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

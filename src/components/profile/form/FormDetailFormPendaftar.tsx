@@ -35,14 +35,14 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						htmlFor="name"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Nama Lengkap
+						Nama Lengkap Orang Tua
 					</label>
 					<input
 						type="text"
 						id="name"
 						name="name"
 						aria-label="name"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['name'] : 'NO DATA'}
 						disabled
 					/>
@@ -60,7 +60,7 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						id="email"
 						name="email"
 						aria-label="email"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['email'] : 'NO DATA'}
 						disabled
 					/>
@@ -78,7 +78,7 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						id="phone"
 						name="phone"
 						aria-label="phone"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['phone'] : 'NO DATA'}
 						disabled
 					/>
@@ -96,7 +96,7 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						id="address"
 						name="address"
 						aria-label="address"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['address'] : 'NO DATA'}
 						disabled
 					/>
@@ -114,7 +114,7 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						id="numChildrens"
 						name="numChildrens"
 						aria-label="numChildrens"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['numChildrens'] : 'NO DATA'}
 						disabled
 					/>
@@ -132,7 +132,7 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						id="ageChildrens"
 						name="ageChildrens"
 						aria-label="ageChildrens"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['ageChildrens'] : 'NO DATA'}
 						disabled
 					/>
@@ -150,7 +150,7 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 						id="grade"
 						name="grade"
 						aria-label="grade"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={form ? form['grade'] : 'NO DATA'}
 						disabled
 					/>
@@ -163,15 +163,25 @@ export default function FormDetailFormPendaftar({ params }: { params: any }) {
 					>
 						Alasan
 					</label>
-					<input
+					<textarea
+						id="reason"
+						name="reason"
+						aria-label="reason"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-auto"
+						value={form ? form['reason'] : 'NO DATA'}
+						disabled
+					/>
+					{/**
+					 * <input
 						type="text"
 						id="reason"
 						name="reason"
 						aria-label="reason"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 overflow-y-scroll h-auto"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 whitespace-nowrap"
 						value={form ? form['reason'] : 'NO DATA'}
 						disabled
 					/>
+					 */}
 				</div>
 			</div>
 		</div>

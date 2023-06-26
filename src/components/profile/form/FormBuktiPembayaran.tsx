@@ -1,8 +1,12 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { proofSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormBuktiPembayaran({ params }: { params: any }) {
 	const { id } = params;
@@ -16,8 +20,15 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 		payment_date: '',
 		receipt: '',
 		reason: '',
+		modified: false,
 	};
 
+	type Errors = {
+		payment_date?: Date;
+		receipt?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [formValues, setFormValues] = useState(initialValues);
 
 	const getDataFinansial = async () => {
@@ -36,6 +47,7 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 				payment_date: data['payment_date'],
 				receipt: data['receipt'],
 				reason: data['reason'],
+				modified: data['modified'],
 			});
 		} catch (error) {
 			throw error;
@@ -45,29 +57,68 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
 	};
 
 	const handleUpdatePayment = async (formValues: any) => {
 		const dataForm = {
 			receipt: formValues.receipt,
 			payment_date: new Date(formValues.payment_date),
+			modified: true,
 			reason: formValues.reason,
 		} as any;
 
 		try {
-			await fetch(`http://localhost:4000/v1/payments/${id}`, {
-				method: 'PATCH',
-				headers: {
-					Authorization: `Bearer ${session?.user.token.accessToken}`,
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(dataForm),
-			});
+			proofSchema.parse(dataForm);
 
-			router.push('/profile/keuangan');
-		} catch (error) {
-			// console.log(error);
-			throw error;
+			const results = await fetch(
+				`http://localhost:4000/v1/payments/${id}`,
+				{
+					method: 'PATCH',
+					headers: {
+						Authorization: `Bearer ${session?.user.token.accessToken}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(dataForm),
+				}
+			);
+
+			if (results?.status === 401) {
+				toast.error(
+					'Bukti Pembayaran gagal ditambahkan, silahkan coba lagi!',
+					{
+						position: 'top-center',
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: 'colored',
+					}
+				);
+			} else if (results?.status === 200) {
+				router.push('/profile/keuangan');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -82,43 +133,58 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 
 	return (
 		<form method="PATCH" onSubmit={handleSubmit}>
-			<div className="py-2 w-full">
+			<div className="py-3 pt-6">
 				<label
 					htmlFor="payment_date"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Tanggal Pembayaran
+					Tanggal Pembayaran{' '}
+					<span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="date"
 					id="payment_date"
 					name="payment_date"
 					aria-label="payment_date"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
 					defaultValue={formValues.payment_date.substring(0, 10)}
 					onChange={handleChange}
 				/>
+				{errors.payment_date && (
+					<span className="text-red-danger text-sm">
+						{errors.payment_date ? '* ' + errors.payment_date : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
-			<div className="py-2">
+			<div className="py-3">
 				<label
 					htmlFor="receipt"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Unggah Bukti Pembayaran (Link GOOGLE DRIVE)
+					Unggah Bukti Pembayaran{' '}
+					<span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="receipt"
 					name="receipt"
 					aria-label="receipt"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
 					defaultValue={formValues.receipt}
 					onChange={handleChange}
+					required
 				/>
+				{errors.receipt && (
+					<span className="text-red-danger text-sm">
+						{errors.receipt ? '* ' + errors.receipt : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
-			<div className="py-2">
+			<div className="py-3">
 				<label
 					htmlFor="reason"
 					className="block mb-2 text-sm font-medium read-only"
@@ -130,7 +196,7 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 					id="reason"
 					name="reason"
 					aria-label="reason"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
 					defaultValue={formValues.reason}
 					onChange={handleChange}
 				/>

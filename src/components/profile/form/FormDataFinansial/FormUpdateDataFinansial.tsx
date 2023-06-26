@@ -22,6 +22,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 		status: '',
 		receipt: '',
 		isOverdue: '',
+		modified: '',
 		reason: '',
 		updatedAt: '',
 	};
@@ -80,6 +81,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 				status: data['status'],
 				receipt: data['receipt'],
 				isOverdue: data['isOverdue'],
+				modified: data['modified'],
 				reason: data['reason'],
 				updatedAt: data['updatedAt'],
 			});
@@ -129,7 +131,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 
 	return (
 		<form method="PATCH" onSubmit={handleSubmit}>
-			<div className="py-2 pt-6">
+			<div className="py-3 pt-6">
 				<label
 					htmlFor="user_id"
 					className="block mb-2 text-sm font-medium read-only"
@@ -141,7 +143,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					id="type_id"
 					name="type_id"
 					aria-label="type_id"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					value={
 						dataPayment
 							? dataPayment['user_id']['firstName'] +
@@ -153,7 +155,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 				/>
 			</div>
 
-			<div className="py-2">
+			<div className="py-3">
 				<label
 					htmlFor="type_id"
 					className="block mb-2 text-sm font-medium read-only"
@@ -165,7 +167,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					id="type_id"
 					name="type_id"
 					aria-label="type_id"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					value={
 						dataPayment ? dataPayment['type_id']['type'] : 'NO DATA'
 					}
@@ -174,7 +176,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
-				<div className="py-2 w-full">
+				<div className="py-3 w-full">
 					<label
 						htmlFor="amount"
 						className="block mb-2 text-sm font-medium read-only"
@@ -186,12 +188,12 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						id="amount"
 						name="amount"
 						aria-label="amount"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={formValues.amount}
 						disabled
 					/>
 				</div>
-				<div className="py-2 w-full">
+				<div className="py-3 w-full">
 					<label
 						htmlFor="payment_date"
 						className="block mb-2 text-sm font-medium read-only"
@@ -203,7 +205,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						id="payment_date"
 						name="payment_date"
 						aria-label="payment_date"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							formValues.payment_date
 								? formValues.payment_date.substring(0, 10)
@@ -215,7 +217,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
-				<div className="py-2 w-full">
+				<div className="py-3 w-full">
 					<label
 						htmlFor="deadline"
 						className="block mb-2 text-sm font-medium read-only"
@@ -227,7 +229,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						id="deadline"
 						name="deadline"
 						aria-label="deadline"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							dataPayment
 								? new Date(
@@ -239,7 +241,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					/>
 				</div>
 
-				<div className="py-2 w-full">
+				<div className="py-3 w-full">
 					<label
 						htmlFor="status"
 						className="block mb-2 text-sm font-medium read-only"
@@ -248,7 +250,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					</label>
 					<select
 						id="status"
-						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						name="status"
 						onChange={handleChange}
 					>
@@ -269,7 +271,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					</select>
 				</div>
 
-				<div className="py-2 w-full">
+				<div className="py-3 w-full">
 					<label
 						htmlFor="isOverdue"
 						className="block mb-2 text-sm font-medium read-only"
@@ -278,7 +280,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					</label>
 					<select
 						id="isOverdue"
-						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						name="isOverdue"
 						onChange={handleChange}
 					>
@@ -307,7 +309,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 				</div>
 			</div>
 
-			<div className="py-2">
+			<div className="py-3">
 				<label
 					htmlFor="receipt"
 					className="block mb-2 text-sm font-medium read-only"
@@ -319,13 +321,13 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					id="receipt"
 					name="receipt"
 					aria-label="receipt"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					value={formValues.receipt ? formValues.receipt : ' – '}
 					disabled
 				/>
 			</div>
 
-			<div className="py-2">
+			<div className="py-3">
 				<label
 					htmlFor="reason"
 					className="block mb-2 text-sm font-medium read-only"
@@ -337,25 +339,45 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					id="reason"
 					name="reason"
 					aria-label="reason"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					placeholder={formValues.reason ? formValues.reason : ' – '}
 					disabled
 				/>
 			</div>
 
-			<div className="py-2">
+			<div className="py-3">
+				<label
+					htmlFor="modified"
+					className="block mb-2 text-sm font-medium read-only"
+				>
+					Telah Diubah Orang Tua
+				</label>
+				<input
+					type="text"
+					id="modified"
+					name="modified"
+					aria-label="modified"
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					value={
+						formValues.modified ? 'Sudah Diubah' : 'Belum Diubah'
+					}
+					disabled
+				/>
+			</div>
+
+			<div className="py-3">
 				<label
 					htmlFor="updatedAt"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Terakhir Diubah
+					Terakhir Diubah Admin
 				</label>
 				<input
 					type="date"
 					id="updatedAt"
 					name="updatedAt"
 					aria-label="updatedAt"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
+					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.updatedAt.substring(0, 10)}
 					disabled
 				/>
@@ -363,7 +385,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 
 			<button
 				type="submit"
-				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
+				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-3.5 text-center"
 			>
 				Ubah
 			</button>

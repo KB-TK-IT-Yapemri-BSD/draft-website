@@ -95,7 +95,7 @@ export default function TabelFormPendaftar() {
 				<thead className="text-xs text-gray-700 uppercase bg-gray-50">
 					<tr>
 						<th scope="col" className="px-6 py-3">
-							Nama Lengkap
+							Nama Lengkap Orang Tua
 						</th>
 						<th scope="col" className="px-6 py-3">
 							Email
@@ -108,6 +108,7 @@ export default function TabelFormPendaftar() {
 						</th>
 					</tr>
 				</thead>
+
 				<tbody>
 					{forms
 						? forms.map((form) => (
@@ -244,6 +245,7 @@ export default function TabelFormPendaftar() {
 						: 'NO DATA'}
 				</tbody>
 			</table>
+
 			<ToastContainer
 				style={{ width: '500px' }}
 				position="bottom-center"

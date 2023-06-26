@@ -30,7 +30,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 	return (
 		<div className="divide-y-2">
 			<div className="space-y-2">
-				<div className="py-2 pt-4">
+				<div className="py-2 pt-6">
 					<label
 						htmlFor="fullname"
 						className="block mb-2 text-sm font-medium read-only"
@@ -42,7 +42,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="fullname"
 						name="fullname"
 						aria-label="fullname"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={dataUser ? dataUser['grade'] : 'NO DATA'}
 						disabled
 					/>
@@ -61,7 +61,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="fullname"
 							name="fullname"
 							aria-label="fullname"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser
 									? dataUser['firstName'] +
@@ -85,7 +85,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="nickname"
 							name="nickname"
 							aria-label="nickname"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={dataUser ? dataUser['nickname'] : 'NO DATA'}
 							disabled
 						/>
@@ -104,7 +104,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="birth"
 						name="birth"
 						aria-label="birth"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							dataUser
 								? dataUser['birthplace'] +
@@ -134,7 +134,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="gender"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser
 									? dataUser['gender']
@@ -158,7 +158,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="religion"
 							name="religion"
 							aria-label="religion"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={dataUser ? dataUser['religion'] : 'NO DATA'}
 							disabled
 						/>
@@ -176,7 +176,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="citizenship"
 							name="citizenship"
 							aria-label="citizenship"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser ? dataUser['citizenship'] : 'NO DATA'
 							}
@@ -198,7 +198,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="birthOrder"
 							name="birthOrder"
 							aria-label="birthOrder"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser ? dataUser['birthOrder'] : 'NO DATA'
 							}
@@ -218,7 +218,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="numOfSiblings"
 							name="numOfSiblings"
 							aria-label="numOfSiblings"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser ? dataUser['numOfSiblings'] : 'NO DATA'
 							}
@@ -239,7 +239,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="statusInFamily"
 						name="statusInFamily"
 						aria-label="statusInFamily"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							dataUser ? dataUser['statusInFamily'] : 'NO DATA'
 						}
@@ -259,8 +259,14 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="studentStatus"
 						name="studentStatus"
 						aria-label="studentStatus"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value={dataUser ? dataUser['studentStatus'] : 'NO DATA'}
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						value={
+							dataUser
+								? dataUser['studentStatus']
+									? 'Aktif'
+									: 'Tidak Aktif'
+								: 'NO DATA'
+						}
 						disabled
 					/>
 				</div>
@@ -278,7 +284,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="height"
 							name="height"
 							aria-label="height"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser
 									? dataUser['height'] + ' cm'
@@ -299,7 +305,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 							id="weight"
 							name="weight"
 							aria-label="weight"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser
 									? dataUser['weight'] + ' kg'
@@ -322,7 +328,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="bloodType"
 						name="bloodType"
 						aria-label="bloodType"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={dataUser ? dataUser['bloodType'] : 'NO DATA'}
 						disabled
 					/>
@@ -340,7 +346,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="diseaseHistory"
 						name="diseaseHistory"
 						aria-label="diseaseHistory"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							dataUser ? dataUser['diseaseHistory'] : 'NO DATA'
 						}
@@ -360,7 +366,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="distanceToHome"
 						name="distanceToHome"
 						aria-label="distanceToHome"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							dataUser ? dataUser['distanceToHome'] : 'NO DATA'
 						}
@@ -380,7 +386,7 @@ export default function FormDetailStudent({ params }: { params: any }) {
 						id="language"
 						name="language"
 						aria-label="language"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={dataUser ? dataUser['language'] : 'NO DATA'}
 						disabled
 					/>

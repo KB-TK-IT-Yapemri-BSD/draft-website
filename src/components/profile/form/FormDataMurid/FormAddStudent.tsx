@@ -1,8 +1,12 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { studentSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormAddStudent() {
 	const { data: session } = useSession();
@@ -29,10 +33,36 @@ export default function FormAddStudent() {
 		diseaseHistory: '',
 		distanceToHome: '',
 		language: '',
-		mother_id: undefined,
-		father_id: undefined,
+		mother_id: '',
+		father_id: '',
 	};
 
+	type Errors = {
+		grade?: string;
+		firstName?: string;
+		lastName?: string;
+		birthplace?: string;
+		birthdate?: Date;
+		gender?: boolean;
+		religion?: string;
+		citizenship?: string;
+		address?: string;
+		nickname?: string;
+		birthOrder?: number;
+		numOfSiblings?: number;
+		statusInFamily?: string;
+		studentStatus?: string;
+		height?: number;
+		weight?: number;
+		bloodType?: string;
+		diseaseHistory?: string;
+		distanceToHome?: string;
+		language?: string;
+		mother_id?: string;
+		father_id?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [dataFathers, setDataFathers] = useState([]);
 	const [dataMothers, setDataMothers] = useState([]);
 	const [formValues, setFormValues] = useState(initialValues);
@@ -40,6 +70,24 @@ export default function FormAddStudent() {
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
 	};
 
 	const getDataFathers = async () => {
@@ -101,7 +149,9 @@ export default function FormAddStudent() {
 		} as any;
 
 		try {
-			await fetch('http://localhost:4000/v1/students', {
+			studentSchema.parse(dataForm);
+
+			const results = await fetch('http://localhost:4000/v1/students', {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -110,9 +160,22 @@ export default function FormAddStudent() {
 				body: JSON.stringify(dataForm),
 			});
 
-			router.push('/profile/data-murid');
-		} catch (error) {
-			console.log(error);
+			if (results?.status === 401) {
+				toast.error('Data Murid gagal ditambah, silahkan coba lagi!', {
+					position: 'top-center',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'colored',
+				});
+			} else if (results?.status === 201) {
+				router.push('/profile/data-murid');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -128,19 +191,18 @@ export default function FormAddStudent() {
 
 	return (
 		<form method="POST" onSubmit={handleSubmit}>
-			<div className="py-2 pt-4">
+			<div className="py-2 pt-6">
 				<label
 					htmlFor="grade"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Grade
+					Grade <span className="text-red-danger">*</span>
 				</label>
 				<select
 					id="grade"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					name="grade"
 					onChange={handleChange}
-					required
 				>
 					<option selected disabled hidden></option>
 					<option value="KB" className="text-black">
@@ -153,6 +215,12 @@ export default function FormAddStudent() {
 						TK B
 					</option>
 				</select>
+				{errors.grade && (
+					<span className="text-red-danger text-sm">
+						{errors.grade ? '* ' + errors.grade : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -161,51 +229,67 @@ export default function FormAddStudent() {
 						htmlFor="firstName"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						First Name
+						First Name <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="firstName"
 						name="firstName"
 						aria-label="firstName"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.firstName && (
+						<span className="text-red-danger text-sm">
+							{errors.firstName ? '* ' + errors.firstName : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="lastName"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Last Name
+						Last Name <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="lastName"
 						name="lastName"
 						aria-label="lastName"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.lastName && (
+						<span className="text-red-danger text-sm">
+							{errors.lastName ? '* ' + errors.lastName : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="nickname"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Nama Panggilan
+						Nama Panggilan{' '}
+						<span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="nickname"
 						name="nickname"
 						aria-label="nickname"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.nickname && (
+						<span className="text-red-danger text-sm">
+							{errors.nickname ? '* ' + errors.nickname : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -215,41 +299,51 @@ export default function FormAddStudent() {
 						htmlFor="birthplace"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Tempat Lahir
+						Tempat Lahir <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="text"
 						id="birthplace"
 						name="birthplace"
 						aria-label="birthplace"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.birthplace && (
+						<span className="text-red-danger text-sm">
+							{errors.birthplace ? '* ' + errors.birthplace : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="birthdate"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Tanggal Lahir
+						Tanggal Lahir <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="date"
 						id="birthdate"
 						name="birthdate"
 						aria-label="birthdate"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.birthdate && (
+						<span className="text-red-danger text-sm">
+							{errors.birthdate ? '* ' + errors.birthdate : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
 						htmlFor="gender"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Jenis Kelamin
+						Jenis Kelamin <span className="text-red-danger">*</span>
 					</label>
 
 					<div className="inline-flex space-x-3 py-2">
@@ -259,9 +353,8 @@ export default function FormAddStudent() {
 							value="true"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
+							className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block "
 							onChange={handleChange}
-							required
 						/>
 						<label htmlFor="female">Perempuan</label>
 						<input
@@ -270,11 +363,18 @@ export default function FormAddStudent() {
 							value="false"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
+							className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
 							onChange={handleChange}
 						/>
 						<label htmlFor="male">Laki-Laki</label>
 					</div>
+					{errors.gender && (
+						<span className="text-red-danger text-sm">
+							<br />
+							{errors.gender ? '* ' + errors.gender : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -284,14 +384,13 @@ export default function FormAddStudent() {
 						htmlFor="religion"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Agama
+						Agama <span className="text-red-danger">*</span>
 					</label>
 					<select
 						id="religion"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="religion"
 						onChange={handleChange}
-						required
 					>
 						<option selected disabled hidden></option>
 						<option value="Islam" className="text-black">
@@ -313,20 +412,26 @@ export default function FormAddStudent() {
 							Konghucu
 						</option>
 					</select>
+					{errors.religion && (
+						<span className="text-red-danger text-sm">
+							{errors.religion ? '* ' + errors.religion : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-1/2">
 					<label
 						htmlFor="citizenship"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Kewarganegaraan
+						Kewarganegaraan{' '}
+						<span className="text-red-danger">*</span>
 					</label>
 					<select
 						id="citizenship"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="citizenship"
 						onChange={handleChange}
-						required
 					>
 						<option selected disabled hidden></option>
 						<option value="WNI" className="text-black">
@@ -336,6 +441,14 @@ export default function FormAddStudent() {
 							WNA
 						</option>
 					</select>
+					{errors.citizenship && (
+						<span className="text-red-danger text-sm">
+							{errors.citizenship
+								? '* ' + errors.citizenship
+								: ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -344,17 +457,22 @@ export default function FormAddStudent() {
 					htmlFor="address"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Alamat
+					Alamat <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="address"
 					name="address"
 					aria-label="address"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.address && (
+					<span className="text-red-danger text-sm">
+						{errors.address ? '* ' + errors.address : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -363,17 +481,22 @@ export default function FormAddStudent() {
 						htmlFor="birthOrder"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Anak Ke-
+						Anak Ke- <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="number"
 						id="birthOrder"
 						name="birthOrder"
 						aria-label="birthOrder"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.birthOrder && (
+						<span className="text-red-danger text-sm">
+							{errors.birthOrder ? '* ' + errors.birthOrder : ''}
+							<br />
+						</span>
+					)}
 				</div>
 
 				<div className="py-2 w-full">
@@ -381,17 +504,25 @@ export default function FormAddStudent() {
 						htmlFor="numOfSiblings"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Jumlah Saudara
+						Jumlah Saudara{' '}
+						<span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="number"
 						id="numOfSiblings"
 						name="numOfSiblings"
 						aria-label="numOfSiblings"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.numOfSiblings && (
+						<span className="text-red-danger text-sm">
+							{errors.numOfSiblings
+								? '* ' + errors.numOfSiblings
+								: ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -400,17 +531,25 @@ export default function FormAddStudent() {
 					htmlFor="statusInFamily"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Status di Keluarga
+					Status di Keluarga{' '}
+					<span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="statusInFamily"
 					name="statusInFamily"
 					aria-label="statusInFamily"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.statusInFamily && (
+					<span className="text-red-danger text-sm">
+						{errors.statusInFamily
+							? '* ' + errors.statusInFamily
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
@@ -419,17 +558,22 @@ export default function FormAddStudent() {
 						htmlFor="height"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Tinggi Badan
+						Tinggi Badan <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="number"
 						id="height"
 						name="height"
 						aria-label="height"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.height && (
+						<span className="text-red-danger text-sm">
+							{errors.height ? '* ' + errors.height : ''}
+							<br />
+						</span>
+					)}
 				</div>
 
 				<div className="py-2 w-full">
@@ -437,17 +581,22 @@ export default function FormAddStudent() {
 						htmlFor="weight"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Berat Badan
+						Berat Badan <span className="text-red-danger">*</span>
 					</label>
 					<input
 						type="number"
 						id="weight"
 						name="weight"
 						aria-label="weight"
-						className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.weight && (
+						<span className="text-red-danger text-sm">
+							{errors.weight ? '* ' + errors.weight : ''}
+							<br />
+						</span>
+					)}
 				</div>
 
 				<div className="py-2 w-full">
@@ -455,14 +604,14 @@ export default function FormAddStudent() {
 						htmlFor="bloodType"
 						className="block mb-2 text-sm font-medium read-only"
 					>
-						Golongan Darah
+						Golongan Darah{' '}
+						<span className="text-red-danger">*</span>
 					</label>
 					<select
 						id="bloodType"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="bloodType"
 						onChange={handleChange}
-						required
 					>
 						<option selected disabled hidden></option>
 						<option value="A" className="text-black">
@@ -478,6 +627,12 @@ export default function FormAddStudent() {
 							AB
 						</option>
 					</select>
+					{errors.bloodType && (
+						<span className="text-red-danger text-sm">
+							{errors.bloodType ? '* ' + errors.bloodType : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -486,17 +641,24 @@ export default function FormAddStudent() {
 					htmlFor="diseaseHistory"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Riwayat Penyakit
+					Riwayat Penyakit <span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="diseaseHistory"
 					name="diseaseHistory"
 					aria-label="diseaseHistory"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.diseaseHistory && (
+					<span className="text-red-danger text-sm">
+						{errors.diseaseHistory
+							? '* ' + errors.diseaseHistory
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -504,17 +666,25 @@ export default function FormAddStudent() {
 					htmlFor="distanceToHome"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Jarak Tempat Tinggal ke TK
+					Jarak Tempat Tinggal ke TK{' '}
+					<span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="distanceToHome"
 					name="distanceToHome"
 					aria-label="distanceToHome"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.distanceToHome && (
+					<span className="text-red-danger text-sm">
+						{errors.distanceToHome
+							? '* ' + errors.distanceToHome
+							: ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -522,17 +692,23 @@ export default function FormAddStudent() {
 					htmlFor="language"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Bahasa Sehari-hari
+					Bahasa Sehari-hari{' '}
+					<span className="text-red-danger">*</span>
 				</label>
 				<input
 					type="text"
 					id="language"
 					name="language"
 					aria-label="language"
-					className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.language && (
+					<span className="text-red-danger text-sm">
+						{errors.language ? '* ' + errors.language : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -540,14 +716,13 @@ export default function FormAddStudent() {
 					htmlFor="father_id"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Father ID
+					Father ID <span className="text-red-danger">*</span>
 				</label>
 				<select
 					id="father_id"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					name="father_id"
 					onChange={handleChange}
-					required
 				>
 					<option
 						defaultValue={undefined}
@@ -565,6 +740,12 @@ export default function FormAddStudent() {
 						</option>
 					))}
 				</select>
+				{errors.father_id && (
+					<span className="text-red-danger text-sm">
+						{errors.father_id ? '* ' + errors.father_id : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -572,14 +753,13 @@ export default function FormAddStudent() {
 					htmlFor="mother_id"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Mother ID
+					Mother ID <span className="text-red-danger">*</span>
 				</label>
 				<select
 					id="mother_id"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					name="mother_id"
 					onChange={handleChange}
-					required
 				>
 					<option
 						defaultValue={undefined}
@@ -597,6 +777,12 @@ export default function FormAddStudent() {
 						</option>
 					))}
 				</select>
+				{errors.mother_id && (
+					<span className="text-red-danger text-sm">
+						{errors.mother_id ? '* ' + errors.mother_id : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<button
@@ -605,6 +791,20 @@ export default function FormAddStudent() {
 			>
 				Tambah
 			</button>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

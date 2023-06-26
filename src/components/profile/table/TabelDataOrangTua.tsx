@@ -91,7 +91,7 @@ export default function TabelDataOrangTua() {
 		getDataUsers();
 	}, [changes == true]);
 
-	console.log(dataUsers);
+	// console.log(dataUsers);
 
 	return (
 		<>

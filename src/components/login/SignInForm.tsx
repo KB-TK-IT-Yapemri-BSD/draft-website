@@ -103,7 +103,7 @@ export default function SignInForm() {
 							required
 						/>
 						{errors.email && (
-							<span className="text-red-600 text-sm">
+							<span className="text-red-danger text-sm">
 								{errors.email[0] ? '* ' + errors.email[0] : ''}
 								<br />
 								{errors.email[1] ? '* ' + errors.email[1] : ''}
@@ -127,7 +127,7 @@ export default function SignInForm() {
 							required
 						/>
 						{errors.password && (
-							<span className="text-red-600 text-sm">
+							<span className="text-red-danger text-sm">
 								{errors.password[0]
 									? '* ' + errors.password[0]
 									: ''}

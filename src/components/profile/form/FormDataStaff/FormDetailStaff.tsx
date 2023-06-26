@@ -30,7 +30,7 @@ export default function FormDetailStaff({ params }: { params: any }) {
 	return (
 		<div className="divide-y-2">
 			<div className="space-y-2">
-				<div className="py-2">
+				<div className="py-2 pt-6">
 					<label
 						htmlFor="status"
 						className="block mb-2 text-sm font-medium read-only"
@@ -42,13 +42,13 @@ export default function FormDetailStaff({ params }: { params: any }) {
 						id="status"
 						name="status"
 						aria-label="status"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={dataUser ? dataUser['status'] : 'NO DATA'}
 						disabled
 					/>
 				</div>
 
-				<div className="py-2 w-full">
+				<div className="py-2">
 					<label
 						htmlFor="fullname"
 						className="block mb-2 text-sm font-medium read-only"
@@ -60,7 +60,7 @@ export default function FormDetailStaff({ params }: { params: any }) {
 						id="fullname"
 						name="fullname"
 						aria-label="fullname"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							dataUser
 								? dataUser['firstName'] +
@@ -84,7 +84,7 @@ export default function FormDetailStaff({ params }: { params: any }) {
 						id="birth"
 						name="birth"
 						aria-label="birth"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							dataUser
 								? dataUser['birthplace'] +
@@ -114,7 +114,7 @@ export default function FormDetailStaff({ params }: { params: any }) {
 							id="gender"
 							name="gender"
 							aria-label="gender"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser
 									? dataUser['gender']
@@ -138,7 +138,7 @@ export default function FormDetailStaff({ params }: { params: any }) {
 							id="religion"
 							name="religion"
 							aria-label="religion"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={dataUser ? dataUser['religion'] : 'NO DATA'}
 							disabled
 						/>
@@ -156,31 +156,13 @@ export default function FormDetailStaff({ params }: { params: any }) {
 							id="citizenship"
 							name="citizenship"
 							aria-label="citizenship"
-							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+							className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							value={
 								dataUser ? dataUser['citizenship'] : 'NO DATA'
 							}
 							disabled
 						/>
 					</div>
-				</div>
-
-				<div className="py-2">
-					<label
-						htmlFor="education"
-						className="block mb-2 text-sm font-medium read-only"
-					>
-						Pendidikan
-					</label>
-					<input
-						type="text"
-						id="education"
-						name="education"
-						aria-label="education"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-						value={dataUser ? dataUser['education'] : 'NO DATA'}
-						disabled
-					/>
 				</div>
 
 				<div className="py-2">
@@ -195,7 +177,7 @@ export default function FormDetailStaff({ params }: { params: any }) {
 						id="address"
 						name="address"
 						aria-label="address"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={dataUser ? dataUser['address'] : 'NO DATA'}
 						disabled
 					/>
@@ -213,8 +195,26 @@ export default function FormDetailStaff({ params }: { params: any }) {
 						id="phone"
 						name="phone"
 						aria-label="phone"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={dataUser ? dataUser['phone'] : 'NO DATA'}
+						disabled
+					/>
+				</div>
+
+				<div className="py-2">
+					<label
+						htmlFor="education"
+						className="block mb-2 text-sm font-medium read-only"
+					>
+						Pendidikan
+					</label>
+					<input
+						type="text"
+						id="education"
+						name="education"
+						aria-label="education"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+						value={dataUser ? dataUser['education'] : 'NO DATA'}
 						disabled
 					/>
 				</div>

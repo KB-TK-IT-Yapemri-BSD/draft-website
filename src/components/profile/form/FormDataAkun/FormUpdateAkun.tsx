@@ -1,13 +1,16 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { updateUserSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormUpdateAkun({ params }: { params: any }) {
 	const { id } = params;
 	const { data: session } = useSession();
-
 	const router = useRouter();
 
 	const [dataUser, setDataUser] = useState();
@@ -18,13 +21,46 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 
 	let initialValues = {
 		email: '',
+		// password: '',
 		role: '',
 		biodata_id: '',
 		biodataType: '',
-		picture: '',
+		// picture: '',
 	};
 
+	type Errors = {
+		email?: string;
+		// password?: string;
+		role?: string;
+		biodata_id?: string;
+		biodataType?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [formValues, setFormValues] = useState(initialValues);
+
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
+	};
 
 	const getDataUser = async () => {
 		try {
@@ -39,10 +75,11 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 			setDataUser(data);
 			setFormValues({
 				email: data['email'],
+				// password: data['password'],
 				role: data['role'],
 				biodata_id: data['biodata_id'],
 				biodataType: data['biodataType'],
-				picture: data['picture'],
+				// picture: data['picture'],
 			});
 
 			if (data.biodataType === 'Student') {
@@ -133,12 +170,8 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 		}
 	};
 
-	const handleChange = (e: any) => {
-		const { name, value } = e.target;
-		setFormValues({ ...formValues, [name]: value });
-	};
-
 	const handleUpdateUsers = async (formValues: any) => {
+		/**
 		const imageUpload = await cloudinary.uploader.upload(
 			formValues.picture,
 			{
@@ -147,28 +180,48 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 			}
 		);
 		const newPath = imageUpload.secure_url;
+		 */
 
 		const dataForm = {
 			email: formValues.email,
+			// password: formValues.password,
 			role: formValues.role,
-			biodata_id: formValues?.biodata_id,
+			biodata_id: formValues.biodata_id,
 			biodataType: formValues.biodataType,
-			picture: newPath,
+			// picture: newPath,
 		} as any;
 
 		try {
-			await fetch(`http://localhost:4000/v1/users/${id}`, {
-				method: 'PATCH',
-				headers: {
-					Authorization: `Bearer ${session?.user.token.accessToken}`,
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(dataForm),
-			});
+			updateUserSchema.parse(dataForm);
 
-			router.push('/profile/data-akun');
-		} catch (error) {
-			console.log(error);
+			const results = await fetch(
+				`http://localhost:4000/v1/users/${id}`,
+				{
+					method: 'PUT',
+					headers: {
+						Authorization: `Bearer ${session?.user.token.accessToken}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(dataForm),
+				}
+			);
+
+			if (results?.status === 401) {
+				toast.error('Data Akun gagal diubah, silahkan coba lagi!', {
+					position: 'top-center',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'colored',
+				});
+			} else if (results?.status === 200) {
+				router.push('/profile/data-akun');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -195,10 +248,17 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 					id="email"
 					name="email"
 					aria-label="email"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 					defaultValue={formValues.email}
 					onChange={handleChange}
 				/>
+				{errors.email && (
+					<span className="text-red-danger text-sm">
+						{errors.email[0] ? '* ' + errors.email[0] : ''}
+						<br />
+						{errors.email[1] ? '* ' + errors.email[1] : ''}
+					</span>
+				)}
 			</div>
 
 			{formValues.biodataType === 'Staff' ? (
@@ -212,7 +272,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 						</label>
 						<select
 							id="role"
-							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+							className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							name="role"
 							onChange={handleChange}
 						>
@@ -227,7 +287,9 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 										? 'Guru'
 										: formValues.role === 'principal'
 										? 'Kepala Sekolah'
-										: 'Administrasi'
+										: formValues.role === 'admin'
+										? 'Administrasi'
+										: ''
 									: ''}
 							</option>
 							<option value="principal" className="text-black">
@@ -240,6 +302,12 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 								Guru
 							</option>
 						</select>
+						{errors.role && (
+							<span className="text-red-danger text-sm">
+								{errors.role ? '* ' + errors.role : ''}
+								<br />
+							</span>
+						)}
 					</div>
 
 					<div className="py-2">
@@ -251,7 +319,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 						</label>
 						<select
 							id="biodata_id"
-							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+							className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							name="biodata_id"
 							onChange={handleChange}
 						>
@@ -278,6 +346,14 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 								  ))
 								: ''}
 						</select>
+						{errors.biodata_id && (
+							<span className="text-red-danger text-sm">
+								{errors.biodata_id
+									? '* ' + errors.biodata_id
+									: ''}
+								<br />
+							</span>
+						)}
 					</div>
 				</>
 			) : (
@@ -301,6 +377,12 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 							}
 							disabled
 						/>
+						{errors.role && (
+							<span className="text-red-danger text-sm">
+								{errors.role ? '* ' + errors.role : ''}
+								<br />
+							</span>
+						)}
 					</div>
 
 					<div className="py-2">
@@ -312,13 +394,13 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 						</label>
 						<select
 							id="biodata_id"
-							className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+							className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 							name="biodata_id"
 							onChange={handleChange}
 						>
 							<option
 								defaultValue={formValues.biodata_id}
-								disabled
+								selected
 								className="hidden"
 							>
 								{dataStudent?.['firstName'] +
@@ -339,6 +421,14 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 								  ))
 								: ''}
 						</select>
+						{errors.biodata_id && (
+							<span className="text-red-danger text-sm">
+								{errors.biodata_id
+									? '* ' + errors.biodata_id
+									: ''}
+								<br />
+							</span>
+						)}
 					</div>
 				</>
 			)}
@@ -359,6 +449,12 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 					defaultValue={formValues.biodataType}
 					disabled
 				/>
+				{errors.biodataType && (
+					<span className="text-red-danger text-sm">
+						{errors.biodataType ? '* ' + errors.biodataType : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<button
@@ -367,6 +463,20 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 			>
 				Ubah
 			</button>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

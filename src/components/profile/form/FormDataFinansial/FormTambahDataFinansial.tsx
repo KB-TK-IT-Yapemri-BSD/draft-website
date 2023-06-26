@@ -1,8 +1,12 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { paymentSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormTambahDataFinansial() {
 	const { data: session } = useSession();
@@ -14,6 +18,13 @@ export default function FormTambahDataFinansial() {
 		amount: '',
 	};
 
+	type Errors = {
+		user_id?: string;
+		type_id?: string;
+		amount?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [dataStudents, setDataStudents] = useState([]);
 	const [dataPaymentTypes, setDataPaymentTypes] = useState([]);
 	const [formValues, setFormValues] = useState(initialValues);
@@ -21,6 +32,24 @@ export default function FormTambahDataFinansial() {
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
 	};
 
 	const getDataStudents = async () => {
@@ -63,7 +92,9 @@ export default function FormTambahDataFinansial() {
 		} as any;
 
 		try {
-			await fetch('http://localhost:4000/v1/payments', {
+			paymentSchema.parse(dataForm);
+
+			const results = await fetch('http://localhost:4000/v1/payments', {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -72,10 +103,25 @@ export default function FormTambahDataFinansial() {
 				body: JSON.stringify(dataForm),
 			});
 
-			router.push('/profile/keuangan');
-		} catch (error) {
-			// console.log(error);
-			throw error;
+			if (results?.status === 401) {
+				toast.error(
+					'Data Finansial gagal ditambahkan, silahkan coba lagi!',
+					{
+						position: 'top-center',
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: 'colored',
+					}
+				);
+			} else if (results?.status === 201) {
+				router.push('/profile/keuangan');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -100,10 +146,9 @@ export default function FormTambahDataFinansial() {
 				</label>
 				<select
 					id="user_id"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					name="user_id"
 					onChange={handleChange}
-					required
 				>
 					<option
 						defaultValue={undefined}
@@ -121,6 +166,12 @@ export default function FormTambahDataFinansial() {
 						</option>
 					))}
 				</select>
+				{errors.user_id && (
+					<span className="text-red-danger text-sm">
+						{errors.user_id ? '* ' + errors.user_id : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6 pt-2">
@@ -133,10 +184,9 @@ export default function FormTambahDataFinansial() {
 					</label>
 					<select
 						id="type_id"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="type_id"
 						onChange={handleChange}
-						required
 					>
 						<option
 							defaultValue={undefined}
@@ -154,6 +204,12 @@ export default function FormTambahDataFinansial() {
 							</option>
 						))}
 					</select>
+					{errors.type_id && (
+						<span className="text-red-danger text-sm">
+							{errors.type_id ? '* ' + errors.type_id : ''}
+							<br />
+						</span>
+					)}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -167,10 +223,15 @@ export default function FormTambahDataFinansial() {
 						id="amount"
 						name="amount"
 						aria-label="amount"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						onChange={handleChange}
-						required
 					/>
+					{errors.amount && (
+						<span className="text-red-danger text-sm">
+							{errors.amount ? '* ' + errors.amount : ''}
+							<br />
+						</span>
+					)}
 				</div>
 			</div>
 
@@ -180,6 +241,20 @@ export default function FormTambahDataFinansial() {
 			>
 				Tambah
 			</button>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

@@ -21,8 +21,9 @@ export default function FormPendaftar() {
 				<div className="card outline outline-grey outline-[1px] p-8">
 					<div className="w-full divide-y-2">
 						<p className="font-bold text-2xl py-4">
-							Form Pendaftar KB TK IT Yapemri BSD
+							List Form Pendaftar KB TK IT Yapemri BSD
 						</p>
+
 						<div className="my-6">
 							<TabelFormPendaftar />
 						</div>

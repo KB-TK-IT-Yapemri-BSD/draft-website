@@ -203,6 +203,9 @@ export default function TabelDataFinansialMurid() {
 								Status
 							</th>
 							<th scope="col" className="px-6 py-3">
+								Telah Diubah Orang Tua
+							</th>
+							<th scope="col" className="px-6 py-3">
 								Aksi
 							</th>
 						</tr>
@@ -242,6 +245,11 @@ export default function TabelDataFinansialMurid() {
 										{payment['status']
 											? 'Lunas'
 											: 'Belum Lunas'}
+									</td>
+									<td className="px-6 py-4">
+										{payment['modified']
+											? 'Sudah Diubah'
+											: 'Belum Diubah'}
 									</td>
 									<td className="flex items-center px-6 py-4 space-x-2">
 										<button

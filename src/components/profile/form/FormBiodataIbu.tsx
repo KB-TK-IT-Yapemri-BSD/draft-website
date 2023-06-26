@@ -15,12 +15,12 @@ export default function FormBiodataIbu(props: any) {
 
 	useEffect(() => {
 		if (isMount) {
-			console.log('First Render');
+			// console.log('First Render');
 		} else {
-			console.log('Subsequent Render');
+			// console.log('Subsequent Render');
 
 			if (!props) {
-				console.log('No props');
+				// console.log('No props');
 			} else if (props) {
 				setData(props.props.mother_id);
 			}
@@ -30,8 +30,9 @@ export default function FormBiodataIbu(props: any) {
 	return (
 		<div className="divide-y-2">
 			<p className="text-2xl py-4">Biodata Ibu</p>
+
 			<div className="space-y-2">
-				<div className="py-2 pt-4">
+				<div className="py-2 pt-6">
 					<label
 						htmlFor="status"
 						className="block mb-2 text-sm font-medium read-only"
@@ -40,9 +41,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="status"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['status'] : 'NO DATA'}
 						disabled
 					/>
@@ -57,9 +57,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="fullname"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['firstName'] + ' ' + data['lastName']
@@ -78,9 +77,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="birth"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['birthplace'] +
@@ -105,14 +103,13 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="gender"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={
 							data
 								? data['gender']
-									? 'Perempuan'
-									: 'Laki-Laki'
+									? 'Wanita'
+									: 'Pria'
 								: 'NO DATA'
 						}
 						disabled
@@ -128,9 +125,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="religion"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['religion'] : 'NO DATA'}
 						disabled
 					/>
@@ -145,9 +141,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="citizenship"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['citizenship'] : 'NO DATA'}
 						disabled
 					/>
@@ -162,9 +157,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="occupation"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['occupation'] : 'NO DATA'}
 						disabled
 					/>
@@ -179,9 +173,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="education"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['education'] : 'NO DATA'}
 						disabled
 					/>
@@ -196,9 +189,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="address"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['address'] : 'NO DATA'}
 						disabled
 					/>
@@ -213,9 +205,8 @@ export default function FormBiodataIbu(props: any) {
 					</label>
 					<input
 						type="text"
-						id="disabled-input-2"
-						aria-label="disabled input 2"
-						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+						id="phone"
+						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						value={data ? data['phone'] : 'NO DATA'}
 						disabled
 					/>

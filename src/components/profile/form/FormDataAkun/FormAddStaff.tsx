@@ -1,8 +1,12 @@
 'use client';
 
+import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { userSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormAddStaff() {
 	const { data: session } = useSession();
@@ -12,15 +16,41 @@ export default function FormAddStaff() {
 		email: '',
 		password: '',
 		role: '',
-		biodata_id: undefined,
+		biodata_id: '',
 	};
 
+	type Errors = {
+		email?: string;
+		password?: string;
+		role?: string;
+		biodata_id?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [dataUsers, setDataUsers] = useState([]);
 	const [formValues, setFormValues] = useState(initialValues);
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
 	};
 
 	const getDataUsers = async () => {
@@ -49,7 +79,9 @@ export default function FormAddStaff() {
 		} as any;
 
 		try {
-			await fetch('http://localhost:4000/v1/users', {
+			userSchema.parse(dataForm);
+
+			const results = await fetch('http://localhost:4000/v1/users', {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -58,9 +90,25 @@ export default function FormAddStaff() {
 				body: JSON.stringify(dataForm),
 			});
 
-			router.push('/profile/data-akun');
-		} catch (error) {
-			console.log(error);
+			if (results?.status === 401) {
+				toast.error(
+					'Data Akun gagal ditambahkan, silahkan coba lagi!',
+					{
+						position: 'top-center',
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: 'colored',
+					}
+				);
+			} else if (results?.status === 201) {
+				router.push('/profile/data-akun');
+			}
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -87,10 +135,16 @@ export default function FormAddStaff() {
 					id="email"
 					name="email"
 					aria-label="email"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.email && (
+					<span className="text-red-danger text-sm">
+						{errors.email[0] ? '* ' + errors.email[0] : ''}
+						<br />
+						{errors.email[1] ? '* ' + errors.email[1] : ''}
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -105,10 +159,16 @@ export default function FormAddStaff() {
 					id="password"
 					name="password"
 					aria-label="password"
-					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					onChange={handleChange}
-					required
 				/>
+				{errors.password && (
+					<span className="text-red-danger text-sm">
+						{errors.password[0] ? '* ' + errors.password[0] : ''}
+						<br />
+						{errors.password[1] ? '* ' + errors.password[1] : ''}
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -120,7 +180,7 @@ export default function FormAddStaff() {
 				</label>
 				<select
 					id="role"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					name="role"
 					onChange={handleChange}
 				>
@@ -140,6 +200,12 @@ export default function FormAddStaff() {
 						Guru
 					</option>
 				</select>
+				{errors.role && (
+					<span className="text-red-danger text-sm">
+						{errors.role ? '* ' + errors.role : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<div className="py-2">
@@ -147,11 +213,11 @@ export default function FormAddStaff() {
 					htmlFor="biodata_id"
 					className="block mb-2 text-sm font-medium read-only"
 				>
-					Biodata ID
+					Biodata ID <span className="text-red-danger">*</span>
 				</label>
 				<select
 					id="biodata_id"
-					className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+					className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					name="biodata_id"
 					onChange={handleChange}
 				>
@@ -171,6 +237,12 @@ export default function FormAddStaff() {
 						</option>
 					))}
 				</select>
+				{errors.biodata_id && (
+					<span className="text-red-danger text-sm">
+						{errors.biodata_id ? '* ' + errors.biodata_id : ''}
+						<br />
+					</span>
+				)}
 			</div>
 
 			<button
@@ -179,6 +251,20 @@ export default function FormAddStaff() {
 			>
 				Tambah
 			</button>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

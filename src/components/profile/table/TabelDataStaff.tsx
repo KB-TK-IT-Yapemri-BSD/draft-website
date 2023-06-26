@@ -61,7 +61,7 @@ export default function TabelDataStaff() {
 
 			setChanges(true);
 			closeModal();
-			toast.success('Data Orang Tua berhasil dihapus', {
+			toast.success('Data Staff berhasil dihapus', {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -72,7 +72,7 @@ export default function TabelDataStaff() {
 				theme: 'colored',
 			});
 		} catch (error) {
-			toast.error('Data Orang Tua gagal dihapus, silahkan coba lagi!', {
+			toast.error('Data Staff gagal dihapus, silahkan coba lagi!', {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,

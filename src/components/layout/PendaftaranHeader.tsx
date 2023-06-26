@@ -1,10 +1,12 @@
 'use client';
 
+import { ZodError } from 'zod';
 import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
 import { useSession } from 'next-auth/react';
+import { formSchema } from '@/pages/api/validations';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function PendaftaranHeader() {
@@ -31,11 +33,41 @@ function PendaftaranHeader() {
 		reason: '',
 	};
 
+	type Errors = {
+		name?: string;
+		email?: string;
+		phone?: string;
+		address?: string;
+		numChildrens?: string;
+		ageChildrens?: string;
+		grade?: string;
+		reason?: string;
+	};
+
+	const [errors, setErrors] = useState<Errors>({});
 	const [formValues, setFormValues] = useState(initialValues);
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
+
+		setErrors((prevErrors) => ({
+			...prevErrors,
+			[name]: undefined,
+		}));
+	};
+
+	const handleValidationErrors = (error: ZodError) => {
+		// console.log('Validation error:', error);
+		// Set the validation error messages
+		if (error.formErrors && error.formErrors.fieldErrors) {
+			setErrors(error.formErrors.fieldErrors);
+			// console.log(error.formErrors.fieldErrors);
+		} else {
+			// Handle any other type of error
+			// Display a generic error message or take appropriate action
+			// console.log(error);
+		}
 	};
 
 	const handleAddForm = async (formValues: any) => {
@@ -51,6 +83,8 @@ function PendaftaranHeader() {
 		} as any;
 
 		try {
+			formSchema.parse(dataForm);
+
 			let res = await fetch('http://localhost:4000/v1/forms', {
 				method: 'POST',
 				headers: {
@@ -89,8 +123,8 @@ function PendaftaranHeader() {
 					}
 				);
 			}
-		} catch (error) {
-			throw error;
+		} catch (error: any) {
+			handleValidationErrors(error);
 		}
 	};
 
@@ -169,7 +203,7 @@ function PendaftaranHeader() {
 													htmlFor="name"
 													className="block mb-2 text-sm font-medium read-only"
 												>
-													Nama Lengkap{' '}
+													Nama Lengkap Orang Tua{' '}
 													<span className="text-red-danger">
 														*
 													</span>
@@ -182,8 +216,15 @@ function PendaftaranHeader() {
 													className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 													value={formValues.name}
 													onChange={handleChange}
-													required
 												/>
+												{errors.name && (
+													<span className="text-red-danger text-sm">
+														{errors.name
+															? '* ' + errors.name
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -204,8 +245,20 @@ function PendaftaranHeader() {
 													className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 													value={formValues.email}
 													onChange={handleChange}
-													required
 												/>
+												{errors.email && (
+													<span className="text-red-danger text-sm">
+														{errors.email[0]
+															? '* ' +
+															  errors.email[0]
+															: ''}
+														<br />
+														{errors.email[1]
+															? '* ' +
+															  errors.email[1]
+															: ''}
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -226,8 +279,16 @@ function PendaftaranHeader() {
 													className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 													value={formValues.phone}
 													onChange={handleChange}
-													required
 												/>
+												{errors.phone && (
+													<span className="text-red-danger text-sm">
+														{errors.phone
+															? '* ' +
+															  errors.phone
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -248,8 +309,16 @@ function PendaftaranHeader() {
 													className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 													value={formValues.address}
 													onChange={handleChange}
-													required
 												/>
+												{errors.address && (
+													<span className="text-red-danger text-sm">
+														{errors.address
+															? '* ' +
+															  errors.address
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -273,8 +342,16 @@ function PendaftaranHeader() {
 														formValues.numChildrens
 													}
 													onChange={handleChange}
-													required
 												/>
+												{errors.numChildrens && (
+													<span className="text-red-danger text-sm">
+														{errors.numChildrens
+															? '* ' +
+															  errors.numChildrens
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -298,8 +375,16 @@ function PendaftaranHeader() {
 														formValues.ageChildrens
 													}
 													onChange={handleChange}
-													required
 												/>
+												{errors.ageChildrens && (
+													<span className="text-red-danger text-sm">
+														{errors.ageChildrens
+															? '* ' +
+															  errors.ageChildrens
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -322,8 +407,16 @@ function PendaftaranHeader() {
 													className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 													value={formValues.grade}
 													onChange={handleChange}
-													required
 												/>
+												{errors.grade && (
+													<span className="text-red-danger text-sm">
+														{errors.grade
+															? '* ' +
+															  errors.grade
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<div className="py-2 pt-4">
@@ -332,7 +425,7 @@ function PendaftaranHeader() {
 													className="block mb-2 text-sm font-medium read-only"
 												>
 													Alasan Mendaftar di KB TK IT
-													Yapemri BSD
+													Yapemri BSD{' '}
 													<span className="text-red-danger">
 														*
 													</span>
@@ -345,8 +438,16 @@ function PendaftaranHeader() {
 													className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 													value={formValues.reason}
 													onChange={handleChange}
-													required
 												/>
+												{errors.reason && (
+													<span className="text-red-danger text-sm">
+														{errors.reason
+															? '* ' +
+															  errors.numChildrens
+															: ''}
+														<br />
+													</span>
+												)}
 											</div>
 
 											<button
