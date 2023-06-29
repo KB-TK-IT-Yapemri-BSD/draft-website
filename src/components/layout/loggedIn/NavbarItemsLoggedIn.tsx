@@ -4,12 +4,23 @@ import Link from 'next/link';
 import { ArrowDown } from '@/components/shared/Icons';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 
 function NavbarItemsLoggedIn() {
+	const { data: session } = useSession();
+
 	const [isOpen, setIsOpen] = useState(false);
 	const [isTK, setIsTK] = useState(true);
 	const [isPR, setIsPR] = useState(true);
 	const [isBT, setIsBT] = useState(true);
+	const [isPF, setIsPF] = useState(true);
+
+	const logout = async () => {
+		await signOut({
+			redirect: true,
+			callbackUrl: '/beranda',
+		});
+	};
 
 	return (
 		<div className="flex flex-col my-4 lg:my-0 lg:mx-3 lg:flex-row lg:space-x-2">
@@ -189,11 +200,13 @@ function NavbarItemsLoggedIn() {
 							Berita Sekolah
 						</p>
 					</Link>
+					{/**
 					<Link href="/berita-terbaru/agenda-sekolah">
 						<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 							Agenda Sekolah
 						</p>
 					</Link>
+					 */}
 				</div>
 			</div>
 			<Menu as="div" className="hidden lg:block relative">
@@ -232,6 +245,148 @@ function NavbarItemsLoggedIn() {
 				</Transition>
 			</Menu>
 
+			<div className="lg:hidden">
+				<button
+					onClick={() => setIsPF(!isPF)}
+					className="flex hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2"
+				>
+					<div className="">Profile</div>
+					<ArrowDown />
+				</button>
+
+				<div
+					className={`${isPF ? 'hidden' : 'block'} px-2 py-2 text-sm`}
+					onClick={() => setIsOpen(false)}
+				>
+					{session?.user.user.role === 'parents' ? (
+						<>
+							<Link href="/profile/data-diri">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Diri
+								</p>
+							</Link>
+							<Link href="/profile/data-wali">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Wali
+								</p>
+							</Link>
+							<Link href="/profile/keuangan">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Keuangan
+								</p>
+							</Link>
+							<button
+								onClick={logout}
+								className="w-full text-left"
+							>
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Logout
+								</p>
+							</button>
+						</>
+					) : session?.user.user.role === 'principal' ? (
+						<>
+							<Link href="/profile/data-diri">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Diri
+								</p>
+							</Link>
+
+							<Link href="/profile/laporan">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Laporan
+								</p>
+							</Link>
+							<button
+								onClick={logout}
+								className="w-full text-left"
+							>
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Logout
+								</p>
+							</button>
+						</>
+					) : session?.user.user.role === 'teachers' ? (
+						<>
+							<Link href="/profile/data-diri">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Diri
+								</p>
+							</Link>
+							<Link href="/profile/form-pendaftar">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Form Pendaftar
+								</p>
+							</Link>
+							<Link href="/profile/data-murid">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Murid
+								</p>
+							</Link>
+							<Link href="/profile/keuangan">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Keuangan
+								</p>
+							</Link>
+							<button
+								onClick={logout}
+								className="w-full text-left"
+							>
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Logout
+								</p>
+							</button>
+						</>
+					) : (
+						<>
+							<Link href="/profile/data-diri">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Diri
+								</p>
+							</Link>
+
+							<Link href="/profile/form-pendaftar">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Form Pendaftar
+								</p>
+							</Link>
+							<Link href="/profile/data-murid">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Murid
+								</p>
+							</Link>
+							<Link href="/profile/data-staff">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Staff
+								</p>
+							</Link>
+							<Link href="/profile/data-akun">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Data Akun
+								</p>
+							</Link>
+							<Link href="/profile/keuangan">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Keuangan
+								</p>
+							</Link>
+							<Link href="/profile/laporan">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Laporan
+								</p>
+							</Link>
+							<button
+								onClick={logout}
+								className="w-full text-left"
+							>
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Logout
+								</p>
+							</button>
+						</>
+					)}
+				</div>
+			</div>
 			{/**
                 <label className="relative block">
                     <span className="sr-only">Search</span>

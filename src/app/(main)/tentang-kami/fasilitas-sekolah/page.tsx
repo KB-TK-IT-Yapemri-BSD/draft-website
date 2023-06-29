@@ -42,7 +42,7 @@ export default function FasilitasSekolah() {
 						</nav>
 					</div>
 
-					<div className="w-full py-10 flex flex-wrap place-content-stretch">
+					<div className="w-full py-10 flex flex-wrap place-content-around">
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image

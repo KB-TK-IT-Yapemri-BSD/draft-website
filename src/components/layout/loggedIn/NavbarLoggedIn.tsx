@@ -175,7 +175,7 @@ function NavbarLoggedIn() {
 										</Menu.Item>
 									</div>
 								</Menu.Items>
-							) : (
+							) : session?.user.user.role === 'admin' ? (
 								<Menu.Items
 									as="div"
 									className="bg-white absolute right-0 w-40 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
@@ -240,6 +240,8 @@ function NavbarLoggedIn() {
 										</Menu.Item>
 									</div>
 								</Menu.Items>
+							) : (
+								<div className="hidden"></div>
 							)}
 						</Transition>
 					</Menu>

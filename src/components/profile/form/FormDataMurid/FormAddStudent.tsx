@@ -293,7 +293,7 @@ export default function FormAddStudent() {
 				</div>
 			</div>
 
-			<div className="flex flex-col lg:flex-row lg:space-x-6 pt-2">
+			<div className="flex flex-col lg:flex-row lg:space-x-6 pt-2 space-y-2 lg:space-y-0">
 				<div className="py-2 w-full">
 					<label
 						htmlFor="birthplace"
@@ -379,7 +379,7 @@ export default function FormAddStudent() {
 			</div>
 
 			<div className="flex flex-col lg:flex-row lg:space-x-6">
-				<div className="py-2 w-1/2">
+				<div className="py-2 lg:w-1/2">
 					<label
 						htmlFor="religion"
 						className="block mb-2 text-sm font-medium read-only"
@@ -419,7 +419,7 @@ export default function FormAddStudent() {
 						</span>
 					)}
 				</div>
-				<div className="py-2 w-1/2">
+				<div className="py-2 lg:w-1/2">
 					<label
 						htmlFor="citizenship"
 						className="block mb-2 text-sm font-medium read-only"
@@ -785,12 +785,14 @@ export default function FormAddStudent() {
 				)}
 			</div>
 
-			<button
-				type="submit"
-				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
-			>
-				Tambah
-			</button>
+			<div className="lg:text-right">
+				<button
+					type="submit"
+					className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
+				>
+					Tambah
+				</button>
+			</div>
 
 			<ToastContainer
 				style={{ width: '500px' }}

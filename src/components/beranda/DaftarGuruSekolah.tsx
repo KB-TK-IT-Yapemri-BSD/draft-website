@@ -3,16 +3,17 @@ import Image from 'next/image';
 function DaftarGuruSekolah() {
 	return (
 		<div className="bg-grey">
-			<div className="mx-10 lg:mx-40 py-20 flex flex-row">
-				<div className="my-auto px-10 w-1/3">
+			<div className="mx-10 py-20 flex flex-col lg:mx-40 lg:flex-row">
+				<div className="mx-auto my-auto px-10 lg:mx-0">
 					<h1 className="text-3xl pb-3 text-center italic">
 						Perkenalkan
 					</h1>
-					<p className="text-4xl pb-10 text-center font-medium">
+					<p className="text-4xl pb-12 text-center font-medium">
 						Para Guru dan Staff Kami
 					</p>
 				</div>
-				<div className="mx-auto w-3/4 px-40">
+
+				<div className="mx-auto w-11/12 lg:px-20">
 					<div
 						className="flex justify-center relative mx-auto"
 						style={{

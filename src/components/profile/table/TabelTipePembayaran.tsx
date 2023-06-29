@@ -89,7 +89,7 @@ export default function TabelTipePembayaran() {
 	return (
 		<>
 			<div className="text-right">
-				<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
+				<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex justify-center w-full lg:w-auto">
 					<DocumentPlusSymbol />
 					<Link href="/profile/keuangan/tipe-pembayaran/add">
 						<p className="ml-2 text-sm">Tambah TIPE PEMBAYARAN</p>

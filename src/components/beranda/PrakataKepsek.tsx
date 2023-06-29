@@ -4,34 +4,46 @@ import Link from 'next/link';
 function PrakataKepsek() {
 	return (
 		<div className="bg-white">
-			<div className=" flex flex-col justify-center py-10 lg:flex-row lg:mx-40 lg:py-20">
-				<div className="w-3/4 h-[300px] lg:w-[700px] lg:min-h-[500px] self-center">
+			<div className="flex flex-col justify-center py-10 lg:flex-row lg:mx-40 lg:py-20">
+				<div className="w-3/4 self-center pt-6 lg:w-[700px] lg:min-h-[500px] lg:pt-0">
 					<div
 						className="flex mx-auto p-20 relative"
-						style={{ width: '400px', height: '500px' }}
+						style={{ maxWidth: '100%', height: '600px' }}
 					>
 						<Image
-							src="/beranda/foto-kepsek.jpg"
+							src="/beranda/foto-kepsek-crop.jpg"
 							fill
 							alt="Kepala Sekolah Yapemri BSD"
 							style={{
 								objectFit: 'cover',
+								objectPosition: '0% 20%',
 								position: 'absolute',
 							}}
-							className="rounded-lg border-white border-2 shadow-xl"
+							className="hidden lg:block border-white border-2 shadow-xl rounded-lg"
+						/>
+						<Image
+							src="/beranda/foto-kepsek-crop.jpg"
+							fill
+							alt="Kepala Sekolah Yapemri BSD"
+							style={{
+								objectFit: 'cover',
+								objectPosition: 'top',
+								position: 'absolute',
+							}}
+							className="block lg:hidden border-white border-2 shadow-xl rounded-lg"
 						/>
 					</div>
 				</div>
 
 				<div className="px-8 text-center my-6 lg:px-0 lg:text-left lg:my-0 lg:w-10/12 lg:pl-20">
-					<h1 className="text-4xl pt-5 font-medium">
+					<h1 className="text-4xl pt-8 lg:pt-5 font-medium">
 						Prakata Kepala Sekolah
 					</h1>
 					<h2 className="text-3xl py-3">KB TK IT Yapemri BSD</h2>
 					<p className="my-3 mt-6 italic">
 						Assalaamualaikum Warohmatullohi Wabarokaatuh
 					</p>
-					<p className="my-3 text-justify">
+					<p className="my-3 text-center lg:text-justify">
 						Puji serta syukur Alhamdulillah kita panjatkan ke
 						hadirat Allah SWT atas segala limpahan nikmat dan
 						karunia-Nya, dan semoga keberkahan selalu menyertai
@@ -40,7 +52,7 @@ function PrakataKepsek() {
 						SAW, keluarganya, sahabat serta semua para pengikutnya
 						hingga yaumul akhir. Aamiin...
 					</p>
-					<p className="my-3 text-justify">
+					<p className="my-3 text-center lg:text-justify">
 						Pertama sekali kami mengucapkan selamat datang dan
 						selamat bergabung di KB-TK IT YAPEMRI BSD. Kami sangat
 						menghargai atas pilihan Bapak/ Ibu yang sudah
@@ -49,14 +61,14 @@ function PrakataKepsek() {
 						pelayanan pendidikan dan pengajaran yang terbaik untuk
 						putra/i Bapak/ Ibu.
 					</p>
-					<p className="my-3 text-justify">
+					<p className="my-3 text-center lg:text-justify">
 						Semoga website ini dapat menjembatani persamaan
 						pembelajaran antara sekolah dengan orang tua/wali murid
 						dan juga merupakan panduan secara umum bagi orang tua/
 						wali murid mengenai Visi dan Misi serta
 						kegiatan-kegiatan sekolah.
 					</p>
-					<p className="my-3 text-justify">
+					<p className="my-3 text-center lg:text-justify">
 						Kami sebagai pihak sekolah meminta kerja sama dari
 						Bapak/Ibu dalam memberikan pendidikan bagi putra/i kita
 						semua di rumah. Dengan harapan kami kelak dapat mencetak

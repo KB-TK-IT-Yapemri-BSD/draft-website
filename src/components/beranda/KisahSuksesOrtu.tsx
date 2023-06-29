@@ -4,10 +4,10 @@ function KisahSuksesOrtu() {
 	return (
 		<div className="bg-white">
 			<div className="mx-10 lg:mx-40 py-20">
-				<h1 className="text-4xl pt-5 text-center font-medium pb-10">
+				<h1 className="text-4xl pt-5 text-center font-medium pb-16">
 					Kisah Sukses Orang Tua
 				</h1>
-				<div className="inline-flex gap-20 items-center py-10">
+				<div className="flex flex-col lg:flex-row gap-20 items-center py-10 px-4 lg:px-0">
 					<div className="relative max-w-md mx-auto flex flex-col py-6 px-8 bg-white rounded-lg shadow-lg">
 						<img
 							src="https://res.cloudinary.com/aurellieandra/image/upload/v1687270833/yapemri-photos/Example/811cf987bb3e0d45499253eb496c9306_n1vfr0.jpg"

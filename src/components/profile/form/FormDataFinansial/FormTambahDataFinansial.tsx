@@ -235,12 +235,14 @@ export default function FormTambahDataFinansial() {
 				</div>
 			</div>
 
-			<button
-				type="submit"
-				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
-			>
-				Tambah
-			</button>
+			<div className="text-right">
+				<button
+					type="submit"
+					className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
+				>
+					Tambah
+				</button>
+			</div>
 
 			<ToastContainer
 				style={{ width: '500px' }}

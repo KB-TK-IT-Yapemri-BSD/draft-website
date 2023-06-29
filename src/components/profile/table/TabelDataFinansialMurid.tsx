@@ -142,17 +142,17 @@ export default function TabelDataFinansialMurid() {
 
 	return (
 		<>
-			<div className="flex justify-between">
-				<div className="py-4 flex w-1/2 justify-start space-x-3">
+			<div className="flex flex-col-reverse lg:flex-row lg:justify-between">
+				<div className="py-4 flex gap-2 lg:gap-0 lg:w-1/2 lg:justify-start lg:space-x-3">
 					<label
 						htmlFor="user_id"
-						className="text-sm font-medium read-only w-auto h-auto my-auto"
+						className="text-sm font-medium read-only w-1/2 lg:w-auto h-auto my-auto"
 					>
 						Nama Murid
 					</label>
 					<select
 						id="user_id"
-						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-1/2 h-auto my-auto px-1 py-2"
+						className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full lg:w-1/2 h-auto my-auto px-1 py-2"
 						name="user_id"
 						onChange={handleChange}
 					>
@@ -172,7 +172,7 @@ export default function TabelDataFinansialMurid() {
 				</div>
 				{session?.user.user.role === 'admin' ? (
 					<div className="text-right">
-						<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
+						<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex justify-center w-full lg:w-auto">
 							<DocumentPlusSymbol />
 							<Link href="/profile/keuangan/data-finansial/add">
 								<p className="ml-2 text-sm">

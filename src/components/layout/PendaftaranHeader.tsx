@@ -156,7 +156,7 @@ function PendaftaranHeader() {
 			</h1>
 			<button
 				onClick={openModal}
-				className="absolute -mt-6 top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-10 lg:px-40 py-2.5 text-center "
+				className="absolute mt-10 lg:-mt-6 top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-10 lg:px-40 py-2.5 text-center "
 			>
 				Daftar Sekarang
 			</button>
@@ -186,7 +186,7 @@ function PendaftaranHeader() {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-2/3 h-[700px] transform overflow-hidden rounded-2xl bg-white p-12 text-left align-middle transition-all overflow-y-auto">
+								<Dialog.Panel className="w-2/3 h-[600px] transform overflow-hidden rounded-2xl bg-white p-12 text-left align-middle transition-all overflow-y-auto">
 									<Dialog.Title
 										as="p"
 										className="text-2xl text-center font-medium text-gray-900"

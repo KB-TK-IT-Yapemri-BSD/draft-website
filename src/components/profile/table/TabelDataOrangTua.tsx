@@ -99,7 +99,7 @@ export default function TabelDataOrangTua() {
 				<></>
 			) : (
 				<div className="text-right">
-					<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
+					<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex justify-center w-full lg:w-auto">
 						<DocumentPlusSymbol />
 						<Link href="/profile/data-murid/add/parent">
 							<p className="ml-2 text-sm">

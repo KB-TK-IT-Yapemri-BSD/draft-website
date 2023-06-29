@@ -7,8 +7,8 @@ function PrestasiSekolah() {
 				<h1 className="text-4xl py-3 pb-10 font-medium text-center">
 					Prestasi Sekolah
 				</h1>
-				<div className="mx-10 lg:mx-60 divide-y-2 space-y-6">
-					<div className="w-full py-10 flex flex-wrap place-content-stretch">
+				<div className="lg:mx-10 divide-y-2 space-y-6">
+					<div className="w-full py-10 flex flex-wrap place-content-evenly lg:flex-none mx-auto">
 						<div className="card w-80 mx-4 mb-10">
 							<div className="py-20 bg-cover relative">
 								<Image

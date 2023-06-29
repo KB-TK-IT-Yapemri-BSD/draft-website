@@ -324,8 +324,8 @@ export default function FormUpdateParent({ params }: { params: any }) {
 				</div>
 			</div>
 
-			<div className="flex flex-col lg:flex-row lg:space-x-6">
-				<div className="py-2 w-1/2">
+			<div className="flex flex-col lg:flex-row lg:space-x-6 space-y-2 lg:space-y-0">
+				<div className="py-2 lg:w-1/2">
 					<label
 						htmlFor="religion"
 						className="block mb-2 text-sm font-medium read-only"
@@ -334,7 +334,7 @@ export default function FormUpdateParent({ params }: { params: any }) {
 					</label>
 					<select
 						id="religion"
-						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="religion"
 						onChange={handleChange}
 					>
@@ -372,7 +372,7 @@ export default function FormUpdateParent({ params }: { params: any }) {
 						</span>
 					)}
 				</div>
-				<div className="py-2 w-1/2">
+				<div className="py-2 lg:w-1/2">
 					<label
 						htmlFor="citizenship"
 						className="block mb-2 text-sm font-medium read-only"
@@ -381,7 +381,7 @@ export default function FormUpdateParent({ params }: { params: any }) {
 					</label>
 					<select
 						id="citizenship"
-						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+						className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 						name="citizenship"
 						onChange={handleChange}
 					>
@@ -507,12 +507,14 @@ export default function FormUpdateParent({ params }: { params: any }) {
 				)}
 			</div>
 
-			<button
-				type="submit"
-				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
-			>
-				Ubah
-			</button>
+			<div className="text-right">
+				<button
+					type="submit"
+					className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
+				>
+					Ubah
+				</button>
+			</div>
 
 			<ToastContainer
 				style={{ width: '500px' }}

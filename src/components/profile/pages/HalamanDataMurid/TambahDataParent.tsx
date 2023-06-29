@@ -7,7 +7,7 @@ import { BigArrowLeft } from '@/components/shared/Icons';
 export default function AddParent() {
 	return (
 		<div className="bg-white">
-			<div className="mx-60 py-20 flex flex-col gap-6">
+			<div className="mx-10 py-20 lg:mx-60 space-y-6">
 				<Link
 					href="/profile/data-murid"
 					className="inline-flex items-center text-xs lg:text-sm font-medium text-body-color hover:text-black"

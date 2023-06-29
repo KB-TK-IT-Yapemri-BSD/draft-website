@@ -3,6 +3,8 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormUpdateDataFinansial({ params }: { params: any }) {
 	const { id } = params;
@@ -113,8 +115,16 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 
 			router.push('/profile/keuangan');
 		} catch (error) {
-			// console.log(error);
-			throw error;
+			toast.error('Data Staff gagal diubah, silahkan coba lagi!', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'colored',
+			});
 		}
 	};
 
@@ -383,12 +393,28 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 				/>
 			</div>
 
-			<button
-				type="submit"
-				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 float-right font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-3.5 text-center"
-			>
-				Ubah
-			</button>
+			<div className="text-right">
+				<button
+					type="submit"
+					className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
+				>
+					Ubah
+				</button>
+			</div>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

@@ -79,7 +79,30 @@ export default function ProfileStaffSideBar(props: any) {
 				</button>
 
 				{/** Limited */}
-				{role === 'admin' || 'teachers' ? (
+				{role === 'teachers' ? (
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+							<Link
+								href="/profile/form-pendaftar"
+								className="inline-flex space-x-2 py-1"
+							>
+								<ClipboardDocumentSymbol />
+								<p>Form Pendaftar</p>
+							</Link>
+						</button>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+							<Link
+								href="/profile/data-murid"
+								className="inline-flex space-x-2 py-1"
+							>
+								<UsersSymbol />
+								<p>Data Murid</p>
+							</Link>
+						</button>
+					</>
+				) : role === 'principal' ? (
+					<div className="hidden"></div>
+				) : role === 'admin' ? (
 					<>
 						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 							<Link
@@ -129,30 +152,60 @@ export default function ProfileStaffSideBar(props: any) {
 					<div className="hidden"></div>
 				)}
 
-				{role === 'admin' || 'teachers' ? (
-					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
-						<Link
-							href="/profile/keuangan"
-							className="inline-flex space-x-2 py-1"
-						>
-							<MoneySymbol />
-							<p>Keuangan</p>
-						</Link>
-					</button>
+				{role === 'teachers' ? (
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+							<Link
+								href="/profile/keuangan"
+								className="inline-flex space-x-2 py-1"
+							>
+								<MoneySymbol />
+								<p>Keuangan</p>
+							</Link>
+						</button>
+					</>
+				) : role === 'admin' ? (
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+							<Link
+								href="/profile/keuangan"
+								className="inline-flex space-x-2 py-1"
+							>
+								<MoneySymbol />
+								<p>Keuangan</p>
+							</Link>
+						</button>
+					</>
 				) : (
 					<div className="hidden"></div>
 				)}
 
-				{role === 'admin' || 'principal' ? (
-					<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
-						<Link
-							href="/profile/laporan"
-							className="inline-flex space-x-2 py-1"
-						>
-							<FolderOpenSymbol />
-							<p>Laporan</p>
-						</Link>
-					</button>
+				{role === 'principal' ? (
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+							<Link
+								href="/profile/laporan"
+								className="inline-flex space-x-2 py-1"
+							>
+								<FolderOpenSymbol />
+								<p>Laporan</p>
+							</Link>
+						</button>
+					</>
+				) : role === 'teachers' ? (
+					<div className="hidden"></div>
+				) : role === 'admin' ? (
+					<>
+						<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
+							<Link
+								href="/profile/laporan"
+								className="inline-flex space-x-2 py-1"
+							>
+								<FolderOpenSymbol />
+								<p>Laporan</p>
+							</Link>
+						</button>
+					</>
 				) : (
 					<div className="hidden"></div>
 				)}
@@ -165,6 +218,7 @@ export default function ProfileStaffSideBar(props: any) {
 						<LogoutSymbol />
 						<p>Logout</p>
 					</div>
+					.
 				</button>
 			</div>
 		</>

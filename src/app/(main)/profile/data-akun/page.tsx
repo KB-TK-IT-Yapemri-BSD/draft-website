@@ -25,9 +25,9 @@ export default function DataAkun() {
 						</p>
 
 						<div className="my-6">
-							<div className="text-right space-x-4">
+							<div className="flex flex-col lg:flex-row-reverse lg:gap-4 lg:space-x-4">
 								<Link href="/profile/data-akun/add/student">
-									<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
+									<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 mt-6 mb-2 lg:my-6 inline-flex justify-center w-full lg:w-auto">
 										<DocumentPlusSymbol />
 
 										<p className="ml-2 text-sm">
@@ -36,7 +36,7 @@ export default function DataAkun() {
 									</button>
 								</Link>
 								<Link href="/profile/data-akun/add/staff">
-									<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 my-6 inline-flex items-center">
+									<button className="bg-blue-primary text-white hover:bg-blue-700 rounded-md px-4 py-2 mb-6 mt-2 lg:my-6 inline-flex justify-center w-full lg:w-auto">
 										<DocumentPlusSymbol />
 
 										<p className="ml-2 text-sm">

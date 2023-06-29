@@ -23,7 +23,6 @@ export default function FormPendaftar() {
 						<p className="font-bold text-2xl py-4">
 							List Form Pendaftar KB TK IT Yapemri BSD
 						</p>
-
 						<div className="my-6">
 							<TabelFormPendaftar />
 						</div>

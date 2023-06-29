@@ -4,12 +4,12 @@ import { HomepageSymbol } from '../shared/Icons';
 function KurikulumSekolah() {
 	return (
 		<div className="bg-white">
-			<div className="py-20 flex flex-col divide-y-2 lg:mx-40 lg:flex-row lg:divide-y-0 lg:divide-x-2">
+			<div className="py-20 flex flex-col lg:mx-40 lg:flex-row lg:divide-y-0 lg:divide-x-2">
 				<div className="p-10 text-center lg:text-left lg:my-auto lg:w-1/2">
 					<h1 className="text-4xl pt-5 py-3 font-medium">
 						Kurikulum Sekolah
 					</h1>
-					<p className="my-3 text-justify lg:pr-10">
+					<p className="my-3 text-center lg:text-justify lg:pr-10">
 						Kurikulum KB TK IT. YAPEMRI BSD mengacu kepada Kurikulum
 						Nasional Depatemen Pendidikan dan kebudayaan serta
 						digabungkan dengan pembelajaran keagamaan, dimana target
@@ -26,7 +26,7 @@ function KurikulumSekolah() {
 				</div>
 
 				<div className="flex flex-wrap justify-center lg:justify-normal space-y-10 p-10 lg:w-1/2">
-					<div className="card max-w-prose h-auto inline-flex">
+					<div className="card max-w-prose h-auto inline-flex w-full">
 						<Image
 							src="/beranda/home-icon.png"
 							alt="ikon-kurikulum1"
@@ -45,7 +45,7 @@ function KurikulumSekolah() {
 						</div>
 					</div>
 
-					<div className="card max-w-prose h-auto inline-flex">
+					<div className="card max-w-prose h-auto inline-flex w-full">
 						<Image
 							src="/beranda/list-icon.png"
 							alt="ikon-kurikulum2"
@@ -64,7 +64,7 @@ function KurikulumSekolah() {
 						</div>
 					</div>
 
-					<div className="card max-w-prose h-auto inline-flex">
+					<div className="card max-w-prose h-auto inline-flex w-full">
 						<Image
 							src="/beranda/achievement-icon.png"
 							alt="ikon-kurikulum3"
@@ -83,7 +83,7 @@ function KurikulumSekolah() {
 						</div>
 					</div>
 
-					<div className="card max-w-prose h-auto inline-flex">
+					<div className="card max-w-prose h-auto inline-flex w-full">
 						<Image
 							src="/beranda/location-icon.png"
 							alt="ikon-kurikulum4"

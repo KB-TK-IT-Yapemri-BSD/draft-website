@@ -4,7 +4,7 @@ function Footer() {
 	return (
 		<div className="bg-secondary text-white divide-y-[1px]">
 			<div className="py-20 flex flex-col mx-10 divide-y-[1px] lg:divide-y-0 lg:mx-40 lg:flex-row lg:space-x-10">
-				<div className="lg:w-1/3 py-8">
+				<div className="lg:w-1/3 lg:py-8">
 					<div className="inline-flex">
 						<Image
 							src="/logo.png"
@@ -55,7 +55,7 @@ function Footer() {
 					<h1 className="text-xl my-6 lg:mb-6 font-bold">
 						Hubungi Kami
 					</h1>
-					<div className="space-y-1 leading-relaxed">
+					<div className="space-y-1 leading-relaxed -mb-10 lg:mb-0">
 						<p className="text-lg font-semibold">Alamat</p>
 						<p className="text-sm">
 							Komplek DELATINOS, Ruko Bravo Centro Havana, Blok MA
@@ -79,7 +79,7 @@ function Footer() {
 
 			<div className="py-10 mx-10 lg:mx-40">
 				<p>
-					Copyright 2023 © KB TK IT Yapemri BSD. All Rights Reserved.
+					Copyright © 2023 KB TK IT Yapemri BSD. All Rights Reserved.
 				</p>
 			</div>
 		</div>

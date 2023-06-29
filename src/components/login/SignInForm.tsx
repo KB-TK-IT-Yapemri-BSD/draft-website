@@ -87,7 +87,7 @@ export default function SignInForm() {
 		<>
 			<form>
 				<div className="flex flex-col gap-6 mb-6 md:grid-rows-2">
-					<div className="mb-6 lg:mb-2">
+					<div className="lg:mb-2">
 						<label
 							htmlFor="email"
 							className="block mb-2 text-sm font-medium"
@@ -143,7 +143,7 @@ export default function SignInForm() {
 
 			<button
 				type="submit"
-				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 lg:px-40 py-2.5 text-center"
+				className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-10 lg:px-40 py-2.5 text-center mb-2"
 				onClick={onSubmit}
 			>
 				Masuk

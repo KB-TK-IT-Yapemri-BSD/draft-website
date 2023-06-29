@@ -11,7 +11,7 @@ function BerandaHeader() {
 					<h1 className="text-xl lg:text-4xl mb-3 ">
 						Selamat datang di website
 					</h1>
-					<h1 className="text-4xl lg:text-6xl">
+					<h1 className="text-4xl pb-8 lg:text-6xl">
 						KB TK IT Yapemri BSD
 					</h1>
 				</div>
