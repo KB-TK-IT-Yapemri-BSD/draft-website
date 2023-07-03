@@ -9,10 +9,12 @@ import {
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 export default function ProfileOrangTuaSideBar(props: any) {
 	const [data, setData] = useState();
 	const [type, setType] = useState();
+	const [picture, setPicture] = useState();
 
 	const useIsMount = () => {
 		const isMountRef = useRef(true);
@@ -35,6 +37,7 @@ export default function ProfileOrangTuaSideBar(props: any) {
 			} else if (props) {
 				setData(props.props.props);
 				setType(props.props.session.user.user.biodataType);
+				setPicture(props.props.session.user.user.picture);
 			}
 		}
 	});
@@ -49,9 +52,20 @@ export default function ProfileOrangTuaSideBar(props: any) {
 	return (
 		<>
 			<div className="flex flex-col text-center py-6 space-y-3 relative">
-				{/** 
-				<span className="mx-auto w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] mb-6 rounded-full bg-secondary" />
-				 */}
+				<div className="mx-auto w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] mb-6 rounded-full bg-secondary relative">
+					<Image
+						src={picture ? picture : ''}
+						fill
+						alt="profile-picture"
+						style={{
+							objectFit: 'cover',
+							position: 'absolute',
+						}}
+						priority
+						className="mx-auto w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] mb-6 rounded-full bg-secondary relative"
+					/>
+				</div>
+
 				<p className="font-bold text-xl">
 					{data
 						? data['firstName'] + ' ' + data['lastName']

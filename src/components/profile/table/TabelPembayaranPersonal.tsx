@@ -80,7 +80,7 @@ export default function TabelPembayaranPersonal() {
 								Tanggal Pembayaran
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Bukti Pembayaran
+								Telah Diunggah
 							</th>
 							<th scope="col" className="px-6 py-3">
 								Keterangan Tambahan
@@ -132,9 +132,9 @@ export default function TabelPembayaranPersonal() {
 												: ' – '}
 										</td>
 										<td className="px-6 py-4">
-											{payment['receipt']
-												? payment['receipt']
-												: ' – '}
+											{payment['modified']
+												? 'Sudah'
+												: 'Belum '}
 										</td>
 										<td className="px-6 py-4">
 											{payment['reason']

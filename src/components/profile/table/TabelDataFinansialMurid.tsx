@@ -1,5 +1,6 @@
 'use client';
 
+import Pagination from '@/components/layout/pagination';
 import {
 	DocumentPlusSymbol,
 	ExclamationCircleSymbol,
@@ -23,6 +24,9 @@ export default function TabelDataFinansialMurid() {
 	const [dataStudents, setDataStudents] = useState([]);
 	const [changes, setChanges] = useState(false);
 	const [formValues, setFormValues] = useState({ user_id: '' });
+
+	const [currentPage, setCurrentPage] = useState(1);
+	let [totalPages, setTotalPages] = useState(0);
 
 	let [isOpen, setIsOpen] = useState(false);
 	let [currentId, setCurrentId] = useState();
@@ -62,8 +66,29 @@ export default function TabelDataFinansialMurid() {
 				},
 			});
 
-			const data = await res.json();
-			setPayments(data);
+			let data = await res.json();
+			const totalCount = data.length;
+			const perPage = 30;
+			totalPages = Math.ceil(totalCount / perPage);
+
+			setTotalPages(totalPages);
+
+			if (totalCount > 1) {
+				let res = await fetch(
+					`http://localhost:4000/v1/payments?page=${currentPage}&perPage=${perPage}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${session?.user.token.accessToken}`,
+						},
+					}
+				);
+
+				data = await res.json();
+				setPayments(data);
+			} else {
+				setPayments(data);
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -83,8 +108,29 @@ export default function TabelDataFinansialMurid() {
 				}
 			);
 
-			const data = await res.json();
-			setPayments(data);
+			let data = await res.json();
+			const totalCount = data.length;
+			const perPage = 30;
+			totalPages = Math.ceil(totalCount / perPage);
+
+			setTotalPages(totalPages);
+
+			if (totalCount < 1) {
+				let res = await fetch(
+					`http://localhost:4000/v1/payments/filter?user_id=${id.user_id}&page=${currentPage}&perPage=${perPage}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${session?.user.token.accessToken}`,
+						},
+					}
+				);
+
+				data = await res.json();
+				setPayments(data);
+			} else {
+				setPayments(data);
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -130,6 +176,10 @@ export default function TabelDataFinansialMurid() {
 		}
 	};
 
+	const handlePageChange = (page: any) => {
+		setCurrentPage(page);
+	};
+
 	useEffect(() => {
 		getDataStudents();
 
@@ -138,7 +188,7 @@ export default function TabelDataFinansialMurid() {
 		} else if (formValues.user_id != '') {
 			getPaymentsSpecific(formValues);
 		}
-	}, [formValues]);
+	}, [changes === true, formValues, currentPage]);
 
 	return (
 		<>
@@ -386,6 +436,7 @@ export default function TabelDataFinansialMurid() {
 						)}
 					</tbody>
 				</table>
+
 				<ToastContainer
 					style={{ width: '500px' }}
 					position="bottom-center"
@@ -400,6 +451,12 @@ export default function TabelDataFinansialMurid() {
 					theme="colored"
 				/>
 			</div>
+
+			<Pagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				onPageChange={handlePageChange}
+			/>
 		</>
 	);
 }

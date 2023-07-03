@@ -53,12 +53,12 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 		citizenship?: string;
 		address?: string;
 		nickname?: string;
-		birthOrder?: number;
-		numOfSiblings?: number;
+		//birthOrder?: number;
+		// numOfSiblings?: number;
 		statusInFamily?: string;
 		studentStatus?: string;
-		height?: number;
-		weight?: number;
+		//height?: number;
+		//weight?: number;
 		bloodType?: string;
 		diseaseHistory?: string;
 		distanceToHome?: string;
@@ -554,12 +554,14 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						defaultValue={formValues.birthOrder}
 						onChange={handleChange}
 					/>
+					{/**
 					{errors.birthOrder && (
 						<span className="text-red-danger text-sm">
 							{errors.birthOrder ? '* ' + errors.birthOrder : ''}
 							<br />
 						</span>
 					)}
+					 */}
 				</div>
 				<div className="py-2 w-full">
 					<label
@@ -577,6 +579,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						defaultValue={formValues.numOfSiblings}
 						onChange={handleChange}
 					/>
+					{/** 
 					{errors.numOfSiblings && (
 						<span className="text-red-danger text-sm">
 							{errors.numOfSiblings
@@ -585,6 +588,7 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 							<br />
 						</span>
 					)}
+					*/}
 				</div>
 			</div>
 
@@ -670,12 +674,14 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						defaultValue={formValues.height}
 						onChange={handleChange}
 					/>
+					{/**
 					{errors.height && (
 						<span className="text-red-danger text-sm">
 							{errors.height ? '* ' + errors.height : ''}
 							<br />
 						</span>
 					)}
+					 */}
 				</div>
 
 				<div className="py-2 w-full">
@@ -694,12 +700,14 @@ export default function FormUpdateStudent({ params }: { params: any }) {
 						defaultValue={formValues.weight}
 						onChange={handleChange}
 					/>
+					{/**
 					{errors.weight && (
 						<span className="text-red-danger text-sm">
 							{errors.weight ? '* ' + errors.weight : ''}
 							<br />
 						</span>
 					)}
+					 */}
 				</div>
 
 				<div className="py-2 w-full">

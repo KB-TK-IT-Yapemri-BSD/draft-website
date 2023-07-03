@@ -233,6 +233,7 @@ function NavbarItemsLoggedIn() {
 									</Link>
 								</Menu.Item>
 							</div>
+							{/**
 							<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
 								<Menu.Item>
 									<Link href="/berita-terbaru/agenda-sekolah">
@@ -240,6 +241,7 @@ function NavbarItemsLoggedIn() {
 									</Link>
 								</Menu.Item>
 							</div>
+							 */}
 						</div>
 					</Menu.Items>
 				</Transition>

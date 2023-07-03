@@ -3,10 +3,11 @@
 import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { proofSchema } from '@/pages/api/validations';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDropzone } from 'react-dropzone';
 
 export default function FormBuktiPembayaran({ params }: { params: any }) {
 	const { id } = params;
@@ -18,14 +19,13 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 
 	let initialValues = {
 		payment_date: '',
-		receipt: '',
+		receipt: undefined,
 		reason: '',
 		modified: false,
 	};
 
 	type Errors = {
 		payment_date?: Date;
-		receipt?: string;
 	};
 
 	const [errors, setErrors] = useState<Errors>({});
@@ -78,25 +78,24 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 	};
 
 	const handleUpdatePayment = async (formValues: any) => {
-		const dataForm = {
-			receipt: formValues.receipt,
-			payment_date: new Date(formValues.payment_date),
-			modified: true,
-			reason: formValues.reason,
-		} as any;
+		const formData = new FormData();
+		formData.append('receipt', formValues.receipt);
+		formData.append(
+			'payment_date',
+			new Date(formValues.payment_date).toISOString()
+		);
+		formData.append('modified', 'true');
+		formData.append('reason', formValues.reason);
 
 		try {
-			proofSchema.parse(dataForm);
-
 			const results = await fetch(
 				`http://localhost:4000/v1/payments/${id}`,
 				{
 					method: 'PATCH',
 					headers: {
 						Authorization: `Bearer ${session?.user.token.accessToken}`,
-						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify(dataForm),
+					body: formData,
 				}
 			);
 
@@ -126,6 +125,31 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 		e.preventDefault();
 		handleUpdatePayment(formValues);
 	};
+
+	const onDrop = useCallback((acceptedFiles: any) => {
+		// Handle dropped file here
+		//console.log(acceptedFiles[0]);
+		const file = acceptedFiles[0];
+		setFormValues((prevFormValues) => ({
+			...prevFormValues,
+			receipt: file,
+		}));
+	}, []);
+
+	const {
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		acceptedFiles,
+		fileRejections,
+	} = useDropzone({
+		onDrop,
+		accept: {
+			'image/*': ['.jpeg', '.png'],
+		},
+		maxFiles: 1,
+		multiple: false,
+	});
 
 	useEffect(() => {
 		getDataFinansial();
@@ -166,6 +190,25 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 					Unggah Bukti Pembayaran{' '}
 					<span className="text-red-danger">*</span>
 				</label>
+				<div {...getRootProps({ className: 'dropzone' })}>
+					<input {...getInputProps()} id="receipt" name="receipt" />
+					<div className="flex h-20 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-4 md:gap-6">
+						<span className="text-sm font-medium">
+							Unggah di sini
+						</span>
+					</div>
+				</div>
+				{acceptedFiles.length > 0 && (
+					<div className="text-sm">
+						<h4 className="mt-2 font-bold">Accepted File:</h4>
+						<ul>
+							{acceptedFiles.map((file) => (
+								<li key={file.name}>{file.name}</li>
+							))}
+						</ul>
+					</div>
+				)}
+				{/**
 				<input
 					type="text"
 					id="receipt"
@@ -182,6 +225,7 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 						<br />
 					</span>
 				)}
+				 */}
 			</div>
 
 			<div className="py-3">
@@ -210,6 +254,20 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 					Ubah
 				</button>
 			</div>
+
+			<ToastContainer
+				style={{ width: '500px' }}
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="colored"
+			/>
 		</form>
 	);
 }

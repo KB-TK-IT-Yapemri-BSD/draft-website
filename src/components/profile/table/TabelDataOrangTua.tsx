@@ -1,5 +1,6 @@
 'use client';
 
+import Pagination from '@/components/layout/pagination';
 import {
 	DocumentPlusSymbol,
 	ExclamationCircleSymbol,
@@ -23,6 +24,9 @@ export default function TabelDataOrangTua() {
 	const [dataUsers, setDataUsers] = useState([]);
 	const [changes, setChanges] = useState(false);
 
+	const [currentPage, setCurrentPage] = useState(1);
+	let [totalPages, setTotalPages] = useState(0);
+
 	let [isOpen, setIsOpen] = useState(false);
 	let [currentId, setCurrentId] = useState();
 
@@ -45,7 +49,12 @@ export default function TabelDataOrangTua() {
 				},
 			});
 
-			const data = await res.json();
+			let data = await res.json();
+			const totalCount = data.length;
+			const perPage = 30;
+			totalPages = Math.ceil(totalCount / perPage);
+
+			setTotalPages(totalPages);
 			setDataUsers(data);
 		} catch (error) {
 			throw error;
@@ -87,11 +96,13 @@ export default function TabelDataOrangTua() {
 		}
 	};
 
+	const handlePageChange = (page: any) => {
+		setCurrentPage(page);
+	};
+
 	useEffect(() => {
 		getDataUsers();
 	}, [changes == true]);
-
-	// console.log(dataUsers);
 
 	return (
 		<>
@@ -318,6 +329,11 @@ export default function TabelDataOrangTua() {
 					theme="colored"
 				/>
 			</div>
+			<Pagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				onPageChange={handlePageChange}
+			/>
 		</>
 	);
 }

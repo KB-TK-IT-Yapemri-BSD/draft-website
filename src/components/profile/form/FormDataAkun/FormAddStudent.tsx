@@ -106,7 +106,7 @@ export default function FormAddStudent() {
 						theme: 'colored',
 					}
 				);
-			} else if (results?.status === 200) {
+			} else if (results?.status === 201) {
 				router.push('/profile/data-akun');
 			}
 		} catch (error: any) {

@@ -3,10 +3,11 @@
 import { ZodError } from 'zod';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { updateUserSchema } from '@/pages/api/validations';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDropzone } from 'react-dropzone';
 
 export default function FormUpdateAkun({ params }: { params: any }) {
 	const { id } = params;
@@ -25,7 +26,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 		role: '',
 		biodata_id: '',
 		biodataType: '',
-		// picture: '',
+		picture: undefined,
 	};
 
 	type Errors = {
@@ -79,7 +80,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 				role: data['role'],
 				biodata_id: data['biodata_id'],
 				biodataType: data['biodataType'],
-				// picture: data['picture'],
+				picture: data['picture'],
 			});
 
 			if (data.biodataType === 'Student') {
@@ -171,25 +172,23 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 	};
 
 	const handleUpdateUsers = async (formValues: any) => {
-		/**
-		const imageUpload = await cloudinary.uploader.upload(
-			formValues.picture,
-			{
-				upload_preset: 'yapemri',
-				folder: 'yapemri/yapemri_user',
-			}
-		);
-		const newPath = imageUpload.secure_url;
-		 */
-
 		const dataForm = {
 			email: formValues.email,
 			// password: formValues.password,
 			role: formValues.role,
 			biodata_id: formValues.biodata_id,
 			biodataType: formValues.biodataType,
-			// picture: newPath,
+			picture: formValues.picture,
 		} as any;
+
+		const formData = new FormData();
+		formData.append('picture', formValues.picture);
+		formData.append('email', formValues.email);
+		formData.append('role', formValues.role);
+		formData.append('biodata_id', formValues.biodata_id);
+		formData.append('biodataType', formValues.biodataType);
+
+		console.log(formData);
 
 		try {
 			updateUserSchema.parse(dataForm);
@@ -197,12 +196,11 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 			const results = await fetch(
 				`http://localhost:4000/v1/users/${id}`,
 				{
-					method: 'PUT',
+					method: 'PATCH',
 					headers: {
 						Authorization: `Bearer ${session?.user.token.accessToken}`,
-						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify(dataForm),
+					body: formData,
 				}
 			);
 
@@ -230,6 +228,31 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 		handleUpdateUsers(formValues);
 	};
 
+	const onDrop = useCallback((acceptedFiles: any) => {
+		// Handle dropped file here
+		//console.log(acceptedFiles[0]);
+		const file = acceptedFiles[0];
+		setFormValues((prevFormValues) => ({
+			...prevFormValues,
+			picture: file,
+		}));
+	}, []);
+
+	const {
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		acceptedFiles,
+		fileRejections,
+	} = useDropzone({
+		onDrop,
+		accept: {
+			'image/*': ['.jpeg', '.png'],
+		},
+		maxFiles: 1,
+		multiple: false,
+	});
+
 	useEffect(() => {
 		getDataUser();
 	}, []);
@@ -237,6 +260,33 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 	return (
 		<form method="PATCH" onSubmit={handleSubmit}>
 			<div className="py-2 pt-4">
+				<label
+					htmlFor="picture"
+					className="block mb-2 text-sm font-medium read-only"
+				>
+					Foto Profil
+				</label>
+				<div {...getRootProps({ className: 'dropzone' })}>
+					<input {...getInputProps()} id="picture" name="picture" />
+					<div className="flex h-20 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-4 md:gap-6">
+						<span className="text-sm font-medium">
+							Unggah foto profil di sini
+						</span>
+					</div>
+				</div>
+				{acceptedFiles.length > 0 && (
+					<div className="text-sm">
+						<h4 className="mt-2 font-bold">Accepted File:</h4>
+						<ul>
+							{acceptedFiles.map((file) => (
+								<li key={file.name}>{file.name}</li>
+							))}
+						</ul>
+					</div>
+				)}
+			</div>
+
+			<div className="py-2">
 				<label
 					htmlFor="email"
 					className="block mb-2 text-sm font-medium read-only"

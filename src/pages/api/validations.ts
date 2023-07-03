@@ -46,7 +46,6 @@ export const paymentSchema = z.object({
 
 export const proofSchema = z.object({
 	payment_date: z.date(),
-	receipt: z.string().trim().nonempty(DATA_ERROR),
 });
 
 export const studentSchema = z.object({
@@ -120,12 +119,12 @@ export const updateStudentSchema = z.object({
 	citizenship: z.string().trim().nonempty(DATA_ERROR),
 	address: z.string().trim().nonempty(DATA_ERROR),
 	nickname: z.string().trim().nonempty(DATA_ERROR),
-	birthOrder: z.number().nonnegative(DATA_INVALID),
-	numOfSiblings: z.number().nonnegative(DATA_INVALID),
+	// birthOrder: z.number().nonnegative(DATA_INVALID),
+	// numOfSiblings: z.number().nonnegative(DATA_INVALID),
 	statusInFamily: z.string().trim().nonempty(DATA_ERROR),
 	// studentStatus: z.string().nonempty(DATA_ERROR),
-	height: z.number().nonnegative(DATA_INVALID),
-	weight: z.number().nonnegative(DATA_INVALID),
+	// height: z.number().nonnegative(DATA_INVALID),
+	// weight: z.number().nonnegative(DATA_INVALID),
 	bloodType: z.string().trim().nonempty(DATA_ERROR),
 	diseaseHistory: z.string().trim().nonempty(DATA_ERROR),
 	distanceToHome: z.string().trim().nonempty(DATA_ERROR),

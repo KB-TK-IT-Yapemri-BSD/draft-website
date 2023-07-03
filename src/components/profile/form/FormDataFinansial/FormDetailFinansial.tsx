@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function FormDetailFinansial({ params }: { params: any }) {
@@ -6,6 +7,16 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 	const { data: session } = useSession();
 
 	const [dataPayment, setDataPayment] = useState();
+
+	const [isHovered, setIsHovered] = useState(false);
+
+	const handleHover = () => {
+		setIsHovered(true);
+	};
+
+	const handleLeave = () => {
+		setIsHovered(false);
+	};
 
 	const getDataPayment = async () => {
 		try {
@@ -215,7 +226,63 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 									: ' – '
 								: 'NO DATA'
 						}
+						disabled
 					/>
+					{/** 
+					<Image
+						src={dataPayment ? dataPayment['receipt'] : ''}
+						alt="receipt preview"
+						width={300}
+						height={300}
+					/>
+					*/}
+					{dataPayment ? (
+						dataPayment['receipt'] ? (
+							<>
+								{' '}
+								<h1 className="my-2 text-sm">
+									Preview Bukti Pembayaran:{' '}
+								</h1>
+								<div className="relative text-center w-1/2 h-1/4">
+									<div
+										className={`relative overflow-hidden w-full h-full transition-all duration-300 ease-in-out ${
+											isHovered ? 'scale-125' : ''
+										}`}
+										onMouseEnter={handleHover}
+										onMouseLeave={handleLeave}
+									>
+										<img
+											src={
+												dataPayment['receipt']
+													? dataPayment['receipt']
+													: ''
+											}
+											alt="Image Preview"
+										/>
+										{isHovered && (
+											<div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-80 flex justify-center items-center">
+												<img
+													src={
+														dataPayment
+															? dataPayment[
+																	'receipt'
+															  ]
+															: ''
+													}
+													alt="Image Detail"
+													className="max-w-full max-h-full"
+												/>
+											</div>
+										)}
+									</div>
+								</div>
+							</>
+						) : (
+							<></>
+						)
+					) : (
+						<></>
+					)}
 				</div>
 
 				<div className="py-2">

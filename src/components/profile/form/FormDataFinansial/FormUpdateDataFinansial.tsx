@@ -211,14 +211,16 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						Tanggal Pembayaran
 					</label>
 					<input
-						type="date"
+						type="text"
 						id="payment_date"
 						name="payment_date"
 						aria-label="payment_date"
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
-							formValues.payment_date
-								? formValues.payment_date.substring(0, 10)
+							dataPayment
+								? new Date(
+										dataPayment['payment_date']
+								  ).toLocaleDateString()
 								: 'NO DATA'
 						}
 						disabled
@@ -235,7 +237,7 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						Deadline
 					</label>
 					<input
-						type="input"
+						type="text"
 						id="deadline"
 						name="deadline"
 						aria-label="deadline"
@@ -300,13 +302,13 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 							disabled
 							className="hidden"
 						>
-							{formValues.isOverdue === 'undefined'
+							{formValues.isOverdue === ''
 								? 'Belum Terbayar'
 								: formValues.isOverdue === 'true'
 								? 'Pembayaran Terlambat'
 								: 'Pembayaran Tepat Waktu'}
 						</option>
-						<option value="undefined" className="text-black">
+						<option value="" className="text-black">
 							Belum Terbayar
 						</option>
 						<option value="true" className="text-black">
