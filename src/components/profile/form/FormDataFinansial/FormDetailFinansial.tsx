@@ -194,7 +194,7 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 							name="isOverdue"
 							placeholder={
 								dataPayment
-									? dataPayment['isOverdue'] === 'undefined'
+									? dataPayment['isOverdue'] === ''
 										? 'Belum Terbayar'
 										: dataPayment['isOverdue'] === 'true'
 										? 'Pembayaran Terlambat'
