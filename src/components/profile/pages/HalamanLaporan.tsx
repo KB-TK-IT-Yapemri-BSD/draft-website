@@ -5,6 +5,7 @@ import FormDataDiri from '@/components/profile/form/FormDataDiri';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import FormLaporan from '../form/FormLaporan';
+import MenuLaporan from './MenuLaporan';
 
 export default function HalamanLaporan() {
 	const { data: session } = useSession();
@@ -54,8 +55,8 @@ export default function HalamanLaporan() {
 					<SideBar props={dataUser} session={session} />
 				</div>
 				<div className="bg-white lg:w-2/3 h-max p-10 space-y-6 border-2 rounded-xl">
-					<p className="text-3xl font-bold">Laporan</p>
-					<FormLaporan props={dataUser} session={session} />
+					<p className="text-3xl font-bold mb-10">Laporan</p>
+					<MenuLaporan props={dataUser} session={session} />
 				</div>
 			</div>
 		</div>

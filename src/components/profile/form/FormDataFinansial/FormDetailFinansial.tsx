@@ -123,9 +123,11 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 							placeholder={
 								dataPayment
 									? dataPayment['payment_date']
-										? new Date(
-												dataPayment['payment_date']
-										  ).toLocaleDateString()
+										? new Date(dataPayment['payment_date'])
+												.toUTCString()
+												.split(' ')
+												.slice(0, 4)
+												.join(' ')
 										: ' – '
 									: 'NO DATA'
 							}
@@ -152,7 +154,11 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 								dataPayment
 									? new Date(
 											dataPayment['type_id']['deadline']
-									  ).toLocaleDateString()
+									  )
+											.toUTCString()
+											.split(' ')
+											.slice(0, 4)
+											.join(' ')
 									: 'NO DATA'
 							}
 							disabled
@@ -348,9 +354,11 @@ export default function FormDetailFinansial({ params }: { params: any }) {
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							dataPayment
-								? new Date(
-										dataPayment['updatedAt']
-								  ).toLocaleDateString()
+								? new Date(dataPayment['updatedAt'])
+										.toUTCString()
+										.split(' ')
+										.slice(0, 4)
+										.join(' ')
 								: 'NO DATA'
 						}
 						disabled

@@ -188,7 +188,7 @@ export default function FormUpdateAkun({ params }: { params: any }) {
 		formData.append('biodata_id', formValues.biodata_id);
 		formData.append('biodataType', formValues.biodataType);
 
-		console.log(formData);
+		// console.log(formData);
 
 		try {
 			updateUserSchema.parse(dataForm);

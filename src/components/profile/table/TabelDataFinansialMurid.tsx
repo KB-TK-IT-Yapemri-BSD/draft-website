@@ -288,7 +288,11 @@ export default function TabelDataFinansialMurid() {
 													payment['type_id'][
 														'deadline'
 													]
-											  ).toLocaleDateString()
+											  )
+													.toUTCString()
+													.split(' ')
+													.slice(0, 4)
+													.join(' ')
 											: 'NO DATA'}
 									</td>
 									<td className="px-6 py-4">

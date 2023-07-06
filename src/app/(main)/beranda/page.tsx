@@ -1,4 +1,5 @@
 import DaftarGuruSekolah from '@/components/beranda/DaftarGuruSekolah';
+import FAQCorner from '@/components/beranda/FAQCorner';
 import KisahSuksesOrtu from '@/components/beranda/KisahSuksesOrtu';
 import KurikulumSekolah from '@/components/beranda/KurikulumSekolah';
 import PrakataKepsek from '@/components/beranda/PrakataKepsek';
@@ -18,6 +19,7 @@ export default function Beranda() {
 			<KurikulumSekolah />
 			<PrestasiSekolah />
 			<KisahSuksesOrtu />
+			{/** <FAQCorner /> */}
 		</>
 	);
 }

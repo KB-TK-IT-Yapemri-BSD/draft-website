@@ -171,7 +171,11 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 					name="payment_date"
 					aria-label="payment_date"
 					className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 placeholder-black"
-					defaultValue={formValues.payment_date.substring(0, 10)}
+					defaultValue={
+						formValues.payment_date
+							? formValues.payment_date.substring(0, 10)
+							: ''
+					}
 					onChange={handleChange}
 				/>
 				{errors.payment_date && (

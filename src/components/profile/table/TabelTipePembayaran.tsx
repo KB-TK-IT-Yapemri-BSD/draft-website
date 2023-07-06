@@ -117,10 +117,10 @@ export default function TabelTipePembayaran() {
 								Tipe Pembayaran
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Created At
+								Deadline
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Deadline
+								Created At
 							</th>
 							<th scope="col" className="px-6 py-3">
 								Aksi
@@ -143,17 +143,21 @@ export default function TabelTipePembayaran() {
 												: 'NO DATA'}
 										</th>
 										<td className="px-6 py-4">
-											{type['createdAt']
-												? new Date(
-														type['createdAt']
-												  ).toLocaleDateString()
+											{type['deadline']
+												? new Date(type['deadline'])
+														.toUTCString()
+														.split(' ')
+														.slice(0, 4)
+														.join(' ')
 												: 'NO DATA'}
 										</td>
 										<td className="px-6 py-4">
-											{type['deadline']
-												? new Date(
-														type['deadline']
-												  ).toLocaleDateString()
+											{type['createdAt']
+												? new Date(type['createdAt'])
+														.toUTCString()
+														.split(' ')
+														.slice(0, 4)
+														.join(' ')
 												: 'NO DATA'}
 										</td>
 										<td className="flex items-center px-6 py-4 space-x-2">
@@ -257,6 +261,7 @@ export default function TabelTipePembayaran() {
 							: 'NO DATA'}
 					</tbody>
 				</table>
+
 				<ToastContainer
 					style={{ width: '500px' }}
 					position="bottom-center"

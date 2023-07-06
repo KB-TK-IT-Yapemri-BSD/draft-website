@@ -218,9 +218,13 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							dataPayment
-								? new Date(
-										dataPayment['payment_date']
-								  ).toLocaleDateString()
+								? dataPayment['payment_date']
+									? new Date(dataPayment['payment_date'])
+											.toUTCString()
+											.split(' ')
+											.slice(0, 4)
+											.join(' ')
+									: ' – '
 								: 'NO DATA'
 						}
 						disabled
@@ -244,9 +248,11 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 						className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
 						placeholder={
 							dataPayment
-								? new Date(
-										dataPayment['type_id']['deadline']
-								  ).toLocaleDateString()
+								? new Date(dataPayment['type_id']['deadline'])
+										.toUTCString()
+										.split(' ')
+										.slice(0, 4)
+										.join(' ')
 								: 'NO DATA'
 						}
 						disabled
@@ -385,12 +391,20 @@ export default function FormUpdateDataFinansial({ params }: { params: any }) {
 					Terakhir Diubah Admin
 				</label>
 				<input
-					type="date"
+					type="text"
 					id="updatedAt"
 					name="updatedAt"
 					aria-label="updatedAt"
 					className="bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-black"
-					defaultValue={formValues.updatedAt.substring(0, 10)}
+					placeholder={
+						dataPayment
+							? new Date(dataPayment['updatedAt'])
+									.toUTCString()
+									.split(' ')
+									.slice(0, 4)
+									.join(' ')
+							: 'NO DATA'
+					}
 					disabled
 				/>
 			</div>

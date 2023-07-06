@@ -116,7 +116,11 @@ export default function TabelPembayaranPersonal() {
 														payment['type_id'][
 															'deadline'
 														]
-												  ).toLocaleDateString()
+												  )
+														.toUTCString()
+														.split(' ')
+														.slice(0, 4)
+														.join(' ')
 												: 'NO DATA'}
 										</td>
 										<td className="px-6 py-4">
@@ -128,7 +132,11 @@ export default function TabelPembayaranPersonal() {
 											{payment['payment_date']
 												? new Date(
 														payment['payment_date']
-												  ).toLocaleDateString()
+												  )
+														.toUTCString()
+														.split(' ')
+														.slice(0, 4)
+														.join(' ')
 												: ' – '}
 										</td>
 										<td className="px-6 py-4">
