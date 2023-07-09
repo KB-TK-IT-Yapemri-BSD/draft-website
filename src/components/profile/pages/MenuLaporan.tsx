@@ -37,8 +37,8 @@ export default function MenuLaporan(props: any) {
 			redirect: 'akun',
 		},
 		{
-			view: 'Nilai',
-			redirect: 'nilai',
+			view: 'Penilaian Murid',
+			redirect: 'penilaian',
 		},
 	];
 

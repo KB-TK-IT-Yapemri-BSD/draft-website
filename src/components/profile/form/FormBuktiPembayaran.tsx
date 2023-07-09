@@ -25,7 +25,7 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 	};
 
 	type Errors = {
-		payment_date?: Date;
+		// payment_date?: Date;
 	};
 
 	const [errors, setErrors] = useState<Errors>({});
@@ -64,6 +64,7 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 		}));
 	};
 
+	console.log(formValues);
 	const handleValidationErrors = (error: ZodError) => {
 		// console.log('Validation error:', error);
 		// Set the validation error messages
@@ -80,10 +81,15 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 	const handleUpdatePayment = async (formValues: any) => {
 		const formData = new FormData();
 		formData.append('receipt', formValues.receipt);
-		formData.append(
-			'payment_date',
-			new Date(formValues.payment_date).toISOString()
-		);
+
+		if (formValues.payment_date) {
+			const paymentDate = new Date(formValues.payment_date);
+			const formattedPaymentDate = paymentDate
+				.toISOString()
+				.split('T')[0];
+			formData.append('payment_date', formattedPaymentDate);
+		}
+
 		formData.append('modified', 'true');
 		formData.append('reason', formValues.reason);
 
@@ -123,7 +129,7 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		handleUpdatePayment(formValues);
+		handleUpdatePayment({ ...formValues });
 	};
 
 	const onDrop = useCallback((acceptedFiles: any) => {
@@ -178,12 +184,12 @@ export default function FormBuktiPembayaran({ params }: { params: any }) {
 					}
 					onChange={handleChange}
 				/>
-				{errors.payment_date && (
+				{/**errors.payment_date && (
 					<span className="text-red-danger text-sm">
 						{errors.payment_date ? '* ' + errors.payment_date : ''}
 						<br />
 					</span>
-				)}
+				) */}
 			</div>
 
 			<div className="py-3">

@@ -211,6 +211,7 @@ export default function FormTambahDataFinansial() {
 						</span>
 					)}
 				</div>
+
 				<div className="py-2 w-full">
 					<label
 						htmlFor="amount"

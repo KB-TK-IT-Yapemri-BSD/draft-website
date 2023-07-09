@@ -330,6 +330,11 @@ function NavbarItemsLoggedIn() {
 									Keuangan
 								</p>
 							</Link>
+							<Link href="/profile/penilaian">
+								<p className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+									Penilaian
+								</p>
+							</Link>
 							<button
 								onClick={logout}
 								className="w-full text-left"

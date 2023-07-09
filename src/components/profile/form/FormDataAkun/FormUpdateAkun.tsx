@@ -12,6 +12,7 @@ import { useDropzone } from 'react-dropzone';
 export default function FormUpdateAkun({ params }: { params: any }) {
 	const { id } = params;
 	const { data: session } = useSession();
+
 	const router = useRouter();
 
 	const [dataUser, setDataUser] = useState();

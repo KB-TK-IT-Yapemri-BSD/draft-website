@@ -21,7 +21,7 @@ function NavbarLoggedIn() {
 	};
 
 	return (
-		<div className="fixed w-full bg-white shadow-lg z-50">
+		<div className="fixed w-full bg-white shadow-lg z-10">
 			<div className="lg:flex justify-between py-6 mx-6 lg:mx-20">
 				<div className="flex flex-row relative">
 					<div>
@@ -161,6 +161,13 @@ function NavbarLoggedIn() {
 										<Menu.Item>
 											<Link href="/profile/keuangan">
 												<p>Keuangan</p>
+											</Link>
+										</Menu.Item>
+									</div>
+									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+										<Menu.Item>
+											<Link href="/profile/penilaian">
+												<p>Penilaian Murid</p>
 											</Link>
 										</Menu.Item>
 									</div>

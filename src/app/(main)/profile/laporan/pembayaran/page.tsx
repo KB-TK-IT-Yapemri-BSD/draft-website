@@ -4,13 +4,15 @@ import Link from 'next/link';
 
 import { BigArrowLeft } from '@/components/shared/Icons';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function AmbilLaporanMurid() {
+export default function AmbilLaporanPembayaran() {
 	const { data: session } = useSession();
 
+	const [dataStudents, setDataStudents] = useState([]);
+	const [dataPaymentTypes, setDataPaymentTypes] = useState([]);
 	const [params, setParams] = useState({});
 
 	const handleChange = (e: any) => {
@@ -18,9 +20,41 @@ export default function AmbilLaporanMurid() {
 		setParams({ ...params, [name]: value });
 	};
 
+	const getDataStudents = async () => {
+		try {
+			let res = await fetch(`http://localhost:4000/v1/students`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${session?.user.token.accessToken}`,
+				},
+			});
+
+			const data = await res.json();
+			setDataStudents(data);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const getDataPaymentTypes = async () => {
+		try {
+			let res = await fetch(`http://localhost:4000/v1/paymentTypes`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${session?.user.token.accessToken}`,
+				},
+			});
+
+			const data = await res.json();
+			setDataPaymentTypes(data);
+		} catch (error) {
+			throw error;
+		}
+	};
+
 	const handleDownload = async (params: { [key: string]: any }) => {
 		try {
-			let url = `http://localhost:4000/v1/students/download?`;
+			let url = `http://localhost:4000/v1/payments/download?`;
 			let queryParams = [];
 
 			for (const key in params) {
@@ -86,6 +120,11 @@ export default function AmbilLaporanMurid() {
 		handleDownload(params);
 	};
 
+	useEffect(() => {
+		getDataStudents();
+		getDataPaymentTypes();
+	}, []);
+
 	return (
 		<div className="bg-white">
 			<div className="mx-10 py-20 lg:mx-60 space-y-6">
@@ -100,7 +139,7 @@ export default function AmbilLaporanMurid() {
 				<div className="card outline outline-grey outline-[1px] p-8">
 					<div className="w-full divide-y-2">
 						<p className="font-bold text-2xl pt-4">
-							Ambil Data Laporan Murid
+							Ambil Data Laporan Pembayaran
 						</p>
 						<form method="GET" onSubmit={handleSubmit}>
 							<div className="space-y-2">
@@ -117,7 +156,7 @@ export default function AmbilLaporanMurid() {
 											id="start"
 											name="start"
 											aria-label="start"
-											className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+											className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 											onChange={handleChange}
 										/>
 									</div>
@@ -133,7 +172,7 @@ export default function AmbilLaporanMurid() {
 											id="end"
 											name="end"
 											aria-label="end"
-											className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+											className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 											onChange={handleChange}
 										/>
 									</div>
@@ -142,212 +181,148 @@ export default function AmbilLaporanMurid() {
 
 							<div className="py-2">
 								<label
-									htmlFor="grade"
+									htmlFor="user_id"
 									className="block mb-2 text-sm font-medium read-only"
 								>
-									Kelompok Usia{' '}
+									Nama Murid
 								</label>
 								<select
-									id="grade"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="grade"
+									id="user_id"
+									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+									name="user_id"
 									onChange={handleChange}
 								>
-									<option selected value=""></option>
-									<option value="KB" className="text-black">
-										KB
-									</option>
-									<option value="TK-A" className="text-black">
-										TK-A
-									</option>
-									<option value="TK-B" className="text-black">
-										TK-B
-									</option>
+									<option
+										defaultValue={undefined}
+										selected
+										disabled
+										className="hidden"
+									></option>
+									{dataStudents.map((user) => (
+										<option
+											key={user['id']}
+											value={user['id']}
+											className="text-black"
+										>
+											{user['firstName'] +
+												' ' +
+												user['lastName']}
+										</option>
+									))}
 								</select>
 							</div>
 
 							<div className="py-2">
 								<label
-									htmlFor="studentStatus"
+									htmlFor="type_id"
 									className="block mb-2 text-sm font-medium read-only"
 								>
-									Status Murid{' '}
+									Nama Tipe Pembayaran
 								</label>
 								<select
-									id="studentStatus"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="studentStatus"
+									id="type_id"
+									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+									name="type_id"
+									onChange={handleChange}
+								>
+									<option
+										defaultValue={undefined}
+										selected
+										disabled
+										className="hidden"
+									></option>
+									{dataPaymentTypes.map((paymentType) => (
+										<option
+											key={paymentType['id']}
+											value={paymentType['id']}
+											className="text-black"
+										>
+											{paymentType['type']}
+										</option>
+									))}
+								</select>
+							</div>
+
+							<div className="py-2">
+								<label
+									htmlFor="status"
+									className="block mb-2 text-sm font-medium read-only"
+								>
+									Status Pembayaran{' '}
+								</label>
+								<select
+									id="status"
+									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+									name="status"
 									onChange={handleChange}
 								>
 									<option selected value=""></option>
 									<option value="true" className="text-black">
-										Aktif
+										Lunas
 									</option>
 									<option
 										value="false"
 										className="text-black"
 									>
-										Tidak Aktif
+										Belum Lunas
 									</option>
 								</select>
 							</div>
 
 							<div className="py-2">
 								<label
-									htmlFor="gender"
+									htmlFor="isOverdue"
 									className="block mb-2 text-sm font-medium read-only"
 								>
-									Jenis Kelamin{' '}
+									Keterangan Pembayaran{' '}
 								</label>
 								<select
-									id="gender"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="gender"
+									id="isOverdue"
+									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+									name="isOverdue"
 									onChange={handleChange}
 								>
-									<option selected value=""></option>
+									<option selected></option>
+									<option value="" className="text-black">
+										Belum Terbayar
+									</option>
 									<option value="true" className="text-black">
-										Perempuan
+										Pembayaran Terlambat
 									</option>
 									<option
 										value="false"
 										className="text-black"
 									>
-										Laki-Laki
+										Pembayaran Tepat Waktu
 									</option>
 								</select>
 							</div>
 
 							<div className="py-2">
 								<label
-									htmlFor="citizenship"
+									htmlFor="modified"
 									className="block mb-2 text-sm font-medium read-only"
 								>
-									Kewarganegaraan{' '}
+									Keterangan Telah Diubah{' '}
 								</label>
 								<select
-									id="citizenship"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="citizenship"
+									id="modified"
+									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+									name="modified"
 									onChange={handleChange}
 								>
 									<option selected value=""></option>
-									<option value="WNI" className="text-black">
-										WNI
+									<option value="true" className="text-black">
+										Sudah Diubah
 									</option>
-									<option value="WNA" className="text-black">
-										WNA
-									</option>
-								</select>
-							</div>
-
-							{/**
-
-							<div className="py-2">
-								<label
-									htmlFor="grade"
-									className="block mb-2 text-sm font-medium read-only"
-								>
-									Tanggal Lahir{' '}
-								</label>
-								<select
-									id="grade"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="grade"
-									onChange={(e) => setType(e.target.value)}
-								>
-									<option selected disabled hidden></option>
-									<option value="KB" className="text-black">
-										KB
-									</option>
-									<option value="TK-A" className="text-black">
-										TK-A
-									</option>
-									<option value="TK-B" className="text-black">
-										TK-B
+									<option
+										value="false"
+										className="text-black"
+									>
+										Belum Diubah
 									</option>
 								</select>
 							</div>
-
-							<div className="py-2">
-								<label
-									htmlFor="grade"
-									className="block mb-2 text-sm font-medium read-only"
-								>
-									Jenis Kelamin{' '}
-								</label>
-								<select
-									id="grade"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="grade"
-									onChange={(e) => setType(e.target.value)}
-								>
-									<option selected disabled hidden></option>
-									<option value="KB" className="text-black">
-										KB
-									</option>
-									<option value="TK-A" className="text-black">
-										TK-A
-									</option>
-									<option value="TK-B" className="text-black">
-										TK-B
-									</option>
-								</select>
-							</div>
-
-							<div className="py-2">
-								<label
-									htmlFor="grade"
-									className="block mb-2 text-sm font-medium read-only"
-								>
-									Agama
-								</label>
-								<select
-									id="grade"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="grade"
-									onChange={(e) => setType(e.target.value)}
-								>
-									<option selected disabled hidden></option>
-									<option value="KB" className="text-black">
-										KB
-									</option>
-									<option value="TK-A" className="text-black">
-										TK-A
-									</option>
-									<option value="TK-B" className="text-black">
-										TK-B
-									</option>
-								</select>
-							</div>
-
-							<div className="py-2">
-								<label
-									htmlFor="grade"
-									className="block mb-2 text-sm font-medium read-only"
-								>
-									Kewarganegaraan
-								</label>
-								<select
-									id="grade"
-									className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-									name="grade"
-									onChange={(e) => setType(e.target.value)}
-								>
-									<option selected disabled hidden></option>
-									<option value="KB" className="text-black">
-										KB
-									</option>
-									<option value="TK-A" className="text-black">
-										TK-A
-									</option>
-									<option value="TK-B" className="text-black">
-										TK-B
-									</option>
-								</select>
-							</div>
-
-							 */}
 
 							<div className="text-right">
 								<button

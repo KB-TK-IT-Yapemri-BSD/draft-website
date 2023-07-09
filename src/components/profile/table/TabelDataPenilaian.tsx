@@ -14,12 +14,12 @@ import { Fragment, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function TabelFormPendaftar() {
+export default function TabelDataPenilaian() {
 	const { data: session } = useSession();
 
 	const router = useRouter();
 
-	const [forms, setForms] = useState([]);
+	const [dataEvaluations, setDataEvaluations] = useState([]);
 	const [changes, setChanges] = useState(false);
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -36,11 +36,11 @@ export default function TabelFormPendaftar() {
 		setIsOpen(true);
 	}
 
-	const getForms = async () => {
+	const getDataEvaluations = async () => {
 		try {
 			setChanges(false);
 
-			let res = await fetch(`http://localhost:4000/v1/forms`, {
+			let res = await fetch(`http://localhost:4000/v1/evaluations`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -53,15 +53,15 @@ export default function TabelFormPendaftar() {
 			totalPages = Math.ceil(totalCount / perPage);
 
 			setTotalPages(totalPages);
-			setForms(data);
+			setDataEvaluations(data);
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const handleDeleteUser = async (id: any) => {
+	const handleDeleteEvaluation = async (id: any) => {
 		try {
-			await fetch(`http://localhost:4000/v1/forms/${id}`, {
+			await fetch(`http://localhost:4000/v1/evaluations/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${session?.user.token.accessToken}`,
@@ -70,7 +70,7 @@ export default function TabelFormPendaftar() {
 
 			setChanges(true);
 			closeModal();
-			toast.success('Form Pendaftar berhasil dihapus', {
+			toast.success('Data penilaian berhasil dihapus', {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -81,7 +81,7 @@ export default function TabelFormPendaftar() {
 				theme: 'colored',
 			});
 		} catch (error) {
-			toast.error('Form Pendaftar gagal dihapus, silahkan coba lagi!', {
+			toast.error('Data penilaian gagal dihapus, silahkan coba lagi!', {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -99,7 +99,7 @@ export default function TabelFormPendaftar() {
 	};
 
 	useEffect(() => {
-		getForms();
+		getDataEvaluations();
 	}, [changes == true]);
 
 	return (
@@ -109,51 +109,54 @@ export default function TabelFormPendaftar() {
 					<thead className="text-xs text-gray-700 uppercase bg-gray-50">
 						<tr>
 							<th scope="col" className="px-6 py-3">
-								Nama Lengkap Orang Tua
+								Nama Lengkap
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Email
+								Kelompok Usia
 							</th>
 							<th scope="col" className="px-6 py-3">
-								No. Telp
+								Periode
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Tanggal Dikirim
+								Tanggal
 							</th>
 							<th scope="col" className="px-6 py-3">
 								Aksi
 							</th>
 						</tr>
 					</thead>
-
 					<tbody>
-						{forms
-							? forms.map((form) => (
+						{dataEvaluations
+							? dataEvaluations.map((item) => (
 									<tr
-										key={form['id']}
+										key={item['id']}
 										className="bg-white border-b  hover:bg-gray-50"
 									>
 										<th
 											scope="row"
 											className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
 										>
-											{form['name']
-												? form['name']
+											{item
+												? item['student_id'][
+														'firstName'
+												  ] +
+												  ' ' +
+												  item['student_id']['lastName']
 												: 'NO DATA'}
 										</th>
 										<td className="px-6 py-4">
-											{form['email']
-												? form['email']
+											{item['grade']
+												? item['grade']
 												: 'NO DATA'}
 										</td>
 										<td className="px-6 py-4">
-											{form['phone']
-												? form['phone']
+											{item['period']
+												? item['period']
 												: 'NO DATA'}
 										</td>
 										<td className="px-6 py-4">
-											{form['createdAt']
-												? new Date(form['createdAt'])
+											{item['createdAt']
+												? new Date(item['createdAt'])
 														.toUTCString()
 														.split(' ')
 														.slice(0, 4)
@@ -165,19 +168,29 @@ export default function TabelFormPendaftar() {
 												className="bg-primary rounded-md p-2 my-4 inline-flex lg:my-0"
 												onClick={() =>
 													router.push(
-														`/profile/form-pendaftar/${form['id']}`
+														`/profile/penilaian/${item['id']}`
 													)
 												}
 											>
 												<EyeSymbol />
 											</button>
-											{form['id'] ? (
+											<button
+												className="bg-blue-primary rounded-md p-2 my-4 inline-flex lg:my-0"
+												onClick={() =>
+													router.push(
+														`/profile/penilaian/update/${item['id']}`
+													)
+												}
+											>
+												<PencilSymbol />
+											</button>
+											{item['id'] ? (
 												<>
 													<button
 														className="bg-red-danger rounded-md p-2 my-4 inline-flex lg:my-0"
 														onClick={() => {
 															setCurrentId(
-																form['id']
+																item['id']
 															);
 															openModal();
 														}}
@@ -235,7 +248,7 @@ export default function TabelFormPendaftar() {
 																				<button
 																					className="bg-red-danger text-white hover:bg-red-700 rounded-md w-20 px-4 py-2 my-2 inline-flex items-center"
 																					onClick={() => {
-																						handleDeleteUser(
+																						handleDeleteEvaluation(
 																							currentId
 																						);
 																					}}
@@ -271,7 +284,6 @@ export default function TabelFormPendaftar() {
 							: 'NO DATA'}
 					</tbody>
 				</table>
-
 				<ToastContainer
 					style={{ width: '500px' }}
 					position="bottom-center"

@@ -161,3 +161,23 @@ export const updateStaffSchema = z.object({
 	phone: z.string().trim().nonempty(DATA_ERROR),
 	education: z.string().trim().nonempty(DATA_ERROR),
 });
+
+export const evaluationSchema = z.object({
+	student_id: z.string().trim().nonempty(DATA_ERROR),
+	grade: z.string().trim().nonempty(DATA_ERROR),
+	period: z.string().trim().nonempty(DATA_ERROR),
+	introduction: z.string().trim().nonempty(DATA_ERROR),
+	aspect_1: z.string().trim().nonempty(DATA_ERROR),
+	aspect_2: z.string().trim().nonempty(DATA_ERROR),
+	aspect_3: z.string().trim().nonempty(DATA_ERROR),
+	aspect_4: z.string().trim().nonempty(DATA_ERROR),
+	aspect_5: z.string().trim().nonempty(DATA_ERROR),
+	aspect_6: z.string().trim().nonempty(DATA_ERROR),
+	score_aspect_1: z.string().trim().nonempty(DATA_ERROR),
+	score_aspect_2: z.string().trim().nonempty(DATA_ERROR),
+	score_aspect_3: z.string().trim().nonempty(DATA_ERROR),
+	score_aspect_4: z.string().trim().nonempty(DATA_ERROR),
+	score_aspect_5: z.string().trim().nonempty(DATA_ERROR),
+	score_aspect_6: z.string().trim().nonempty(DATA_ERROR),
+	closing: z.string().trim().nonempty(DATA_ERROR),
+});
