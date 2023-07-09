@@ -105,7 +105,7 @@ export default function ProfileOrangTuaSideBar(props: any) {
 				</button>
 				<button className="hover:bg-body-color hover:bg-opacity-20 hover:rounded-md text-left px-2 py-2">
 					<Link
-						href="/profile/penilaian"
+						href="/profile/nilai-murid"
 						className="inline-flex space-x-2 py-1"
 					>
 						<AcademicCapSymbol />

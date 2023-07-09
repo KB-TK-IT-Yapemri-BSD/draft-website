@@ -1,18 +1,18 @@
 'use client';
 
-import { PencilSymbol } from '@/components/shared/Icons';
-
+import { EyeSymbol } from '@/components/shared/Icons';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function TabelPembayaranPersonal() {
+export default function TabelNilaiMurid() {
 	const { data: session } = useSession();
+
 	const router = useRouter();
 
-	const [payments, setPayments] = useState([]);
+	const [dataEvaluations, setDataEvaluations] = useState<any[]>([]);
 	const [changes, setChanges] = useState(false);
 
 	let [isOpen, setIsOpen] = useState(false);
@@ -26,12 +26,12 @@ export default function TabelPembayaranPersonal() {
 		setIsOpen(true);
 	}
 
-	const getDataPayments = async () => {
+	const getDataEvaluations = async () => {
 		try {
 			setChanges(false);
 
 			let res = await fetch(
-				`http://localhost:4000/v1/payments/filter?user_id=${session?.user.user.biodata_id}`,
+				`http://localhost:4000/v1/evaluations/filter?student_id=${session?.user.user.biodata_id}`,
 				{
 					method: 'GET',
 					headers: {
@@ -40,15 +40,17 @@ export default function TabelPembayaranPersonal() {
 				}
 			);
 
-			const data = await res.json();
-			setPayments(data);
+			let data = await res.json();
+			setDataEvaluations(data);
 		} catch (error) {
 			throw error;
 		}
 	};
 
+	console.log(dataEvaluations);
+
 	useEffect(() => {
-		getDataPayments();
+		getDataEvaluations();
 	}, [changes == true]);
 
 	return (
@@ -58,100 +60,70 @@ export default function TabelPembayaranPersonal() {
 					<thead className="text-xs text-gray-700 uppercase bg-gray-50">
 						<tr>
 							<th scope="col" className="px-6 py-3">
-								Tipe Pembayaran
+								Nama Lengkap
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Jumlah
+								Kelompok Usia
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Deadline
+								Periode
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Status
+								Tanggal
 							</th>
 							<th scope="col" className="px-6 py-3">
-								Tanggal Pembayaran
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Telah Diunggah
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Keterangan Tambahan
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Unggah Bukti Pembayaran
+								Aksi
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						{payments
-							? payments.map((payment) => (
+						{dataEvaluations.length > 0
+							? dataEvaluations.map((item) => (
 									<tr
-										key={payment['id']}
+										key={item['id']}
 										className="bg-white border-b  hover:bg-gray-50"
 									>
 										<th
 											scope="row"
 											className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
 										>
-											{payment['type_id']
-												? payment['type_id']['type']
+											{item
+												? item['student_id'][
+														'firstName'
+												  ] +
+												  ' ' +
+												  item['student_id']['lastName']
 												: 'NO DATA'}
 										</th>
 										<td className="px-6 py-4">
-											{payment['amount']
-												? payment['amount']
+											{item['grade']
+												? item['grade']
 												: 'NO DATA'}
 										</td>
 										<td className="px-6 py-4">
-											{payment['type_id']
-												? new Date(
-														payment['type_id'][
-															'deadline'
-														]
-												  )
+											{item['period']
+												? item['period']
+												: 'NO DATA'}
+										</td>
+										<td className="px-6 py-4">
+											{item['createdAt']
+												? new Date(item['createdAt'])
 														.toUTCString()
 														.split(' ')
 														.slice(0, 4)
 														.join(' ')
 												: 'NO DATA'}
-										</td>
-										<td className="px-6 py-4">
-											{payment['status']
-												? 'Lunas'
-												: 'Belum Lunas'}
-										</td>
-										<td className="px-6 py-4">
-											{payment['payment_date']
-												? new Date(
-														payment['payment_date']
-												  )
-														.toUTCString()
-														.split(' ')
-														.slice(0, 4)
-														.join(' ')
-												: ' – '}
-										</td>
-										<td className="px-6 py-4">
-											{payment['modified']
-												? 'Sudah'
-												: 'Belum '}
-										</td>
-										<td className="px-6 py-4">
-											{payment['reason']
-												? payment['reason']
-												: ' – '}
 										</td>
 										<td className="flex items-center px-6 py-4 space-x-2">
 											<button
-												className="bg-blue-primary rounded-md p-2 my-4 inline-flex lg:my-0"
+												className="bg-primary rounded-md p-2 my-4 inline-flex lg:my-0"
 												onClick={() =>
 													router.push(
-														`/profile/keuangan/bukti-pembayaran/${payment['id']}`
+														`/profile/nilai-murid/${item['id']}`
 													)
 												}
 											>
-												<PencilSymbol />
+												<EyeSymbol />
 											</button>
 										</td>
 									</tr>
