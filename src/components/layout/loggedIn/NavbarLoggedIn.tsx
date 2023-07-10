@@ -1,24 +1,26 @@
-'use client';
+"use client"
 
-import Link from 'next/link';
-import Image from 'next/image';
-import NavbarItemsLoggedIn from './NavbarItemsLoggedIn';
-import { MenuSymbol, ProfileSymbol } from '@/components/shared/Icons';
-import { Fragment, useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
-import { Menu, Transition } from '@headlessui/react';
+import { Fragment, useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { Menu, Transition } from "@headlessui/react"
+import { signOut, useSession } from "next-auth/react"
+
+import { MenuSymbol, ProfileSymbol } from "@/components/shared/Icons"
+
+import NavbarItemsLoggedIn from "./NavbarItemsLoggedIn"
 
 function NavbarLoggedIn() {
-	const { data: session } = useSession();
+  const { data: session } = useSession()
 
-	const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
-	const logout = async () => {
-		await signOut({
-			redirect: true,
-			callbackUrl: '/beranda',
-		});
-	};
+  const logout = async () => {
+    await signOut({
+      redirect: true,
+      callbackUrl: "/beranda",
+    })
+  }
 
 	return (
 		<div className="fixed w-full bg-white shadow-lg z-10">
@@ -34,26 +36,26 @@ function NavbarLoggedIn() {
 						></Image>
 					</div>
 
-					<div className="right-0 absolute my-2 lg:hidden">
-						<button onClick={() => setIsOpen(!isOpen)}>
-							<MenuSymbol />
-						</button>
-					</div>
-				</div>
+          <div className="right-0 absolute my-2 lg:hidden">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              <MenuSymbol />
+            </button>
+          </div>
+        </div>
 
-				<div
-					className={`${
-						isOpen ? 'block' : 'hidden'
-					} lg:flex flex-col bg-white lg:justify-between lg:space-x-4 lg:flex-row`}
-				>
-					<NavbarItemsLoggedIn />
+        <div
+          className={`${
+            isOpen ? "block" : "hidden"
+          } lg:flex flex-col bg-white lg:justify-between lg:space-x-4 lg:flex-row`}
+        >
+          <NavbarItemsLoggedIn />
 
-					<Menu as="div" className="hidden lg:block relative">
-						<Menu.Button>
-							<button className="bg-primary rounded-md px-4 my-4 py-2 gap-2 inline-flex lg:my-0">
-								<ProfileSymbol />
-							</button>
-						</Menu.Button>
+          <Menu as="div" className="hidden lg:block relative">
+            <Menu.Button>
+              <button className="bg-primary rounded-md px-4 my-4 py-2 gap-2 inline-flex lg:my-0">
+                <ProfileSymbol />
+              </button>
+            </Menu.Button>
 
 						<Transition
 							as={Fragment}
@@ -258,4 +260,4 @@ function NavbarLoggedIn() {
 	);
 }
 
-export default NavbarLoggedIn;
+export default NavbarLoggedIn

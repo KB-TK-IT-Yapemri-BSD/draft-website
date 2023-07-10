@@ -1,11 +1,12 @@
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react"
+import Link from "next/link"
+import { useSession } from "next-auth/react"
+import { toast, ToastContainer } from "react-toastify"
+
+import "react-toastify/dist/ReactToastify.css"
 
 export default function MenuLaporan(props: any) {
-	const { data: session } = useSession();
+  const { data: session } = useSession()
 
 	const menuChoice = [
 		{
@@ -42,15 +43,15 @@ export default function MenuLaporan(props: any) {
 		},
 	];
 
-	return (
-		<div>
-			{menuChoice.map((item, index) => (
-				<Link href={'/profile/laporan/' + item.redirect}>
-					<div key={index} className="mb-4 card">
-						{item.view}
-					</div>
-				</Link>
-			))}
-		</div>
-	);
+  return (
+    <div>
+      {menuChoice.map((item, index) => (
+        <Link href={"/profile/laporan/" + item.redirect}>
+          <div key={index} className="mb-4 card">
+            {item.view}
+          </div>
+        </Link>
+      ))}
+    </div>
+  )
 }

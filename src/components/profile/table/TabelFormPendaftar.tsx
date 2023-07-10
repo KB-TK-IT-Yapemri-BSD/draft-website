@@ -1,106 +1,108 @@
-'use client';
+"use client"
 
-import Pagination from '@/components/layout/pagination';
+import { Fragment, useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { Dialog, Transition } from "@headlessui/react"
+import { useSession } from "next-auth/react"
+import { toast, ToastContainer } from "react-toastify"
+
+import Pagination from "@/components/layout/pagination"
 import {
-	ExclamationCircleSymbol,
-	EyeSymbol,
-	PencilSymbol,
-	TrashCanSymbol,
-} from '@/components/shared/Icons';
-import { Dialog, Transition } from '@headlessui/react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+  ExclamationCircleSymbol,
+  EyeSymbol,
+  PencilSymbol,
+  TrashCanSymbol,
+} from "@/components/shared/Icons"
+
+import "react-toastify/dist/ReactToastify.css"
 
 export default function TabelFormPendaftar() {
-	const { data: session } = useSession();
+  const { data: session } = useSession()
 
-	const router = useRouter();
+  const router = useRouter()
 
-	const [forms, setForms] = useState([]);
-	const [changes, setChanges] = useState(false);
+  const [forms, setForms] = useState([])
+  const [changes, setChanges] = useState(false)
 
-	const [currentPage, setCurrentPage] = useState(1);
-	let [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1)
+  let [totalPages, setTotalPages] = useState(0)
 
-	let [isOpen, setIsOpen] = useState(false);
-	let [currentId, setCurrentId] = useState();
+  let [isOpen, setIsOpen] = useState(false)
+  let [currentId, setCurrentId] = useState()
 
-	function closeModal() {
-		setIsOpen(false);
-	}
+  function closeModal() {
+    setIsOpen(false)
+  }
 
-	function openModal() {
-		setIsOpen(true);
-	}
+  function openModal() {
+    setIsOpen(true)
+  }
 
-	const getForms = async () => {
-		try {
-			setChanges(false);
+  const getForms = async () => {
+    try {
+      setChanges(false)
 
-			let res = await fetch(`http://localhost:4000/v1/forms`, {
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${session?.user.token.accessToken}`,
-				},
-			});
+      let res = await fetch(`http://localhost:4000/v1/forms`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${session?.user.token.accessToken}`,
+        },
+      })
 
-			let data = await res.json();
-			const totalCount = data.length;
-			const perPage = 30;
-			totalPages = Math.ceil(totalCount / perPage);
+      let data = await res.json()
+      const totalCount = data.length
+      const perPage = 30
+      totalPages = Math.ceil(totalCount / perPage)
 
-			setTotalPages(totalPages);
-			setForms(data);
-		} catch (error) {
-			throw error;
-		}
-	};
+      setTotalPages(totalPages)
+      setForms(data)
+    } catch (error) {
+      throw error
+    }
+  }
 
-	const handleDeleteUser = async (id: any) => {
-		try {
-			await fetch(`http://localhost:4000/v1/forms/${id}`, {
-				method: 'DELETE',
-				headers: {
-					Authorization: `Bearer ${session?.user.token.accessToken}`,
-				},
-			});
+  const handleDeleteUser = async (id: any) => {
+    try {
+      await fetch(`http://localhost:4000/v1/forms/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${session?.user.token.accessToken}`,
+        },
+      })
 
-			setChanges(true);
-			closeModal();
-			toast.success('Form Pendaftar berhasil dihapus', {
-				position: 'top-center',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'colored',
-			});
-		} catch (error) {
-			toast.error('Form Pendaftar gagal dihapus, silahkan coba lagi!', {
-				position: 'top-center',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'colored',
-			});
-		}
-	};
+      setChanges(true)
+      closeModal()
+      toast.success("Form Pendaftar berhasil dihapus", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+    } catch (error) {
+      toast.error("Form Pendaftar gagal dihapus, silahkan coba lagi!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+    }
+  }
 
-	const handlePageChange = (page: any) => {
-		setCurrentPage(page);
-	};
+  const handlePageChange = (page: any) => {
+    setCurrentPage(page)
+  }
 
-	useEffect(() => {
-		getForms();
-	}, [changes == true]);
+  useEffect(() => {
+    getForms()
+  }, [changes == true])
 
 	return (
 		<>
@@ -206,91 +208,79 @@ export default function TabelFormPendaftar() {
 																<div className="fixed inset-0 bg-black bg-opacity-25" />
 															</Transition.Child>
 
-															<div className="fixed inset-0 overflow-y-auto">
-																<div className="flex min-h-full items-center justify-center p-4 text-center">
-																	<Transition.Child
-																		as={
-																			Fragment
-																		}
-																		enter="ease-out duration-300"
-																		enterFrom="opacity-0 scale-95"
-																		enterTo="opacity-100 scale-100"
-																		leave="ease-in duration-200"
-																		leaveFrom="opacity-100 scale-100"
-																		leaveTo="opacity-0 scale-95"
-																	>
-																		<Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle transition-all">
-																			<ExclamationCircleSymbol />
+                              <div className="fixed inset-0 overflow-y-auto">
+                                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                                  <Transition.Child
+                                    as={Fragment}
+                                    enter="ease-out duration-300"
+                                    enterFrom="opacity-0 scale-95"
+                                    enterTo="opacity-100 scale-100"
+                                    leave="ease-in duration-200"
+                                    leaveFrom="opacity-100 scale-100"
+                                    leaveTo="opacity-0 scale-95"
+                                  >
+                                    <Dialog.Panel className="w-full max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle transition-all">
+                                      <ExclamationCircleSymbol />
 
-																			<Dialog.Title
-																				as="p"
-																				className="text-2xl text-center font-medium leading-6 text-gray-900 pt-6 pb-8"
-																			>
-																				Yakin
-																				Hapus
-																				Data?
-																			</Dialog.Title>
+                                      <Dialog.Title
+                                        as="p"
+                                        className="text-2xl text-center font-medium leading-6 text-gray-900 pt-6 pb-8"
+                                      >
+                                        Yakin Hapus Data?
+                                      </Dialog.Title>
 
-																			<div className="flex gap-4 justify-center">
-																				<button
-																					className="bg-red-danger text-white hover:bg-red-700 rounded-md w-20 px-4 py-2 my-2 inline-flex items-center"
-																					onClick={() => {
-																						handleDeleteUser(
-																							currentId
-																						);
-																					}}
-																				>
-																					<p className="mx-auto">
-																						Ya
-																					</p>
-																				</button>
-																				<button
-																					className="bg-blue-primary text-white hover:bg-blue-700 rounded-md w-20 px-4 py-2 my-2 inline-flex items-center"
-																					onClick={
-																						closeModal
-																					}
-																				>
-																					<p className="mx-auto">
-																						Tidak
-																					</p>
-																				</button>
-																			</div>
-																		</Dialog.Panel>
-																	</Transition.Child>
-																</div>
-															</div>
-														</Dialog>
-													</Transition>
-												</>
-											) : (
-												'NO DATA'
-											)}
-										</td>
-									</tr>
-							  ))
-							: 'NO DATA'}
-					</tbody>
-				</table>
+                                      <div className="flex gap-4 justify-center">
+                                        <button
+                                          className="bg-red-danger text-white hover:bg-red-700 rounded-md w-20 px-4 py-2 my-2 inline-flex items-center"
+                                          onClick={() => {
+                                            handleDeleteUser(currentId)
+                                          }}
+                                        >
+                                          <p className="mx-auto">Ya</p>
+                                        </button>
+                                        <button
+                                          className="bg-blue-primary text-white hover:bg-blue-700 rounded-md w-20 px-4 py-2 my-2 inline-flex items-center"
+                                          onClick={closeModal}
+                                        >
+                                          <p className="mx-auto">Tidak</p>
+                                        </button>
+                                      </div>
+                                    </Dialog.Panel>
+                                  </Transition.Child>
+                                </div>
+                              </div>
+                            </Dialog>
+                          </Transition>
+                        </>
+                      ) : (
+                        "NO DATA"
+                      )}
+                    </td>
+                  </tr>
+                ))
+              : "NO DATA"}
+          </tbody>
+        </table>
 
-				<ToastContainer
-					style={{ width: '500px' }}
-					position="bottom-center"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="colored"
-				/>
-			</div>
-			<Pagination
-				currentPage={currentPage}
-				totalPages={totalPages}
-				onPageChange={handlePageChange}
-			/>
-		</>
-	);
+        <ToastContainer
+          style={{ width: "500px" }}
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+    </>
+  )
 }

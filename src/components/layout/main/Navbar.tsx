@@ -1,17 +1,18 @@
-'use client';
+"use client"
 
-import { useSession } from 'next-auth/react';
-import NavbarPublic from '../public/NavbarPublic';
-import NavbarLoggedIn from '../loggedIn/NavbarLoggedIn';
+import { useSession } from "next-auth/react"
+
+import NavbarLoggedIn from "../loggedIn/NavbarLoggedIn"
+import NavbarPublic from "../public/NavbarPublic"
 
 function Navbar() {
-	const { data: session } = useSession();
+  const { data: session } = useSession()
 
-	if (session?.user) {
-		return <NavbarLoggedIn />;
-	} else {
-		return <NavbarPublic />;
-	}
+  if (session?.user) {
+    return <NavbarLoggedIn />
+  } else {
+    return <NavbarPublic />
+  }
 }
 
-export default Navbar;
+export default Navbar
