@@ -1,9 +1,9 @@
-import HalamanUpdateDataFinansial from '@/components/profile/pages/HalamanKeuangan/HalamanDataFinansial/UbahDataFinansial';
+import HalamanUpdateDataFinansial from "@/components/profile/pages/HalamanKeuangan/HalamanDataFinansial/UbahDataFinansial"
 
 export const metadata = {
-	title: 'KB TK IT Yapemri BSD | Data Finansial | Ubah Data',
-};
+  title: "KB TK IT Yapemri BSD | Data Finansial | Ubah Data",
+}
 
 export default function UbahDataParent({ params }: { params: any }) {
-	return <HalamanUpdateDataFinansial params={params} />;
+  return <HalamanUpdateDataFinansial params={params} />
 }

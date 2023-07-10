@@ -6,19 +6,19 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
 
     // Or if using `src` directory:
-    "./src/**/*.{js,ts,jsx,tsx}",],
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
-        'primary': '#FFDE00',
-        'secondary': '#001E6C',
-        'body-color': '#919FAE',
-        'grey': '#DFDFDF',
-        'blue-primary': '#2192FF',
-        'red-danger': '#F20F00'
-      }
+        primary: "#FFDE00",
+        secondary: "#001E6C",
+        "body-color": "#919FAE",
+        grey: "#DFDFDF",
+        "blue-primary": "#2192FF",
+        "red-danger": "#F20F00",
+      },
     },
   },
   plugins: [],
 }
-

@@ -1,9 +1,9 @@
-import DetailDataParent from '@/components/profile/pages/HalamanDataMurid/DetailDataParent';
+import DetailDataParent from "@/components/profile/pages/HalamanDataMurid/DetailDataParent"
 
 export const metadata = {
-	title: 'KB TK IT Yapemri BSD | Parent | Detail',
-};
+  title: "KB TK IT Yapemri BSD | Parent | Detail",
+}
 
 export default function DetailParent({ params }: { params: any }) {
-	return <DetailDataParent params={params} />;
+  return <DetailDataParent params={params} />
 }

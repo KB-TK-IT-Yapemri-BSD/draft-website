@@ -1,13 +1,13 @@
-import DetailDataFinansial from '@/components/profile/pages/HalamanKeuangan/HalamanDataFinansial/DetailDataFinansial';
+import DetailDataFinansial from "@/components/profile/pages/HalamanKeuangan/HalamanDataFinansial/DetailDataFinansial"
 
 export const metadata = {
-	title: 'KB TK IT Yapemri BSD | Data Finansial | Detail',
-};
+  title: "KB TK IT Yapemri BSD | Data Finansial | Detail",
+}
 
 export default function HalamanDetailDataFinansial({
-	params,
+  params,
 }: {
-	params: any;
+  params: any
 }) {
-	return <DetailDataFinansial params={params} />;
+  return <DetailDataFinansial params={params} />
 }

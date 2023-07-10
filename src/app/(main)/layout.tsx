@@ -1,23 +1,16 @@
-import '@/styles/globals.css';
-import Navbar from '@/components/layout/main/Navbar';
-import Footer from '@/components/layout/main/Footer';
-import Providers from './providers';
-import { ReactNode } from 'react';
+import Footer from "@/components/layout/main/Footer"
+import Navbar from "@/components/layout/main/Navbar"
 
-interface IProps {
-	children: ReactNode;
-}
-
-export default function MainLayout({ children }: IProps) {
-	return (
-		<html lang="en">
-			<body className="relative">
-				<Providers>
-					<Navbar />
-					<div className="w-full bg-blue-400 pt-20">{children}</div>
-					<Footer />
-				</Providers>
-			</body>
-		</html>
-	);
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <>
+      <Navbar />
+      <div className="w-full bg-blue-400 pt-20">{children}</div>
+      <Footer />
+    </>
+  )
 }

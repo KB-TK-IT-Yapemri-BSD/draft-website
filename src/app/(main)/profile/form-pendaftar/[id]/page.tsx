@@ -1,9 +1,9 @@
-import DetailFormPendaftar from '@/components/profile/pages/HalamanFormPendaftar';
+import DetailFormPendaftar from "@/components/profile/pages/HalamanFormPendaftar"
 
 export const metadata = {
-	title: 'KB TK IT Yapemri BSD | Form Pendaftar | Detail',
-};
+  title: "KB TK IT Yapemri BSD | Form Pendaftar | Detail",
+}
 
 export default function HalamanFormPendaftar({ params }: { params: any }) {
-	return <DetailFormPendaftar params={params} />;
+  return <DetailFormPendaftar params={params} />
 }
