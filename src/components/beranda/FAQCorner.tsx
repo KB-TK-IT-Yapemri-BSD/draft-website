@@ -3,29 +3,35 @@ import Image from "next/image"
 function FAQCorner() {
   const faqData = [
     {
-      question: "What are the age requirements for enrollment?",
-      answer: "Children aged 2 to 5 years old are eligible for enrollment.",
+      question: "Berapa umur persyaratan untuk dapat daftar di Yapemri",
+      answer: "Untuk KB, minimal anaknya berusia 3 hingga 4 tahun.",
     },
     {
-      question: "What are the operating hours of the kindergarten?",
+      question: "Kapan jam buka Yapemri BSD?",
       answer:
-        "The kindergarten operates from 8:00 am to 4:00 pm, Monday to Friday.",
+        "Sekolah dibuka pada hari Senin - Jumat (08:00 - 14:00) dan Sabtu (08:00 - 12:00).",
     },
     {
-      question: "Do you provide meals for the children?",
+      question:
+        "Apakah anak-anak akan mendapatkan makanan saat berada di Yapemri?",
+      answer: "Ya, kami menyiapkan makanan untuk anak-anak dan juga snacks.",
+    },
+    {
+      question:
+        "Apabila orang tua tidak bisa menjemput, bagaimana dengan anak?",
       answer:
-        "Yes, we provide nutritious meals for breakfast, lunch, and snacks.",
+        "Kami akan mengantarkan anak apabila orang tua tidak bisa menjemput, dan tidak memperbolehkan orang lain selain orang tua untuk menjemput kecuali sudah lapor terlebih dahulu.",
     },
     // Add more FAQ items as needed
   ]
   return (
     <div className="bg-grey">
-      <div className="mx-10 text-center lg:text-left lg:mx-40 py-20">
-        <h1 className="text-4xl py-3 pb-10 font-medium text-center">
-          FAQ Corner Sekolah
+      <div className="mx-10 text-center lg:text-left lg:mx-40 py-20 flex flex-col lg:flex-row">
+        <h1 className="text-4xl py-3 pb-10 font-medium text-center lg:w-1/2 my-auto">
+          FAQ Corner
         </h1>
-        <div className="lg:mx-10 divide-y-2 space-y-6">
-          <div className="w-full py-10 flex flex-wrap place-content-evenly">
+        <div className="lg:mx-10 divide-y-2 space-y-6 lg:w-1/2">
+          <div className="w-full flex flex-wrap place-content-between">
             <div className="max-w-md py-8">
               {faqData.map((item, index) => (
                 <div key={index} className="mb-4 card">
