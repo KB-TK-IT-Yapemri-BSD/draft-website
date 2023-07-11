@@ -7,7 +7,7 @@ export default function RincianPendaftaran() {
         Rincian Harga Keseluruhan
       </h1>
 
-      <div className="py-2 overflow-x-scroll">
+      <div className="py-2 overflow-x-scroll lg:overflow-x-hidden">
         <table className="my-4 w-full">
           <thead>
             <tr>

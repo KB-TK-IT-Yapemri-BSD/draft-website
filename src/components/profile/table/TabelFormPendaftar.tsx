@@ -104,109 +104,95 @@ export default function TabelFormPendaftar() {
     getForms()
   }, [changes == true])
 
-	return (
-		<>
-			<div className="overflow-x-auto outline outline-grey outline-[1px]">
-				<table className="w-full text-sm text-left text-gray-500 ">
-					<thead className="text-xs text-gray-700 uppercase bg-gray-50">
-						<tr>
-							<th scope="col" className="px-6 py-3">
-								Nama Lengkap Orang Tua
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Email
-							</th>
-							<th scope="col" className="px-6 py-3">
-								No. Telp
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Tanggal Dikirim
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Aksi
-							</th>
-						</tr>
-					</thead>
+  return (
+    <>
+      <div className="overflow-x-auto outline outline-grey outline-[1px]">
+        <table className="w-full text-sm text-left text-gray-500 ">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Nama Lengkap Orang Tua
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                No. Telp
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Tanggal Dikirim
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Aksi
+              </th>
+            </tr>
+          </thead>
 
-					<tbody>
-						{forms
-							? forms.map((form) => (
-									<tr
-										key={form['id']}
-										className="bg-white border-b  hover:bg-gray-50"
-									>
-										<th
-											scope="row"
-											className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-										>
-											{form['name']
-												? form['name']
-												: 'NO DATA'}
-										</th>
-										<td className="px-6 py-4">
-											{form['email']
-												? form['email']
-												: 'NO DATA'}
-										</td>
-										<td className="px-6 py-4">
-											{form['phone']
-												? form['phone']
-												: 'NO DATA'}
-										</td>
-										<td className="px-6 py-4">
-											{form['createdAt']
-												? new Date(form['createdAt'])
-														.toUTCString()
-														.split(' ')
-														.slice(0, 4)
-														.join(' ')
-												: 'NO DATA'}
-										</td>
-										<td className="flex items-center px-6 py-4 space-x-2">
-											<button
-												className="bg-primary rounded-md p-2 my-4 inline-flex lg:my-0"
-												onClick={() =>
-													router.push(
-														`/profile/form-pendaftar/${form['id']}`
-													)
-												}
-											>
-												<EyeSymbol />
-											</button>
-											{form['id'] ? (
-												<>
-													<button
-														className="bg-red-danger rounded-md p-2 my-4 inline-flex lg:my-0"
-														onClick={() => {
-															setCurrentId(
-																form['id']
-															);
-															openModal();
-														}}
-													>
-														<TrashCanSymbol />
-													</button>
-													<Transition
-														appear
-														show={isOpen}
-														as={Fragment}
-													>
-														<Dialog
-															as="div"
-															className="relative z-10"
-															onClose={closeModal}
-														>
-															<Transition.Child
-																as={Fragment}
-																enter="ease-out duration-300"
-																enterFrom="opacity-0"
-																enterTo="opacity-100"
-																leave="ease-in duration-200"
-																leaveFrom="opacity-100"
-																leaveTo="opacity-0"
-															>
-																<div className="fixed inset-0 bg-black bg-opacity-25" />
-															</Transition.Child>
+          <tbody>
+            {forms
+              ? forms.map((form) => (
+                  <tr
+                    key={form["id"]}
+                    className="bg-white border-b  hover:bg-gray-50"
+                  >
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                    >
+                      {form["name"] ? form["name"] : "NO DATA"}
+                    </th>
+                    <td className="px-6 py-4">
+                      {form["email"] ? form["email"] : "NO DATA"}
+                    </td>
+                    <td className="px-6 py-4">
+                      {form["phone"] ? form["phone"] : "NO DATA"}
+                    </td>
+                    <td className="px-6 py-4">
+                      {form["createdAt"]
+                        ? new Date(form["createdAt"])
+                            .toUTCString()
+                            .split(" ")
+                            .slice(0, 4)
+                            .join(" ")
+                        : "NO DATA"}
+                    </td>
+                    <td className="flex items-center px-6 py-4 space-x-2">
+                      <button
+                        className="bg-primary rounded-md p-2 my-4 inline-flex lg:my-0"
+                        onClick={() =>
+                          router.push(`/profile/form-pendaftar/${form["id"]}`)
+                        }
+                      >
+                        <EyeSymbol />
+                      </button>
+                      {form["id"] ? (
+                        <>
+                          <button
+                            className="bg-red-danger rounded-md p-2 my-4 inline-flex lg:my-0"
+                            onClick={() => {
+                              setCurrentId(form["id"])
+                              openModal()
+                            }}
+                          >
+                            <TrashCanSymbol />
+                          </button>
+                          <Transition appear show={isOpen} as={Fragment}>
+                            <Dialog
+                              as="div"
+                              className="relative z-30"
+                              onClose={closeModal}
+                            >
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <div className="fixed inset-0 bg-black bg-opacity-10" />
+                              </Transition.Child>
 
                               <div className="fixed inset-0 overflow-y-auto">
                                 <div className="flex min-h-full items-center justify-center p-4 text-center">

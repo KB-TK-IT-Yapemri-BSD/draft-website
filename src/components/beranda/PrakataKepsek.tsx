@@ -1,9 +1,8 @@
 import Image from "next/image"
-import Link from "next/link"
 
 function PrakataKepsek() {
   return (
-    <div className="bg-white">
+    <div className="bg-grey">
       <div className="flex flex-col justify-center py-10 lg:flex-row lg:mx-40 lg:py-20">
         <div className="w-3/4 self-center pt-6 lg:w-[700px] lg:min-h-[500px] lg:pt-0">
           <div

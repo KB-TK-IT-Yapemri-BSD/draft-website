@@ -22,19 +22,19 @@ function NavbarLoggedIn() {
     })
   }
 
-	return (
-		<div className="fixed w-full bg-white shadow-lg z-10">
-			<div className="lg:flex justify-between py-6 mx-6 lg:mx-20">
-				<div className="flex flex-row relative">
-					<div>
-						<Image
-							src="/logo.png"
-							width={53}
-							height={53}
-							style={{ width: 'auto', height: 'auto' }}
-							alt="Logo KB TK IT Yapemri BSD"
-						></Image>
-					</div>
+  return (
+    <div className="fixed w-full bg-white shadow-lg z-20">
+      <div className="lg:flex justify-between py-6 mx-6 lg:mx-20">
+        <div className="flex flex-row relative">
+          <div>
+            <Image
+              src="/logo.png"
+              width={53}
+              height={53}
+              style={{ width: "auto", height: "auto" }}
+              alt="Logo KB TK IT Yapemri BSD"
+            ></Image>
+          </div>
 
           <div className="right-0 absolute my-2 lg:hidden">
             <button onClick={() => setIsOpen(!isOpen)}>
@@ -57,207 +57,195 @@ function NavbarLoggedIn() {
               </button>
             </Menu.Button>
 
-						<Transition
-							as={Fragment}
-							enter="transition ease-out duration-100"
-							enterFrom="transform opacity-0 scale-95"
-							enterTo="transform opacity-100 scale-100"
-							leave="transition ease-in duration-75"
-							leaveFrom="transform opacity-100 scale-100"
-							leaveTo="transform opacity-0 scale-95"
-						>
-							{session?.user.user.role === 'parents' ? (
-								<Menu.Items
-									as="div"
-									className="bg-white absolute right-0 w-auto rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
-								>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-diri">
-												<p>Data Diri</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-wali">
-												<p>Data Wali</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/keuangan">
-												<p>Keuangan</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<button
-												onClick={logout}
-												className="w-full text-left"
-											>
-												<p>Logout</p>
-											</button>
-										</Menu.Item>
-									</div>
-								</Menu.Items>
-							) : session?.user.user.role === 'principal' ? (
-								<Menu.Items
-									as="div"
-									className="bg-white absolute right-0 w-32 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
-								>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-diri">
-												<p>Data Diri</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/laporan">
-												<p>Laporan</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<button
-												onClick={logout}
-												className="w-full text-left"
-											>
-												<p>Logout</p>
-											</button>
-										</Menu.Item>
-									</div>
-								</Menu.Items>
-							) : session?.user.user.role === 'teachers' ? (
-								<Menu.Items
-									as="div"
-									className="bg-white absolute right-0 w-40 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
-								>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-diri">
-												<p>Data Diri</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/form-pendaftar">
-												<p>Form Pendaftar</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-murid">
-												<p>Data Murid</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/keuangan">
-												<p>Keuangan</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/penilaian">
-												<p>Penilaian Murid</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<button
-												onClick={logout}
-												className="w-full text-left"
-											>
-												<p>Logout</p>
-											</button>
-										</Menu.Item>
-									</div>
-								</Menu.Items>
-							) : session?.user.user.role === 'admin' ? (
-								<Menu.Items
-									as="div"
-									className="bg-white absolute right-0 w-40 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
-								>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-diri">
-												<p>Data Diri</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/form-pendaftar">
-												<p>Form Pendaftar</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-murid">
-												<p>Data Murid</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-staff">
-												<p>Data Staff</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/data-akun">
-												<p>Data Akun</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/keuangan">
-												<p>Keuangan</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<Link href="/profile/laporan">
-												<p>Laporan</p>
-											</Link>
-										</Menu.Item>
-									</div>
-									<div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
-										<Menu.Item>
-											<button
-												onClick={logout}
-												className="w-full text-left"
-											>
-												<p>Logout</p>
-											</button>
-										</Menu.Item>
-									</div>
-								</Menu.Items>
-							) : (
-								<div className="hidden"></div>
-							)}
-						</Transition>
-					</Menu>
-				</div>
-			</div>
-		</div>
-	);
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              {session?.user.user.role === "parents" ? (
+                <Menu.Items
+                  as="div"
+                  className="bg-white absolute right-0 w-auto rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
+                >
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-diri">
+                        <p>Data Diri</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-wali">
+                        <p>Data Wali</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/keuangan">
+                        <p>Keuangan</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <button onClick={logout} className="w-full text-left">
+                        <p>Logout</p>
+                      </button>
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              ) : session?.user.user.role === "principal" ? (
+                <Menu.Items
+                  as="div"
+                  className="bg-white absolute right-0 w-32 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
+                >
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-diri">
+                        <p>Data Diri</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/laporan">
+                        <p>Laporan</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <button onClick={logout} className="w-full text-left">
+                        <p>Logout</p>
+                      </button>
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              ) : session?.user.user.role === "teachers" ? (
+                <Menu.Items
+                  as="div"
+                  className="bg-white absolute right-0 w-40 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
+                >
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-diri">
+                        <p>Data Diri</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/form-pendaftar">
+                        <p>Form Pendaftar</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-murid">
+                        <p>Data Murid</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/keuangan">
+                        <p>Keuangan</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/penilaian">
+                        <p>Penilaian Murid</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <button onClick={logout} className="w-full text-left">
+                        <p>Logout</p>
+                      </button>
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              ) : session?.user.user.role === "admin" ? (
+                <Menu.Items
+                  as="div"
+                  className="bg-white absolute right-0 w-40 rounded-md p-3 border my-2 divide-y divide-grey shadow-lg"
+                >
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-diri">
+                        <p>Data Diri</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/form-pendaftar">
+                        <p>Form Pendaftar</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-murid">
+                        <p>Data Murid</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-staff">
+                        <p>Data Staff</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/data-akun">
+                        <p>Data Akun</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/keuangan">
+                        <p>Keuangan</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <Link href="/profile/laporan">
+                        <p>Laporan</p>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="hover:bg-body-color hover:bg-opacity-10 hover:w-full hover:rounded-md px-2 py-2">
+                    <Menu.Item>
+                      <button onClick={logout} className="w-full text-left">
+                        <p>Logout</p>
+                      </button>
+                    </Menu.Item>
+                  </div>
+                </Menu.Items>
+              ) : (
+                <div className="hidden"></div>
+              )}
+            </Transition>
+          </Menu>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default NavbarLoggedIn

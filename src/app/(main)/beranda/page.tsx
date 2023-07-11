@@ -5,6 +5,7 @@ import KisahSuksesOrtu from "@/components/beranda/KisahSuksesOrtu"
 import KurikulumSekolah from "@/components/beranda/KurikulumSekolah"
 import PrakataKepsek from "@/components/beranda/PrakataKepsek"
 import PrestasiSekolah from "@/components/beranda/PrestasiSekolah"
+import VideoProfil from "@/components/beranda/VideoProfil"
 import BerandaHeader from "@/components/layout/BerandaHeader"
 
 export const metadata = {
@@ -15,13 +16,14 @@ export default function Beranda() {
   return (
     <>
       <BerandaHeader />
-      <Diagram />
+      <VideoProfil />
       <PrakataKepsek />
+      <Diagram />
       <DaftarGuruSekolah />
       <KurikulumSekolah />
       <PrestasiSekolah />
       <KisahSuksesOrtu />
-      {/** <FAQCorner /> */}
+      <FAQCorner />
     </>
   )
 }

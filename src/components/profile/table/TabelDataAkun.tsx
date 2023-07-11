@@ -186,7 +186,7 @@ export default function TabelDataAkun() {
                           <Transition appear show={isOpen} as={Fragment}>
                             <Dialog
                               as="div"
-                              className="relative z-10"
+                              className="relative z-30"
                               onClose={closeModal}
                             >
                               <Transition.Child
@@ -198,7 +198,7 @@ export default function TabelDataAkun() {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                               >
-                                <div className="fixed inset-0 bg-black bg-opacity-25" />
+                                <div className="fixed inset-0 bg-black bg-opacity-10" />
                               </Transition.Child>
 
                               <div className="fixed inset-0 overflow-y-auto">
