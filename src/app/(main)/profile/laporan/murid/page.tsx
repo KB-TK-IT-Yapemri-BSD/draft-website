@@ -32,7 +32,7 @@ ChartJS.register(
   LineElement
 )
 
-const handleGenerateChart = (dataChart: any) => {
+const handleGenerateChart = (dataChart: any, formValues: any) => {
   const options = {
     responsive: true,
 
@@ -40,19 +40,45 @@ const handleGenerateChart = (dataChart: any) => {
     backgroundColor: "rgba(255, 99, 132, 0.5)",
   }
 
+  const transformLabel = (value: any) => {
+    if (formValues.type === "gender" && value === true) {
+      return "Perempuan"
+    }
+
+    if (formValues.type === "gender" && value === false) {
+      return "Laki-Laki"
+    }
+
+    if (formValues.type === "studentStatus" && value === true) {
+      return "Aktif"
+    }
+
+    if (formValues.type === "studentStatus" && value === false) {
+      return "Tidak Aktif"
+    }
+    // Add more conditions for label transformations if needed
+    // else if (formValues.type === ... && value === ...) {
+    //   return ...;
+    // }
+
+    // Default label value
+    return value
+  }
+
   const data = {
     type: "bar",
-    labels: dataChart?.map((item: any) => item.value) ?? [],
-    datasets:
-      dataChart?.map((item: any) => ({
-        label: item.value,
-        data: [item.count],
+    labels: dataChart?.map((item: any) => transformLabel(item.value)) ?? [],
+    datasets: [
+      {
+        label: "Jumlah",
+        data: dataChart?.map((item: any) => item.count) ?? [],
         backgroundColor: "rgba(53, 162, 235, 0.5)", // Wrap item.count in an array
-      })) ?? [],
+      },
+    ],
   }
 
   return (
-    <div>
+    <div className="h-[400px] py-10">
       <Bar options={options} data={data} />
     </div>
   )
@@ -136,6 +162,11 @@ export default function AmbilLaporanMurid() {
     }
   }
 
+  const resetChart = () => {
+    setDataChart([])
+    setChartVisible(false)
+  }
+
   const handleChart = async (formValues: { [key: string]: any }) => {
     try {
       let url = `http://localhost:4000/v1/students/chart-filtered?`
@@ -160,7 +191,7 @@ export default function AmbilLaporanMurid() {
 
       if (res.status === 200) {
         setDataChart(data)
-        handleGenerateChart(data)
+
         setChartVisible(true)
       } else if (res.status === 400) {
         toast.error("Tidak ada data tersedia", {
@@ -205,6 +236,10 @@ export default function AmbilLaporanMurid() {
       setChartVisible(false)
     }
   }, [dataChart])
+
+  useEffect(() => {
+    resetChart()
+  }, [formValues])
 
   return (
     <div className="bg-white">
@@ -549,7 +584,7 @@ export default function AmbilLaporanMurid() {
               </div>
             </form>
 
-            {chartVisible && handleGenerateChart(dataChart)}
+            {chartVisible && handleGenerateChart(dataChart, formValues)}
           </div>
         </div>
       </div>
