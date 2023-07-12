@@ -88,7 +88,7 @@ export default function Diagram() {
     labels: dataFormsChart?.map((item: any) => item.year) ?? [],
     datasets: [
       {
-        label: "Jumlah Pendaftar",
+        label: "Pendaftar",
         data: dataFormsChart?.map((item: any) => item.count) ?? [],
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         borderColor: "rgba(255, 99, 132, 1)",
