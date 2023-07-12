@@ -3,7 +3,7 @@ import Image from "next/image"
 function FAQCorner() {
   const faqData = [
     {
-      question: "Berapa umur persyaratan untuk dapat daftar di Yapemri",
+      question: "Berapa umur persyaratan untuk dapat daftar di Yapemri?",
       answer: "Untuk KB, minimal anaknya berusia 3 hingga 4 tahun.",
     },
     {

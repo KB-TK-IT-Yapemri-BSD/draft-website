@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import {
   BarElement,
@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from "chart.js"
 import { useSession } from "next-auth/react"
-import { Bar, Line } from "react-chartjs-2"
+import { Bar, Chart, Line } from "react-chartjs-2"
 import { toast, ToastContainer } from "react-toastify"
 
 import { BigArrowLeft } from "@/components/shared/Icons"
@@ -32,12 +32,40 @@ ChartJS.register(
   LineElement
 )
 
+const handleGenerateChart = (dataChart: any) => {
+  const options = {
+    responsive: true,
+
+    maintainAspectRatio: false,
+    backgroundColor: "rgba(255, 99, 132, 0.5)",
+  }
+
+  const data = {
+    type: "bar",
+    labels: dataChart?.map((item: any) => item.value) ?? [],
+    datasets:
+      dataChart?.map((item: any) => ({
+        label: item.value,
+        data: [item.count],
+        backgroundColor: "rgba(53, 162, 235, 0.5)", // Wrap item.count in an array
+      })) ?? [],
+  }
+
+  return (
+    <div>
+      <Bar options={options} data={data} />
+    </div>
+  )
+}
+
 export default function AmbilLaporanMurid() {
   const { data: session } = useSession()
 
   const [params, setParams] = useState({})
   const [formValues, setFormValues] = useState({})
   const [dataChart, setDataChart] = useState([])
+  const [chartVisible, setChartVisible] = useState(false)
+  const chartRef = useRef<HTMLCanvasElement | null>(null)
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -132,7 +160,8 @@ export default function AmbilLaporanMurid() {
 
       if (res.status === 200) {
         setDataChart(data)
-        // handleGenerateChart(dataChart)
+        handleGenerateChart(data)
+        setChartVisible(true)
       } else if (res.status === 400) {
         toast.error("Tidak ada data tersedia", {
           position: "top-center",
@@ -159,33 +188,6 @@ export default function AmbilLaporanMurid() {
     }
   }
 
-  /**
-
-  const handleGenerateChart = (dataChart: any) => {
-    const options = {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: "right" as const,
-        },
-      },
-      maintainAspectRatio: false,
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    }
-
-    const data = {
-      type: "bar",
-      datasets:
-        dataChart?.map((item: any) => ({
-          label: item.value,
-          data: item.count,
-        })) ?? [],
-    }
-
-    return <Bar options={options} data={data} />
-  }
-   */
-
   const handleSubmit = (e: any) => {
     e.preventDefault()
     handleDownload(params)
@@ -194,7 +196,15 @@ export default function AmbilLaporanMurid() {
   const handleSubmit2 = (e: any) => {
     e.preventDefault()
     handleChart(formValues)
+    setChartVisible(true)
   }
+
+  useEffect(() => {
+    if (!chartVisible) {
+      // Reset chartVisible to false when dataChart changes
+      setChartVisible(false)
+    }
+  }, [dataChart])
 
   return (
     <div className="bg-white">
@@ -210,7 +220,6 @@ export default function AmbilLaporanMurid() {
         <div className="card outline outline-grey outline-[1px] p-8">
           <div className="w-full divide-y-2">
             <p className="font-bold text-2xl pt-4">Ambil Data Laporan Murid</p>
-
             <form method="GET" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <div className="flex flex-col lg:flex-row lg:space-x-6 pt-6 pb-2">
@@ -462,7 +471,6 @@ export default function AmbilLaporanMurid() {
               </div>
             </form>
 
-            {/**
             <p className="font-bold text-2xl pt-4">Tampilkan Grafik</p>
             <form method="GET" onSubmit={handleSubmit2}>
               <div className="space-y-2">
@@ -540,7 +548,8 @@ export default function AmbilLaporanMurid() {
                 </button>
               </div>
             </form>
-			 */}
+
+            {chartVisible && handleGenerateChart(dataChart)}
           </div>
         </div>
       </div>
