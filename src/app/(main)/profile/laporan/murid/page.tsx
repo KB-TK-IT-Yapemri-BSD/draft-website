@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import {
   BarElement,
@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from "chart.js"
 import { useSession } from "next-auth/react"
-import { Bar, Chart, Line } from "react-chartjs-2"
+import { Bar } from "react-chartjs-2"
 import { toast, ToastContainer } from "react-toastify"
 
 import { BigArrowLeft } from "@/components/shared/Icons"
@@ -91,7 +91,6 @@ export default function AmbilLaporanMurid() {
   const [formValues, setFormValues] = useState({})
   const [dataChart, setDataChart] = useState([])
   const [chartVisible, setChartVisible] = useState(false)
-  const chartRef = useRef<HTMLCanvasElement | null>(null)
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -191,7 +190,6 @@ export default function AmbilLaporanMurid() {
 
       if (res.status === 200) {
         setDataChart(data)
-
         setChartVisible(true)
       } else if (res.status === 400) {
         toast.error("Tidak ada data tersedia", {
@@ -253,142 +251,145 @@ export default function AmbilLaporanMurid() {
         </Link>
 
         <div className="card outline outline-grey outline-[1px] p-8">
-          <div className="w-full divide-y-2">
-            <p className="font-bold text-2xl pt-4">Ambil Data Laporan Murid</p>
-            <form method="GET" onSubmit={handleSubmit}>
-              <div className="space-y-2">
-                <div className="flex flex-col lg:flex-row lg:space-x-6 pt-6 pb-2">
-                  <div className="py-2 w-full">
-                    <label
-                      htmlFor="start"
-                      className="block mb-2 text-sm font-medium read-only"
-                    >
-                      Dari
-                    </label>
-                    <input
-                      type="date"
-                      id="start"
-                      name="start"
-                      aria-label="start"
-                      className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="py-2 w-full">
-                    <label
-                      htmlFor="end"
-                      className="block mb-2 text-sm font-medium read-only"
-                    >
-                      Sampai Dengan
-                    </label>
-                    <input
-                      type="date"
-                      id="end"
-                      name="end"
-                      aria-label="end"
-                      className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                      onChange={handleChange}
-                    />
+          <div className="w-full">
+            <div className="divide-y-2">
+              <p className="font-bold text-2xl pt-4">
+                Ambil Data Laporan Murid
+              </p>
+              <form method="GET" onSubmit={handleSubmit}>
+                <div className="space-y-2">
+                  <div className="flex flex-col lg:flex-row lg:space-x-6 pt-6 pb-2">
+                    <div className="py-2 w-full">
+                      <label
+                        htmlFor="start"
+                        className="block mb-2 text-sm font-medium read-only"
+                      >
+                        Dari
+                      </label>
+                      <input
+                        type="date"
+                        id="start"
+                        name="start"
+                        aria-label="start"
+                        className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="py-2 w-full">
+                      <label
+                        htmlFor="end"
+                        className="block mb-2 text-sm font-medium read-only"
+                      >
+                        Sampai Dengan
+                      </label>
+                      <input
+                        type="date"
+                        id="end"
+                        name="end"
+                        aria-label="end"
+                        className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="py-2">
-                <label
-                  htmlFor="grade"
-                  className="block mb-2 text-sm font-medium read-only"
-                >
-                  Kelompok Usia{" "}
-                </label>
-                <select
-                  id="grade"
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                  name="grade"
-                  onChange={handleChange}
-                >
-                  <option selected value=""></option>
-                  <option value="KB" className="text-black">
-                    KB
-                  </option>
-                  <option value="TK-A" className="text-black">
-                    TK-A
-                  </option>
-                  <option value="TK-B" className="text-black">
-                    TK-B
-                  </option>
-                </select>
-              </div>
+                <div className="py-2">
+                  <label
+                    htmlFor="grade"
+                    className="block mb-2 text-sm font-medium read-only"
+                  >
+                    Kelompok Usia{" "}
+                  </label>
+                  <select
+                    id="grade"
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                    name="grade"
+                    onChange={handleChange}
+                  >
+                    <option selected value=""></option>
+                    <option value="KB" className="text-black">
+                      KB
+                    </option>
+                    <option value="TK-A" className="text-black">
+                      TK-A
+                    </option>
+                    <option value="TK-B" className="text-black">
+                      TK-B
+                    </option>
+                  </select>
+                </div>
 
-              <div className="py-2">
-                <label
-                  htmlFor="studentStatus"
-                  className="block mb-2 text-sm font-medium read-only"
-                >
-                  Status Murid{" "}
-                </label>
-                <select
-                  id="studentStatus"
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                  name="studentStatus"
-                  onChange={handleChange}
-                >
-                  <option selected value=""></option>
-                  <option value="true" className="text-black">
-                    Aktif
-                  </option>
-                  <option value="false" className="text-black">
-                    Tidak Aktif
-                  </option>
-                </select>
-              </div>
+                <div className="py-2">
+                  <label
+                    htmlFor="studentStatus"
+                    className="block mb-2 text-sm font-medium read-only"
+                  >
+                    Status Murid{" "}
+                  </label>
+                  <select
+                    id="studentStatus"
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                    name="studentStatus"
+                    onChange={handleChange}
+                  >
+                    <option selected value=""></option>
+                    <option value="true" className="text-black">
+                      Aktif
+                    </option>
+                    <option value="false" className="text-black">
+                      Tidak Aktif
+                    </option>
+                  </select>
+                </div>
 
-              <div className="py-2">
-                <label
-                  htmlFor="gender"
-                  className="block mb-2 text-sm font-medium read-only"
-                >
-                  Jenis Kelamin{" "}
-                </label>
-                <select
-                  id="gender"
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                  name="gender"
-                  onChange={handleChange}
-                >
-                  <option selected value=""></option>
-                  <option value="true" className="text-black">
-                    Perempuan
-                  </option>
-                  <option value="false" className="text-black">
-                    Laki-Laki
-                  </option>
-                </select>
-              </div>
+                <div className="py-2">
+                  <label
+                    htmlFor="gender"
+                    className="block mb-2 text-sm font-medium read-only"
+                  >
+                    Jenis Kelamin{" "}
+                  </label>
+                  <select
+                    id="gender"
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                    name="gender"
+                    onChange={handleChange}
+                  >
+                    <option selected value=""></option>
+                    <option value="true" className="text-black">
+                      Perempuan
+                    </option>
+                    <option value="false" className="text-black">
+                      Laki-Laki
+                    </option>
+                  </select>
+                </div>
 
-              <div className="py-2">
-                <label
-                  htmlFor="citizenship"
-                  className="block mb-2 text-sm font-medium read-only"
-                >
-                  Kewarganegaraan{" "}
-                </label>
-                <select
-                  id="citizenship"
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                  name="citizenship"
-                  onChange={handleChange}
-                >
-                  <option selected value=""></option>
-                  <option value="WNI" className="text-black">
-                    WNI
-                  </option>
-                  <option value="WNA" className="text-black">
-                    WNA
-                  </option>
-                </select>
-              </div>
+                <div className="py-2">
+                  <label
+                    htmlFor="citizenship"
+                    className="block mb-2 text-sm font-medium read-only"
+                  >
+                    Kewarganegaraan{" "}
+                  </label>
+                  <select
+                    id="citizenship"
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                    name="citizenship"
+                    onChange={handleChange}
+                  >
+                    <option selected value=""></option>
+                    <option value="WNI" className="text-black">
+                      WNI
+                    </option>
+                    <option value="WNA" className="text-black">
+                      WNA
+                    </option>
+                  </select>
+                </div>
 
-              {/**
+                {/**
 
 							<div className="py-2">
 								<label
@@ -496,94 +497,94 @@ export default function AmbilLaporanMurid() {
 
 							 */}
 
-              <div className="text-right">
-                <button
-                  type="submit"
-                  className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
-                >
-                  Unduh
-                </button>
-              </div>
-            </form>
-
-            <p className="font-bold text-2xl pt-4">Tampilkan Grafik</p>
-            <form method="GET" onSubmit={handleSubmit2}>
-              <div className="space-y-2">
-                <div className="flex flex-col lg:flex-row lg:space-x-6 pt-6 pb-2">
-                  <div className="py-2 w-full">
-                    <label
-                      htmlFor="start"
-                      className="block mb-2 text-sm font-medium read-only"
-                    >
-                      Dari
-                    </label>
-                    <input
-                      type="date"
-                      id="start"
-                      name="start"
-                      aria-label="start"
-                      className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="py-2 w-full">
-                    <label
-                      htmlFor="end"
-                      className="block mb-2 text-sm font-medium read-only"
-                    >
-                      Sampai Dengan
-                    </label>
-                    <input
-                      type="date"
-                      id="end"
-                      name="end"
-                      aria-label="end"
-                      className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                      onChange={handleChange}
-                    />
+                <div className="text-right">
+                  <button
+                    type="submit"
+                    className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center mb-10"
+                  >
+                    Unduh
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className="divide-y-2">
+              <p className="font-bold text-2xl pt-4">Tampilkan Grafik</p>
+              <form method="GET" onSubmit={handleSubmit2}>
+                <div className="space-y-2">
+                  <div className="flex flex-col lg:flex-row lg:space-x-6 pt-6 pb-2">
+                    <div className="py-2 w-full">
+                      <label
+                        htmlFor="start"
+                        className="block mb-2 text-sm font-medium read-only"
+                      >
+                        Dari
+                      </label>
+                      <input
+                        type="date"
+                        id="start"
+                        name="start"
+                        aria-label="start"
+                        className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="py-2 w-full">
+                      <label
+                        htmlFor="end"
+                        className="block mb-2 text-sm font-medium read-only"
+                      >
+                        Sampai Dengan
+                      </label>
+                      <input
+                        type="date"
+                        id="end"
+                        name="end"
+                        aria-label="end"
+                        className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="py-2">
-                <label
-                  htmlFor="type"
-                  className="block mb-2 text-sm font-medium read-only"
-                >
-                  Field
-                </label>
-                <select
-                  id="type"
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
-                  name="type"
-                  onChange={handleChange}
-                >
-                  <option selected value=""></option>
-                  <option value="grade" className="text-black">
-                    Kelompok Usia
-                  </option>
-                  <option value="studentStatus" className="text-black">
-                    Status Murid
-                  </option>
-                  <option value="gender" className="text-black">
-                    Jenis Kelamin
-                  </option>
-                  <option value="citizenship" className="text-black">
-                    Kewarganegaraan
-                  </option>
-                </select>
-              </div>
+                <div className="py-2">
+                  <label
+                    htmlFor="type"
+                    className="block mb-2 text-sm font-medium read-only"
+                  >
+                    Field
+                  </label>
+                  <select
+                    id="type"
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
+                    name="type"
+                    onChange={handleChange}
+                  >
+                    <option value="grade" className="text-black">
+                      Kelompok Usia
+                    </option>
+                    <option value="studentStatus" className="text-black">
+                      Status Murid
+                    </option>
+                    <option value="gender" className="text-black">
+                      Jenis Kelamin
+                    </option>
+                    <option value="citizenship" className="text-black">
+                      Kewarganegaraan
+                    </option>
+                  </select>
+                </div>
 
-              <div className="text-right">
-                <button
-                  type="submit"
-                  className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
-                >
-                  Tampilkan
-                </button>
-              </div>
-            </form>
-
+                <div className="text-right">
+                  <button
+                    type="submit"
+                    className="bg-primary hover:bg-secondary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 mt-4 font-medium rounded-lg text-sm w-full lg:w-auto px-10 lg:px-40 py-2.5 text-center"
+                  >
+                    Tampilkan
+                  </button>
+                </div>
+              </form>
+            </div>
             {chartVisible && handleGenerateChart(dataChart, formValues)}
           </div>
         </div>
