@@ -1,3 +1,5 @@
+import { Fragment } from "react"
+
 import PendaftaranHeader from "@/components/layout/PendaftaranHeader"
 import DiskonPromo from "@/components/pendaftaran/DiskonPromo"
 import RincianPendaftaran from "@/components/pendaftaran/HargaPendaftaran"
@@ -10,7 +12,7 @@ export const metadata = {
 
 export default function Pendaftaran() {
   return (
-    <>
+    <Fragment>
       <PendaftaranHeader />
       <div className="bg-white">
         <div className="mx-10 lg:mx-60 py-10">
@@ -22,6 +24,6 @@ export default function Pendaftaran() {
           </div>
         </div>
       </div>
-    </>
+    </Fragment>
   )
 }

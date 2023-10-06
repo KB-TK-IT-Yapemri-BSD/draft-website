@@ -12,6 +12,7 @@ interface IProps {
 export default function Providers({ children, session }: IProps) {
   return (
     <SessionProvider session={session}>
+      {children}
       <ToastContainer
         style={{ width: "500px" }}
         position="top-center"
@@ -25,7 +26,6 @@ export default function Providers({ children, session }: IProps) {
         pauseOnHover
         theme="colored"
       />
-      {children}
     </SessionProvider>
   )
 }
